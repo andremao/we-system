@@ -8,11 +8,12 @@ export default {
   // 支持值为 Object 和 Array
   'GET /api/currentUser': {
     name: 'Andre Mao',
-    avatar: 'http://jira-frontend.itheima.net/secure/useravatar?ownerId=JIRAUSER12008&avatarId=10800',
+    avatar:
+      'http://jira-frontend.itheima.net/secure/useravatar?ownerId=JIRAUSER12008&avatarId=10800',
     userid: '00000001',
     email: 'maodun@itcast.cn',
     signature: '海纳百川，有容乃大',
-    title: '砖家',
+    title: '导师',
     group: ' 传智播客－黑马程序员－长沙校区－教研部',
     tags: [
       {

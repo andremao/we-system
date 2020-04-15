@@ -75,14 +75,14 @@ const PageHeaderContent: React.FC<{ currentUser: CurrentUser }> = ({ currentUser
 const ExtraContent: React.FC<{}> = () => (
   <div className={styles.extraContent}>
     <div className={styles.statItem}>
-      <Statistic title="项目数" value={56} />
+      <Statistic title="待办数" value={56} />
     </div>
     <div className={styles.statItem}>
       <Statistic title="团队内排名" value={8} suffix="/ 24" />
     </div>
-    <div className={styles.statItem}>
+    {/* <div className={styles.statItem}>
       <Statistic title="项目访问" value={2223} />
-    </div>
+    </div> */}
   </div>
 );
 
@@ -156,9 +156,9 @@ class Workplace extends Component<WorkplaceProps> {
             <Card
               className={styles.projectList}
               style={{ marginBottom: 24 }}
-              title="进行中的项目"
+              title="待办事宜"
               bordered={false}
-              extra={<Link to="/">全部项目</Link>}
+              extra={<Link to="/">全部</Link>}
               loading={projectLoading}
               bodyStyle={{ padding: 0 }}
             >
@@ -190,7 +190,25 @@ class Workplace extends Component<WorkplaceProps> {
               bodyStyle={{ padding: 0 }}
               bordered={false}
               className={styles.activeCard}
-              title="动态"
+              style={{ marginBottom: 24 }}
+              title="当日考勤"
+              extra={<Link to="/">全部</Link>}
+              loading={activitiesLoading}
+            >
+              <List<ActivitiesType>
+                loading={activitiesLoading}
+                renderItem={(item) => this.renderActivities(item)}
+                dataSource={activities}
+                className={styles.activitiesList}
+                size="large"
+              />
+            </Card>
+            <Card
+              bodyStyle={{ padding: 0 }}
+              bordered={false}
+              className={styles.activeCard}
+              title="当日签到"
+              extra={<Link to="/">全部</Link>}
               loading={activitiesLoading}
             >
               <List<ActivitiesType>
@@ -205,7 +223,7 @@ class Workplace extends Component<WorkplaceProps> {
           <Col xl={8} lg={24} md={24} sm={24} xs={24}>
             <Card
               style={{ marginBottom: 24 }}
-              title="快速开始 / 便捷导航"
+              title="快速开始 & 便捷导航"
               bordered={false}
               bodyStyle={{ padding: 0 }}
             >
@@ -253,11 +271,7 @@ export default connect(
     loading,
   }: {
     workplace: ModalState;
-    loading: {
-      effects: {
-        [key: string]: boolean;
-      };
-    };
+    loading: { effects: { [key: string]: boolean } };
   }) => ({
     currentUser,
     projectNotice,
