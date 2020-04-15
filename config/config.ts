@@ -4,6 +4,8 @@ import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 const { REACT_APP_ENV } = process.env;
 export default defineConfig({
+  title: 'WE System',
+  favicon: 'https://dss0.bdstatic.com/-0U0bnSm1A5BphGlnYG/tam-ogel/b08baaf5f2db228cf97ce3c5906d169f_121_121.png',
   hash: true,
   antd: {},
   dva: {
@@ -45,37 +47,37 @@ export default defineConfig({
           authority: ['admin', 'user'],
           routes: [
             {
+              path: '/',
+              redirect: '/workplace',
+            },
+            {
               name: 'dashboard.workplace',
               icon: 'desktop',
               path: '/workplace',
               component: './Workplace',
             },
-            {
-              path: '/',
-              redirect: '/welcome',
-            },
-            {
-              path: '/welcome',
-              name: 'welcome',
-              icon: 'smile',
-              component: './Welcome',
-            },
-            {
-              path: '/admin',
-              name: 'admin',
-              icon: 'crown',
-              component: './Admin',
-              authority: ['admin'],
-              routes: [
-                {
-                  path: '/admin/sub-page',
-                  name: 'sub-page',
-                  icon: 'smile',
-                  component: './Welcome',
-                  authority: ['admin'],
-                },
-              ],
-            },
+            // {
+            //   path: '/welcome',
+            //   name: 'welcome',
+            //   icon: 'smile',
+            //   component: './Welcome',
+            // },
+            // {
+            //   path: '/admin',
+            //   name: 'admin',
+            //   icon: 'crown',
+            //   component: './Admin',
+            //   authority: ['admin'],
+            //   routes: [
+            //     {
+            //       path: '/admin/sub-page',
+            //       name: 'sub-page',
+            //       icon: 'smile',
+            //       component: './Welcome',
+            //       authority: ['admin'],
+            //     },
+            //   ],
+            // },
             {
               name: 'list.table-list',
               icon: 'table',

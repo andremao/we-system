@@ -1,11 +1,14 @@
-import { DefaultFooter, MenuDataItem, getMenuData, getPageTitle } from '@ant-design/pro-layout';
+import { MenuDataItem, getMenuData, getPageTitle } from '@ant-design/pro-layout';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Link, useIntl, ConnectProps, connect } from 'umi';
 import React from 'react';
 import SelectLang from '@/components/SelectLang';
+import GlobalFooter from '@/components/GlobalFooter';
 import { ConnectState } from '@/models/connect';
-import logo from '../assets/logo.svg';
+// import logo from '../assets/logo.svg';
 import styles from './UserLayout.less';
+
+const logo = 'https://dss0.bdstatic.com/-0U0bnSm1A5BphGlnYG/tam-ogel/b08baaf5f2db228cf97ce3c5906d169f_121_121.png';
 
 export interface UserLayoutProps extends Partial<ConnectProps> {
   breadcrumbNameMap: {
@@ -50,14 +53,14 @@ const UserLayout: React.FC<UserLayoutProps> = (props) => {
             <div className={styles.header}>
               <Link to="/">
                 <img alt="logo" className={styles.logo} src={logo} />
-                <span className={styles.title}>Ant Design</span>
+                <span className={styles.title}>WE System</span>
               </Link>
             </div>
-            <div className={styles.desc}>Ant Design 是西湖区最具影响力的 Web 设计规范</div>
+            <div className={styles.desc}>传智播客·黑马程序员·移动办公系统·后台管理系统</div>
           </div>
           {children}
         </div>
-        <DefaultFooter />
+        <GlobalFooter />
       </div>
     </HelmetProvider>
   );
