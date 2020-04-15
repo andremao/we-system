@@ -48,7 +48,7 @@ export default {
   primaryColor: '#1890ff',
   layout: 'sidemenu',
   contentWidth: 'Fluid',
-  fixedHeader: false,
+  fixedHeader: true,
   autoHideHeader: false,
   fixSiderbar: true,
   colorWeak: false,

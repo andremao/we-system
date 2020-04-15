@@ -5,7 +5,8 @@ import proxy from './proxy';
 const { REACT_APP_ENV } = process.env;
 export default defineConfig({
   title: 'WE System',
-  favicon: 'https://dss0.bdstatic.com/-0U0bnSm1A5BphGlnYG/tam-ogel/b08baaf5f2db228cf97ce3c5906d169f_121_121.png',
+  favicon:
+    'https://dss0.bdstatic.com/-0U0bnSm1A5BphGlnYG/tam-ogel/b08baaf5f2db228cf97ce3c5906d169f_121_121.png',
   hash: true,
   antd: {},
   dva: {
@@ -56,7 +57,54 @@ export default defineConfig({
               path: '/workplace',
               component: './Workplace',
             },
-            // {
+            {
+              name: '部门管理',
+              icon: 'apartment',
+              path: '/department',
+              component: './Department',
+            },
+            {
+              name: '成员管理',
+              icon: 'team',
+              path: '/member',
+              component: './Member',
+            },
+            {
+              name: '角色管理',
+              icon: 'user-switch',
+              path: '/role',
+              component: './Role',
+            },
+            {
+              name: '权限管理',
+              icon: 'key',
+              path: '/rights',
+              component: './Rights',
+            },
+            {
+              name: '考勤管理',
+              icon: 'carry-out',
+              path: '/attendance',
+              component: './Attendance',
+            },
+            {
+              name: '签到管理',
+              icon: 'audit',
+              path: '/sign',
+              component: './Sign',
+            },
+            {
+              name: '审批管理',
+              icon: 'highlight',
+              path: '/approval',
+              component: './Approval',
+            },
+            {
+              name: '审批流程模板管理',
+              icon: 'pull-request',
+              path: '/approval-process-template',
+              component: './ApprovalProcessTemplate',
+            }, // {
             //   path: '/welcome',
             //   name: 'welcome',
             //   icon: 'smile',
@@ -78,12 +126,12 @@ export default defineConfig({
             //     },
             //   ],
             // },
-            {
-              name: 'list.table-list',
-              icon: 'table',
-              path: '/list',
-              component: './ListTableList',
-            },
+            // {
+            //   name: 'list.table-list',
+            //   icon: 'table',
+            //   path: '/list',
+            //   component: './ListTableList',
+            // },
             {
               component: './404',
             },
