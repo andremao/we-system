@@ -46,7 +46,7 @@ export default defineConfig({
           routes: [
             {
               name: 'dashboard.workplace',
-              icon: 'smile',
+              icon: 'desktop',
               path: '/workplace',
               component: './Workplace',
             },
