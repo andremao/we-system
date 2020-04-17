@@ -1,17 +1,10 @@
 export interface TableListItem {
-  key: number;
-  disabled?: boolean;
-  href: string;
-  avatar: string;
+  id: number;
   name: string;
-  title: string;
-  owner: string;
-  desc: string;
-  callNo: number;
   status: number;
-  updatedAt: Date;
-  createdAt: Date;
-  progress: number;
+  desc: string;
+  createdAt: Date | number;
+  pid: number | null;
 }
 
 export interface TableListPagination {
@@ -26,11 +19,9 @@ export interface TableListData {
 }
 
 export interface TableListParams {
-  sorter?: string;
-  status?: string;
   name?: string;
-  desc?: string;
-  key?: number;
+  pid?: number;
+  status?: nmber;
   pageSize?: number;
   currentPage?: number;
 }

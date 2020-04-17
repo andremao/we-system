@@ -49,4 +49,14 @@ export default {
   'menu.editor.flow': '流程编辑器',
   'menu.editor.mind': '脑图编辑器',
   'menu.editor.koni': '拓扑编辑器',
+
+  'menu.workplace': '工作台',
+  'menu.department': '部门管理',
+  'menu.team': '成员管理',
+  'menu.role': '角色管理',
+  'menu.rights': '权限管理',
+  'menu.attendance': '考勤管理',
+  'menu.sign': '签到管理',
+  'menu.approval': '审批管理',
+  'menu.approval-process-template': '审批流程模板管理',
 };

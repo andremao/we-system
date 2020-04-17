@@ -1,38 +1,30 @@
 import request from 'umi-request';
+import { RequestConfig } from 'umi';
 import { TableListParams } from './data.d';
 
-export async function queryRule(params?: TableListParams) {
-  return request('/api/rule', {
+export async function queryDepartment(params?: TableListParams) {
+  return request('/api/department', {
     params,
-  });
+  } as RequestConfig);
 }
 
-export async function removeRule(params: { key: number[] }) {
-  return request('/api/rule', {
-    method: 'POST',
-    data: {
-      ...params,
-      method: 'delete',
-    },
-  });
+export async function removeDepartment(params: { id: number[] }) {
+  return request('/api/department', {
+    method: 'DELETE',
+    data: params,
+  } as RequestConfig);
 }
 
-export async function addRule(params: TableListParams) {
-  return request('/api/rule', {
+export async function addDepartment(params: TableListParams) {
+  return request('/api/department', {
     method: 'POST',
-    data: {
-      ...params,
-      method: 'post',
-    },
-  });
+    data: params,
+  } as RequestConfig);
 }
 
-export async function updateRule(params: TableListParams) {
-  return request('/api/rule', {
-    method: 'POST',
-    data: {
-      ...params,
-      method: 'update',
-    },
-  });
+export async function updateDepartment(params: TableListParams) {
+  return request('/api/department', {
+    method: 'PUT',
+    data: params,
+  } as RequestConfig);
 }
