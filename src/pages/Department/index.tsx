@@ -1,14 +1,21 @@
 import { Link } from 'umi';
 import { DownOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, Divider, Dropdown, Menu, message } from 'antd';
+import { Button, Divider, Dropdown, Menu, message, Select } from 'antd';
 import React, { useState, useRef } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
 import CreateForm from './components/CreateForm';
 import UpdateForm, { FormValueType } from './components/UpdateForm';
 import { TableListItem } from './data.d';
-import { queryDepartment, updateDepartment, addDepartment, removeDepartment } from './service';
+import {
+  queryDepartment,
+  updateDepartment,
+  addDepartment,
+  removeDepartment,
+  getTreeDepartment,
+} from './service';
 import { delay } from '../../utils/utils';
+import DepartmentCascader from './components/DepartmentCascader';
 
 /**
  * 添加节点
@@ -83,11 +90,20 @@ const TableList: React.FC<{}> = () => {
     {
       title: '上级部门',
       dataIndex: 'pid',
-      valueEnum: {
-        0: { text: '禁用', status: 'Error' },
-        1: { text: '启用', status: 'Success' },
-      },
       hideInTable: true,
+      renderFormItem() {
+        return <DepartmentCascader />;
+      },
+    },
+    {
+      title: '部门主管',
+      dataIndex: ['manager', 'name'],
+      hideInSearch: true,
+    },
+    {
+      title: '描述',
+      dataIndex: 'desc',
+      hideInSearch: true,
     },
     {
       title: '状态',
@@ -96,11 +112,19 @@ const TableList: React.FC<{}> = () => {
         0: { text: '禁用', status: 'Error' },
         1: { text: '启用', status: 'Success' },
       },
-    },
-    {
-      title: '描述',
-      dataIndex: 'desc',
-      hideInSearch: true,
+      renderFormItem(item) {
+        return (
+          <Select allowClear placeholder="请选择">
+            {Object.entries(item.valueEnum).map(([k, v]) => {
+              return (
+                <Select.Option value={k} key={k}>
+                  {v.text}
+                </Select.Option>
+              );
+            })}
+          </Select>
+        );
+      },
     },
     {
       title: '创建时间',

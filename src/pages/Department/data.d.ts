@@ -1,10 +1,12 @@
 export interface TableListItem {
-  id: number;
+  id: string;
   name: string;
   status: number;
   desc: string;
   createdAt: Date | number;
-  pid: number | null;
+  pid: string | null;
+  manager: { id: string; name: string } | null;
+  children?: TableListItem[];
 }
 
 export interface TableListPagination {
@@ -20,7 +22,7 @@ export interface TableListData {
 
 export interface TableListParams {
   name?: string;
-  pid?: number;
+  pid?: string;
   status?: nmber;
   pageSize?: number;
   currentPage?: number;
