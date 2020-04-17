@@ -46,7 +46,9 @@ const Login: React.FC<LoginProps> = (props) => {
     <div className={styles.main}>
       <LoginFrom activeKey={type} onTabChange={setType} onSubmit={handleSubmit}>
         <Tab key="account" tab="账户密码登录">
-          {status === 'error' && loginType === 'account' && !submitting && <LoginMessage content="账户或密码错误（admin/ant.design）" />}
+          {status === 'error' && loginType === 'account' && !submitting && (
+            <LoginMessage content="账户或密码错误（admin/ant.design）" />
+          )}
 
           <UserName
             name="userName"
@@ -70,7 +72,9 @@ const Login: React.FC<LoginProps> = (props) => {
           />
         </Tab>
         <Tab key="mobile" tab="手机号登录">
-          {status === 'error' && loginType === 'mobile' && !submitting && <LoginMessage content="验证码错误" />}
+          {status === 'error' && loginType === 'mobile' && !submitting && (
+            <LoginMessage content="验证码错误" />
+          )}
           <Mobile
             name="mobile"
             placeholder="手机号"
@@ -99,7 +103,7 @@ const Login: React.FC<LoginProps> = (props) => {
             ]}
           />
         </Tab>
-        <div>
+        {/* <div>
           <Checkbox checked={autoLogin} onChange={(e) => setAutoLogin(e.target.checked)}>
             自动登录
           </Checkbox>
@@ -110,17 +114,17 @@ const Login: React.FC<LoginProps> = (props) => {
           >
             忘记密码
           </a>
-        </div>
+        </div> */}
         <Submit loading={submitting}>登录</Submit>
-        <div className={styles.other}>
+        {/* <div className={styles.other}>
           其他登录方式
           <AlipayCircleOutlined className={styles.icon} />
           <TaobaoCircleOutlined className={styles.icon} />
           <WeiboCircleOutlined className={styles.icon} />
-          {/* <Link className={styles.register} to="/user/register">
+          <Link className={styles.register} to="/user/register">
             注册账户
-          </Link> */}
-        </div>
+          </Link>
+        </div> */}
       </LoginFrom>
     </div>
   );
