@@ -94,7 +94,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         >
           <Input placeholder="请输入" />
         </FormItem>
-        <FormItem name={['manager', 'id']} label="指定部门主管">
+        <FormItem name={['manager', 'id']} label="部门主管">
           <Select style={{ width: '100%' }} placeholder="请选择">
             {managerList.map((v) => (
               <Option value={v.id} key={v.id}>
@@ -103,7 +103,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
             ))}
           </Select>
         </FormItem>
-        <FormItem name="pid" label="指定上级部门">
+        <FormItem name="pid" label="上级部门">
           <DepartmentCascader defaultValue={values.pids} />
         </FormItem>
         <FormItem name="status" label="状态" rules={[{ required: true, message: '请选择状态' }]}>
