@@ -5,6 +5,7 @@ export interface TableListItem {
   desc: string;
   createdAt: Date | number;
   pid: string | null;
+  pids?: string[];
   manager: { id: string; name: string } | null;
   children?: TableListItem[];
 }

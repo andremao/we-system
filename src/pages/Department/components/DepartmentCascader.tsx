@@ -5,9 +5,10 @@ import { getTreeDepartment } from '../service';
 
 interface DepartmentCascaderProps {
   onChange?: () => void;
+  defaultValue?: string[];
 }
 
-const DepartmentCascader: React.FC<DepartmentCascaderProps> = ({ onChange }) => {
+const DepartmentCascader: React.FC<DepartmentCascaderProps> = ({ onChange, defaultValue }) => {
   const { data: treeDepartment } = useRequest(getTreeDepartment);
 
   const filter = (inputValue, data) => {
@@ -22,6 +23,7 @@ const DepartmentCascader: React.FC<DepartmentCascaderProps> = ({ onChange }) => 
       showSearch={{ filter }}
       changeOnSelect
       onChange={onChange}
+      defaultValue={defaultValue}
     />
   );
 };

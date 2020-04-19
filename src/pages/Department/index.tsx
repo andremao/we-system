@@ -13,6 +13,7 @@ import {
   addDepartment,
   removeDepartment,
   getTreeDepartment,
+  getDepartmentPIds,
 } from './service';
 import { delay } from '../../utils/utils';
 import DepartmentCascader from './components/DepartmentCascader';
@@ -140,9 +141,10 @@ const TableList: React.FC<{}> = () => {
       render: (_, record) => (
         <>
           <a
-            onClick={() => {
+            onClick={async () => {
+              const { data: pids } = await getDepartmentPIds({ pid: record.pid });
               handleUpdateModalVisible(true);
-              setStepFormValues(record);
+              setStepFormValues({ ...record, pids });
             }}
           >
             配置

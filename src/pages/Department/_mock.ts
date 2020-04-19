@@ -349,6 +349,14 @@ const tableListDataSource: TableListItem[] = [
   },
 ];
 
+const managerList = [
+  { id: '1', name: '黎总' },
+  { id: '2', name: '张三' },
+  { id: '3', name: '李四' },
+  { id: '4', name: '王五' },
+  { id: '5', name: '赵六' },
+];
+
 export default {
   'GET /api/department': (req: Request, res: Response) => {
     const params = req.query as TableListParams;
@@ -395,6 +403,29 @@ export default {
     };
     res.json({
       data: formatTree(),
+    });
+  },
+  'GET /api/department/manager/list': (req: Request, res: Response) => {
+    res.json({
+      data: managerList,
+    });
+  },
+  'GET /api/department/pids': (req: Request, res: Response) => {
+    const { pid } = req.query;
+    const pids: string[] = [];
+    if (pid) {
+      let parent = tableListDataSource.find((v) => v.id === pid);
+      if (parent) {
+        pids.unshift(parent.id);
+        while (parent.pid) {
+          parent = tableListDataSource.find((v) => v.id === parent.pid);
+          pids.unshift(parent.id);
+        }
+      }
+    }
+
+    res.json({
+      data: pids,
     });
   },
   'POST /api/department': {},

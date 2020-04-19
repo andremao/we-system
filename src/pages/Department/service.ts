@@ -36,3 +36,13 @@ export async function updateDepartment(params: TableListParams) {
 export async function getTreeDepartment() {
   return request('/api/department/tree', {} as RequestConfig);
 }
+
+export async function getDepartmentManagerList() {
+  return request('/api/department/manager/list', {} as RequestConfig);
+}
+
+export async function getDepartmentPIds(params: { pid }) {
+  return request('/api/department/pids', {
+    params,
+  } as RequestConfig);
+}

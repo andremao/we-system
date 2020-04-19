@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Form, Button, Input, Modal, Select, Tabs } from 'antd';
+import { Form, Button, Input, Modal, Select } from 'antd';
+import { useRequest } from 'umi';
 
 import { TableListItem } from '../data.d';
 
 import DepartmentCascader from './DepartmentCascader';
 
-const { TabPane } = Tabs;
+import { getDepartmentManagerList } from '../service';
 
 export interface FormValueType extends Partial<TableListItem> {}
 
@@ -32,6 +33,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const [formVals, setFormVals] = useState<FormValueType>({
     id: props.values.id,
     name: props.values.name,
+    pid: props.values.pid,
     manager: props.values.manager,
     desc: props.values.desc,
     status: props.values.status,
@@ -49,7 +51,13 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const handleNext = async () => {
     const fieldsValue = await form.validateFields();
 
+    console.log(formVals, 'formVals');
+    console.log(fieldsValue, 'fieldsValue');
+    console.log({ ...formVals, ...fieldsValue }, '{ ...formVals, ...fieldsValue }');
+
     setFormVals({ ...formVals, ...fieldsValue });
+
+    console.log(formVals, 'formVals222');
 
     handleUpdate(formVals);
   };
@@ -65,63 +73,52 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
     );
   };
 
+  const { data: managerList = [] } = useRequest(getDepartmentManagerList);
+
   return (
     <Modal
       width={640}
       bodyStyle={{ padding: '32px 40px 48px' }}
       destroyOnClose
-      title={`${formVals.name}·部门配置`}
+      title={`${formVals.name}·部门配置-${formVals.pid}`}
       visible={updateModalVisible}
       footer={renderFooter()}
       onCancel={() => handleUpdateModalVisible(false, values)}
       afterClose={() => handleUpdateModalVisible()}
     >
       <Form {...formLayout} form={form} initialValues={formVals}>
-        <Tabs size="large">
-          <TabPane tab={<span>基本信息</span>} key="1">
-            <FormItem
-              name="name"
-              label="部门名称"
-              rules={[{ required: true, message: '请输入部门名称！' }]}
-            >
-              <Input placeholder="请输入" />
-            </FormItem>
-            <FormItem name={['manager', 'id']} label="指定部门主管">
-              <Select style={{ width: '100%' }} placeholder="请选择">
-                <Option value="1">黎总</Option>
-                <Option value="2">张三</Option>
-              </Select>
-            </FormItem>
-            <FormItem
-              name="status"
-              label="状态"
-              rules={[{ required: true, message: '请选择状态' }]}
-            >
-              <Select style={{ width: '100%' }} placeholder="请选择">
-                <Option value={0}>禁用</Option>
-                <Option value={1}>启用</Option>
-              </Select>
-            </FormItem>
-            <FormItem
-              name="desc"
-              label="描述"
-              rules={[{ required: true, message: '请输入至少五个字符的描述！', min: 5 }]}
-            >
-              <TextArea rows={4} placeholder="请输入至少五个字符" />
-            </FormItem>
-          </TabPane>
-          <TabPane tab={<span>组织架构</span>} key="2">
-            <FormItem name="parentId" label="指定上级部门">
-              <DepartmentCascader />
-            </FormItem>
-            <FormItem name="children" label="分配子部门">
-              <Select style={{ width: '100%' }} placeholder="请选择">
-                <Option value="month">月</Option>
-                <Option value="week">周</Option>
-              </Select>
-            </FormItem>
-          </TabPane>
-        </Tabs>
+        <FormItem
+          name="name"
+          label="部门名称"
+          rules={[{ required: true, message: '请输入部门名称！' }]}
+        >
+          <Input placeholder="请输入" />
+        </FormItem>
+        <FormItem name={['manager', 'id']} label="指定部门主管">
+          <Select style={{ width: '100%' }} placeholder="请选择">
+            {managerList.map((v) => (
+              <Option value={v.id} key={v.id}>
+                {v.name}
+              </Option>
+            ))}
+          </Select>
+        </FormItem>
+        <FormItem name="pid" label="指定上级部门">
+          <DepartmentCascader defaultValue={values.pids} />
+        </FormItem>
+        <FormItem name="status" label="状态" rules={[{ required: true, message: '请选择状态' }]}>
+          <Select style={{ width: '100%' }} placeholder="请选择">
+            <Option value={0}>禁用</Option>
+            <Option value={1}>启用</Option>
+          </Select>
+        </FormItem>
+        <FormItem
+          name="desc"
+          label="描述"
+          rules={[{ required: true, message: '请输入至少五个字符的描述！', min: 5 }]}
+        >
+          <TextArea rows={4} placeholder="请输入至少五个字符" />
+        </FormItem>
       </Form>
     </Modal>
   );
