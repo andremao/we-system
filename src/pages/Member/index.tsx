@@ -52,13 +52,13 @@ export default () => {
     refresh();
   };
 
-  const handleDelete = () => {
+  const batchDelete = () => {
     message.info('Click on menu item.');
     console.log(selectedRowKeys, 'delete ids');
   };
 
   const dropdownMenu = (
-    <Menu onClick={handleDelete}>
+    <Menu onClick={batchDelete}>
       <Menu.Item>
         <DeleteOutlined />
         删除
