@@ -1,7 +1,7 @@
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import React, { useState } from 'react';
-import { Card, Button, Form, Input, Table, Divider, Tooltip } from 'antd';
-import { ReloadOutlined } from '@ant-design/icons';
+import { Card, Button, Form, Input, Table, Divider, Tooltip, Dropdown, Menu, message } from 'antd';
+import { ReloadOutlined, DownOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useRequest } from 'umi';
 import { getMemberList } from './service';
 import { delay } from '../../utils/utils';
@@ -12,9 +12,12 @@ export default () => {
 
   const onValuesChange = () => {};
 
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+
   const rowSelection = {
     onChange: (selectedRowKeys: any, selectedRows: any) => {
       console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+      setSelectedRowKeys(selectedRowKeys);
     },
   };
 
@@ -31,8 +34,6 @@ export default () => {
         return (
           <div>
             <Button type="link">编辑</Button>
-            <Divider type="vertical" />
-            <Button type="link">删除</Button>
           </div>
         );
       },
@@ -50,6 +51,20 @@ export default () => {
     await delay(0);
     refresh();
   };
+
+  const handleDelete = () => {
+    message.info('Click on menu item.');
+    console.log(selectedRowKeys, 'delete ids');
+  };
+
+  const dropdownMenu = (
+    <Menu onClick={handleDelete}>
+      <Menu.Item>
+        <DeleteOutlined />
+        删除
+      </Menu.Item>
+    </Menu>
+  );
 
   return (
     <PageHeaderWrapper>
@@ -116,7 +131,13 @@ export default () => {
               <Button type="primary" style={{ marginRight: '8px' }}>
                 添加成员
               </Button>
-              <Button>批量操作</Button>
+              {selectedRowKeys.length ? (
+                <Dropdown overlay={dropdownMenu}>
+                  <Button>
+                    批量操作 <DownOutlined />
+                  </Button>
+                </Dropdown>
+              ) : null}
               <Divider type="vertical" style={{ margin: '0 16px' }} />
               <Tooltip title="刷新">
                 <ReloadOutlined style={{ cursor: 'pointer' }} onClick={refresh} />
