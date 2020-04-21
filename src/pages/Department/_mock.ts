@@ -428,5 +428,20 @@ export default {
       data: pids,
     });
   },
-  'POST /api/department': {},
+  'PUT /api/department': (req: Request, res: Response) => {
+    const { id, name, pid, desc, status, managerId } = req.body;
+
+    const department = tableListDataSource.find((v) => v.id === id);
+
+    department.name = name;
+    department.pid = pid;
+    department.desc = desc;
+    department.status = status;
+    department.manager = managerList.find((v) => v.id === managerId);
+
+    res.json({
+      status: 200,
+      department,
+    });
+  },
 };

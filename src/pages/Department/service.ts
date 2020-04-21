@@ -1,6 +1,6 @@
 import request from 'umi-request';
 import { RequestConfig } from 'umi';
-import { TableListParams } from './data.d';
+import { TableListParams, UpdateReqParams } from './data.d';
 
 export async function queryDepartment(params?: TableListParams) {
   if (params && Array.isArray(params.pid)) {
@@ -26,7 +26,7 @@ export async function addDepartment(params: TableListParams) {
   } as RequestConfig);
 }
 
-export async function updateDepartment(params: TableListParams) {
+export async function updateDepartment(params: UpdateReqParams) {
   return request('/api/department', {
     method: 'PUT',
     data: params,

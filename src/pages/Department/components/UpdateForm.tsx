@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import { Form, Button, Input, Modal, Select } from 'antd';
 import { useRequest } from 'umi';
-
-import { TableListItem } from '../data.d';
-
 import DepartmentCascader from './DepartmentCascader';
-
 import { getDepartmentManagerList } from '../service';
+import { TableListItem } from '../data.d';
 
 export interface FormValueType extends Partial<TableListItem> {}
 
@@ -34,6 +31,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
     id: props.values.id,
     name: props.values.name,
     pid: props.values.pid,
+    pids: props.values.pids,
     manager: props.values.manager,
     desc: props.values.desc,
     status: props.values.status,
@@ -50,16 +48,8 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
 
   const handleNext = async () => {
     const fieldsValue = await form.validateFields();
-
-    console.log(formVals, 'formVals');
-    console.log(fieldsValue, 'fieldsValue');
-    console.log({ ...formVals, ...fieldsValue }, '{ ...formVals, ...fieldsValue }');
-
-    setFormVals({ ...formVals, ...fieldsValue });
-
-    console.log(formVals, 'formVals222');
-
-    handleUpdate(formVals);
+    // setFormVals({ ...formVals, ...fieldsValue });
+    handleUpdate({ ...formVals, ...fieldsValue });
   };
 
   const renderFooter = () => {
@@ -103,8 +93,8 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
             ))}
           </Select>
         </FormItem>
-        <FormItem name="pid" label="上级部门">
-          <DepartmentCascader defaultValue={values.pids} />
+        <FormItem name="pids" label="上级部门">
+          <DepartmentCascader />
         </FormItem>
         <FormItem name="status" label="状态" rules={[{ required: true, message: '请选择状态' }]}>
           <Select style={{ width: '100%' }} placeholder="请选择">

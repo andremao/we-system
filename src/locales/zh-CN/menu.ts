@@ -52,7 +52,7 @@ export default {
 
   'menu.workplace': '工作台',
   'menu.department': '部门管理',
-  'menu.team': '成员管理',
+  'menu.member': '成员管理',
   'menu.role': '角色管理',
   'menu.rights': '权限管理',
   'menu.attendance': '考勤管理',

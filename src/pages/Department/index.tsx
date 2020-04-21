@@ -47,6 +47,16 @@ const handleUpdate = async (fields: FormValueType) => {
   try {
     console.log(fields, 'update fields');
 
+    const { id, name, pids, desc, manager, status } = fields;
+
+    let pid = '';
+    if (pids && pids.length) {
+      pid = pids[pids.length - 1];
+    }
+
+    const res = await updateDepartment({ id, name, pid, status, managerId: manager?.id, desc });
+    console.log(res);
+
     await delay(1000);
     hide();
 

@@ -64,7 +64,7 @@ export default defineConfig({
               component: './Department',
             },
             {
-              name: 'team',
+              name: 'member',
               icon: 'team',
               path: '/member',
               component: './Member',

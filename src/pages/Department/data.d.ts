@@ -28,3 +28,12 @@ export interface TableListParams {
   pageSize?: number;
   currentPage?: number;
 }
+
+export interface UpdateReqParams {
+  id: string;
+  name: string;
+  pid: string;
+  status: number;
+  desc: string;
+  managerId: string;
+}
