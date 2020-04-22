@@ -6,6 +6,7 @@ import { useRequest } from 'umi';
 import { getMemberList } from './service';
 import { delay } from '../../utils/utils';
 import DepartmentCascader from '../../pages/Department/components/DepartmentCascader';
+import EditModal from './components/EditModal';
 
 export default () => {
   const [form] = Form.useForm();
@@ -14,12 +15,11 @@ export default () => {
 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
-  const rowSelection = {
-    onChange: (selectedRowKeys: any, selectedRows: any) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-      setSelectedRowKeys(selectedRowKeys);
-    },
-  };
+  const [editModelState, setEditModelState] = useState({
+    visible: false,
+    loading: false,
+    formData: {},
+  });
 
   const columns = [
     { title: '姓名', dataIndex: 'name' },
@@ -27,13 +27,20 @@ export default () => {
     { title: '职位', dataIndex: 'position' },
     { title: '工号', dataIndex: 'jobNumber' },
     { title: '手机', dataIndex: 'mobile' },
-    { title: '邮箱', dataIndex: 'address' },
+    { title: '邮箱', dataIndex: 'email' },
     {
       title: '操作',
       render(text, record, index) {
         return (
           <div>
-            <Button type="link">编辑</Button>
+            <Button
+              type="link"
+              onClick={() => {
+                setEditModelState({ ...editModelState, visible: true, formData: record });
+              }}
+            >
+              编辑
+            </Button>
           </div>
         );
       },
@@ -46,19 +53,13 @@ export default () => {
 
   const { data, loading, refresh } = useRequest(() => getMemberList(searchParams));
 
-  const resetSearch = async () => {
-    setSearchParams(searchParamsInitialValues);
-    await delay(0);
-    refresh();
-  };
-
-  const batchDelete = () => {
-    message.info('Click on menu item.');
-    console.log(selectedRowKeys, 'delete ids');
-  };
-
   const dropdownMenu = (
-    <Menu onClick={batchDelete}>
+    <Menu
+      onClick={() => {
+        message.info('Click on menu item.');
+        console.log(selectedRowKeys, 'delete ids');
+      }}
+    >
       <Menu.Item>
         <DeleteOutlined />
         删除
@@ -118,7 +119,14 @@ export default () => {
               <Button type="primary" style={{ marginRight: '8px' }} onClick={refresh}>
                 查询
               </Button>
-              <Button htmlType="button" onClick={resetSearch}>
+              <Button
+                htmlType="button"
+                onClick={async () => {
+                  setSearchParams(searchParamsInitialValues);
+                  await delay(0);
+                  refresh();
+                }}
+              >
                 重置
               </Button>
             </Form.Item>
@@ -148,11 +156,29 @@ export default () => {
             loading={loading}
             size="middle"
             rowKey="id"
-            rowSelection={rowSelection}
+            rowSelection={{
+              onChange: (selectedRowKeys: any, selectedRows: any) => {
+                console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+                setSelectedRowKeys(selectedRowKeys);
+              },
+            }}
             columns={columns}
             dataSource={data}
           />
         </Card>
+        <EditModal
+          visible={editModelState.visible}
+          loading={editModelState.loading}
+          formData={editModelState.formData}
+          handleOk={async () => {
+            setEditModelState({ ...editModelState, loading: true });
+            await delay(1000);
+            setEditModelState({ ...editModelState, visible: false, loading: false, formData: {} });
+          }}
+          handleCancel={() => {
+            setEditModelState({ ...editModelState, visible: false, formData: {} });
+          }}
+        />
       </div>
     </PageHeaderWrapper>
   );

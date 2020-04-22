@@ -8,7 +8,7 @@ const memberList = [
     position: '代码搬运工',
     jobNumber: '88080',
     mobile: '18600000000',
-    address: 'maodun@itcast.cn',
+    email: 'maodun@itcast.cn',
   },
   {
     id: '2',
@@ -17,7 +17,7 @@ const memberList = [
     position: '代码搬运工',
     jobNumber: '88081',
     mobile: '18600000001',
-    address: 'maodun@itcast.cn',
+    email: 'maodun@itcast.cn',
   },
   {
     id: '3',
@@ -26,7 +26,7 @@ const memberList = [
     position: '代码搬运工',
     jobNumber: '88082',
     mobile: '18600000002',
-    address: 'maodun@itcast.cn',
+    email: 'maodun@itcast.cn',
   },
   {
     id: '4',
@@ -35,7 +35,7 @@ const memberList = [
     position: '代码搬运工',
     jobNumber: '88083',
     mobile: '18600000003',
-    address: 'maodun@itcast.cn',
+    email: 'maodun@itcast.cn',
   },
 ];
 
