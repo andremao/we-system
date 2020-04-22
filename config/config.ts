@@ -70,6 +70,12 @@ export default defineConfig({
               component: './Member',
             },
             {
+              name: 'member',
+              icon: 'smile',
+              path: '/member-bak',
+              component: './MemberBak',
+            },
+            {
               name: 'role',
               icon: 'user-switch',
               path: '/role',
@@ -104,7 +110,8 @@ export default defineConfig({
               icon: 'pull-request',
               path: '/approval-process-template',
               component: './ApprovalProcessTemplate',
-            }, // {
+            },
+            // {
             //   path: '/welcome',
             //   name: 'welcome',
             //   icon: 'smile',

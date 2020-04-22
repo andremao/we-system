@@ -1,14 +1,29 @@
-import { request } from 'umi';
+import request from 'umi-request';
+import { TableListSearchParams, UpdateParams, DeleteParams, AddParams } from './data.d';
 
-import { SearchParams } from './data.d';
+export async function getMemberList(params?: TableListSearchParams) {
+  return request('/api/member/list', {
+    params,
+  });
+}
 
-export const getMemberList = async (params: SearchParams) => {
-  const reqParams = { ...params, departmentId: '' };
+export async function deleteMember(params: DeleteParams) {
+  return request('/api/member', {
+    method: 'DELETE',
+    data: params,
+  });
+}
 
-  if (reqParams.department && reqParams.department.length) {
-    reqParams.departmentId = reqParams.department[reqParams.department.length - 1];
-    delete reqParams.department;
-  }
+export async function addMember(params: AddParams) {
+  return request('/api/member', {
+    method: 'POST',
+    data: params,
+  });
+}
 
-  return request('/api/member/list', { params: reqParams });
-};
+export async function updateMember(params: UpdateParams) {
+  return request(`/api/member/${params.id}`, {
+    method: 'PUT',
+    data: params,
+  });
+}

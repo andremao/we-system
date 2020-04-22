@@ -1,185 +1,183 @@
+import { DownOutlined, PlusOutlined } from '@ant-design/icons';
+import { Button, Divider, Dropdown, Menu, message } from 'antd';
+import React, { useState, useRef } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import React, { useState } from 'react';
-import { Card, Button, Form, Input, Table, Divider, Tooltip, Dropdown, Menu, message } from 'antd';
-import { ReloadOutlined, DownOutlined, DeleteOutlined } from '@ant-design/icons';
-import { useRequest } from 'umi';
-import { getMemberList } from './service';
-import { delay } from '../../utils/utils';
-import DepartmentCascader from '../../pages/Department/components/DepartmentCascader';
-import EditModal from './components/EditModal';
+import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
+import CreateForm from './components/CreateForm';
+import UpdateForm from './components/UpdateForm';
+import { TableListItem, UpdateParams, AddParams } from './data.d';
+import { getMemberList, updateMember, addMember, deleteMember } from './service';
 
-export default () => {
-  const [form] = Form.useForm();
+const handleAdd = async (fields: AddParams) => {
+  const hide = message.loading('正在添加');
+  try {
+    await addMember(fields);
+    hide();
+    message.success('添加成功');
+    return true;
+  } catch (error) {
+    hide();
+    message.error('添加失败请重试！');
+    return false;
+  }
+};
 
-  const onValuesChange = () => {};
+const handleDelete = async (selectedRows: TableListItem[]) => {
+  const hide = message.loading('正在删除');
+  if (!selectedRows) return true;
+  try {
+    await deleteMember({
+      ids: selectedRows.map((row) => row.id),
+    });
+    hide();
+    message.success('删除成功，即将刷新');
+    return true;
+  } catch (error) {
+    hide();
+    message.error('删除失败，请重试');
+    return false;
+  }
+};
 
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-
-  const [editModelState, setEditModelState] = useState({
-    visible: false,
-    loading: false,
-    formData: {},
-  });
-
-  const columns = [
-    { title: '姓名', dataIndex: 'name' },
-    { title: '所属部门', dataIndex: ['department', 'name'] },
-    { title: '职位', dataIndex: 'position' },
-    { title: '工号', dataIndex: 'jobNumber' },
-    { title: '手机', dataIndex: 'mobile' },
-    { title: '邮箱', dataIndex: 'email' },
+const TableList: React.FC<{}> = () => {
+  const [createModalVisible, handleModalVisible] = useState<boolean>(false);
+  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
+  const [updateItem, setUpdateItem] = useState<TableListItem>({});
+  const actionRef = useRef<ActionType>();
+  const columns: ProColumns<TableListItem>[] = [
+    {
+      title: '姓名',
+      dataIndex: 'name',
+    },
+    {
+      title: '所属部门',
+      dataIndex: ['department', 'name'],
+    },
+    {
+      title: '职位',
+      dataIndex: 'position',
+    },
+    {
+      title: '工号',
+      dataIndex: 'jobNumber',
+    },
+    {
+      title: '手机',
+      dataIndex: 'mobile',
+    },
+    {
+      title: '邮箱',
+      dataIndex: 'email',
+    },
+    {
+      title: '添加时间',
+      dataIndex: 'createdAt',
+      valueType: 'dateTime',
+    },
     {
       title: '操作',
-      render(text, record, index) {
-        return (
-          <div>
-            <Button
-              type="link"
-              onClick={() => {
-                setEditModelState({ ...editModelState, visible: true, formData: record });
-              }}
-            >
-              编辑
-            </Button>
-          </div>
-        );
-      },
+      dataIndex: 'option',
+      valueType: 'option',
+      render: (_, record) => (
+        <>
+          <a
+            onClick={() => {
+              handleUpdateModalVisible(true);
+              setUpdateItem(record);
+            }}
+          >
+            编辑
+          </a>
+          <Divider type="vertical" />
+          <a href="">xx操作</a>
+        </>
+      ),
     },
   ];
 
-  const searchParamsInitialValues = { name: '', department: [], jobNumber: '', mobile: '' };
-
-  const [searchParams, setSearchParams] = useState(searchParamsInitialValues);
-
-  const { data, loading, refresh } = useRequest(() => getMemberList(searchParams));
-
-  const dropdownMenu = (
-    <Menu
-      onClick={() => {
-        message.info('Click on menu item.');
-        console.log(selectedRowKeys, 'delete ids');
-      }}
-    >
-      <Menu.Item>
-        <DeleteOutlined />
-        删除
-      </Menu.Item>
-    </Menu>
-  );
-
   return (
     <PageHeaderWrapper>
-      <div>
-        <Card>
-          <Form
-            layout="inline"
-            form={form}
-            initialValues={{}}
-            onValuesChange={onValuesChange}
-            style={{ justifyContent: 'space-between' }}
-          >
-            <div style={{ display: 'flex' }}>
-              <Form.Item label="成员姓名">
-                <Input
-                  placeholder="请输入"
-                  value={searchParams.name}
-                  onChange={(e) => setSearchParams({ ...searchParams, name: e.target.value })}
-                  allowClear
-                />
-              </Form.Item>
-              <Form.Item label="所属部门">
-                <DepartmentCascader
-                  value={searchParams.department}
-                  onChange={(v) =>
-                    setSearchParams({
-                      ...searchParams,
-                      department: v,
-                    })
-                  }
-                />
-              </Form.Item>
-              <Form.Item label="工号">
-                <Input
-                  placeholder="请输入"
-                  value={searchParams.jobNumber}
-                  onChange={(e) => setSearchParams({ ...searchParams, jobNumber: e.target.value })}
-                  allowClear
-                />
-              </Form.Item>
-              <Form.Item label="手机号码">
-                <Input
-                  placeholder="请输入"
-                  value={searchParams.mobile}
-                  onChange={(e) => setSearchParams({ ...searchParams, mobile: e.target.value })}
-                  allowClear
-                />
-              </Form.Item>
-            </div>
-            <Form.Item style={{ marginRight: 0 }}>
-              <Button type="primary" style={{ marginRight: '8px' }} onClick={refresh}>
-                查询
+      <ProTable<TableListItem>
+        headerTitle="成员列表"
+        actionRef={actionRef}
+        rowKey="id"
+        toolBarRender={(action, { selectedRows }) => [
+          <Button icon={<PlusOutlined />} type="primary" onClick={() => handleModalVisible(true)}>
+            添加
+          </Button>,
+          selectedRows && selectedRows.length > 0 && (
+            <Dropdown
+              overlay={
+                <Menu
+                  onClick={async (e) => {
+                    if (e.key === 'delete') {
+                      await handleDelete(selectedRows);
+                      action.reload();
+                    }
+                  }}
+                  selectedKeys={[]}
+                >
+                  <Menu.Item key="delete">批量删除</Menu.Item>
+                  <Menu.Item key="approval">批量审批</Menu.Item>
+                </Menu>
+              }
+            >
+              <Button>
+                批量操作 <DownOutlined />
               </Button>
-              <Button
-                htmlType="button"
-                onClick={async () => {
-                  setSearchParams(searchParamsInitialValues);
-                  await delay(0);
-                  refresh();
-                }}
-              >
-                重置
-              </Button>
-            </Form.Item>
-          </Form>
-        </Card>
-        <Card style={{ marginTop: '24px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '24px' }}>
-            <div style={{ fontSize: '16px' }}>成员列表</div>
-            <div>
-              <Button type="primary" style={{ marginRight: '8px' }}>
-                添加成员
-              </Button>
-              {selectedRowKeys.length ? (
-                <Dropdown overlay={dropdownMenu}>
-                  <Button>
-                    批量操作 <DownOutlined />
-                  </Button>
-                </Dropdown>
-              ) : null}
-              <Divider type="vertical" style={{ margin: '0 16px' }} />
-              <Tooltip title="刷新">
-                <ReloadOutlined style={{ cursor: 'pointer' }} onClick={refresh} />
-              </Tooltip>
-            </div>
+            </Dropdown>
+          ),
+        ]}
+        tableAlertRender={({ selectedRowKeys }) => (
+          <div>
+            已选择 <a style={{ fontWeight: 600 }}>{selectedRowKeys.length}</a> 项
           </div>
-          <Table
-            loading={loading}
-            size="middle"
-            rowKey="id"
-            rowSelection={{
-              onChange: (selectedRowKeys: any, selectedRows: any) => {
-                console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-                setSelectedRowKeys(selectedRowKeys);
-              },
-            }}
-            columns={columns}
-            dataSource={data}
-          />
-        </Card>
-        <EditModal
-          visible={editModelState.visible}
-          loading={editModelState.loading}
-          formData={editModelState.formData}
-          handleOk={async () => {
-            setEditModelState({ ...editModelState, loading: true });
-            await delay(1000);
-            setEditModelState({ ...editModelState, visible: false, loading: false, formData: {} });
+        )}
+        request={(params) => getMemberList(params)}
+        columns={columns}
+        rowSelection={{}}
+        pagination={{ pageSize: 10 }}
+      />
+      <CreateForm
+        onSubmit={async (value) => {
+          const success = await handleAdd(value);
+          if (success) {
+            handleModalVisible(false);
+            if (actionRef.current) {
+              actionRef.current.reload();
+            }
+          }
+        }}
+        onCancel={() => handleModalVisible(false)}
+        modalVisible={createModalVisible}
+      />
+      {updateItem && Object.keys(updateItem).length ? (
+        <UpdateForm
+          onSubmit={async (formVals: UpdateParams) => {
+            const hide = message.loading('正在配置');
+            const { status } = await updateMember(formVals);
+            hide();
+            if (status === 200) {
+              message.success('配置成功');
+              handleModalVisible(false);
+              setUpdateItem({});
+              if (actionRef.current) {
+                actionRef.current.reload();
+              }
+            } else {
+              message.error('配置失败请重试！');
+            }
           }}
-          handleCancel={() => {
-            setEditModelState({ ...editModelState, visible: false, formData: {} });
+          onCancel={() => {
+            handleUpdateModalVisible(false);
+            setUpdateItem({});
           }}
+          visible={updateModalVisible}
+          values={updateItem}
         />
-      </div>
+      ) : null}
     </PageHeaderWrapper>
   );
 };
+
+export default TableList;
