@@ -5,43 +5,14 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
 import CreateForm from './components/CreateForm';
 import UpdateForm from './components/UpdateForm';
-import { TableListItem, UpdateParams, AddParams } from './data.d';
-import { getMemberList, updateMember, addMember, deleteMember } from './service';
+import { TableListItem, UpdateParams, CreateParams } from './data.d';
+import { getMemberList, updateMember, createMember, removeMember } from './service';
 
-const handleAdd = async (fields: AddParams) => {
-  const hide = message.loading('正在添加');
-  try {
-    await addMember(fields);
-    hide();
-    message.success('添加成功');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('添加失败请重试！');
-    return false;
-  }
-};
-
-const handleDelete = async (selectedRows: TableListItem[]) => {
-  const hide = message.loading('正在删除');
-  if (!selectedRows) return true;
-  try {
-    await deleteMember({
-      ids: selectedRows.map((row) => row.id),
-    });
-    hide();
-    message.success('删除成功，即将刷新');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('删除失败，请重试');
-    return false;
-  }
-};
+const handleCreate = async (fields: CreateParams) => {};
 
 const TableList: React.FC<{}> = () => {
-  const [createModalVisible, handleModalVisible] = useState<boolean>(false);
-  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
+  const [createModalVisible, setCreateModalVisible] = useState<boolean>(false);
+  const [updateModalVisible, setUpdateModalVisible] = useState<boolean>(false);
   const [updateItem, setUpdateItem] = useState<TableListItem>({});
   const actionRef = useRef<ActionType>();
   const columns: ProColumns<TableListItem>[] = [
@@ -56,6 +27,13 @@ const TableList: React.FC<{}> = () => {
     {
       title: '职位',
       dataIndex: 'position',
+    },
+    {
+      title: '角色',
+      dataIndex: ['roles', 'id'],
+      renderText(_, record) {
+        return record.roles.map((v) => v.name).join(',');
+      },
     },
     {
       title: '工号',
@@ -82,7 +60,7 @@ const TableList: React.FC<{}> = () => {
         <>
           <a
             onClick={() => {
-              handleUpdateModalVisible(true);
+              setUpdateModalVisible(true);
               setUpdateItem(record);
             }}
           >
@@ -102,7 +80,11 @@ const TableList: React.FC<{}> = () => {
         actionRef={actionRef}
         rowKey="id"
         toolBarRender={(action, { selectedRows }) => [
-          <Button icon={<PlusOutlined />} type="primary" onClick={() => handleModalVisible(true)}>
+          <Button
+            icon={<PlusOutlined />}
+            type="primary"
+            onClick={() => setCreateModalVisible(true)}
+          >
             添加
           </Button>,
           selectedRows && selectedRows.length > 0 && (
@@ -111,7 +93,15 @@ const TableList: React.FC<{}> = () => {
                 <Menu
                   onClick={async (e) => {
                     if (e.key === 'delete') {
-                      await handleDelete(selectedRows);
+                      const hide = message.loading('正在删除');
+                      const { status } = await removeMember({
+                        ids: selectedRows.map((row) => row.id),
+                      });
+                      hide();
+                      if (status !== 200) {
+                        return message.error('删除失败，请重试');
+                      }
+                      message.success('删除成功，即将刷新');
                       action.reload();
                     }
                   }}
@@ -139,17 +129,21 @@ const TableList: React.FC<{}> = () => {
         pagination={{ pageSize: 10 }}
       />
       <CreateForm
-        onSubmit={async (value) => {
-          const success = await handleAdd(value);
-          if (success) {
-            handleModalVisible(false);
-            if (actionRef.current) {
-              actionRef.current.reload();
-            }
+        onSubmit={async (formVals) => {
+          const hide = message.loading('正在添加');
+          const { status } = await createMember(formVals);
+          hide();
+          if (status !== 200) {
+            return message.error('添加失败请重试！');
+          }
+          message.success('添加成功');
+          setCreateModalVisible(false);
+          if (actionRef.current) {
+            actionRef.current.reload();
           }
         }}
-        onCancel={() => handleModalVisible(false)}
-        modalVisible={createModalVisible}
+        onCancel={() => setCreateModalVisible(false)}
+        visible={createModalVisible}
       />
       {updateItem && Object.keys(updateItem).length ? (
         <UpdateForm
@@ -159,7 +153,7 @@ const TableList: React.FC<{}> = () => {
             hide();
             if (status === 200) {
               message.success('配置成功');
-              handleModalVisible(false);
+              setUpdateModalVisible(false);
               setUpdateItem({});
               if (actionRef.current) {
                 actionRef.current.reload();
@@ -169,7 +163,7 @@ const TableList: React.FC<{}> = () => {
             }
           }}
           onCancel={() => {
-            handleUpdateModalVisible(false);
+            setUpdateModalVisible(false);
             setUpdateItem({});
           }}
           visible={updateModalVisible}

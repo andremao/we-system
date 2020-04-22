@@ -3,6 +3,7 @@ export interface TableListItem {
   avatar: string;
   name: string;
   department: { id: string; name: string };
+  roles: Object[];
   position: string;
   jobNumber: string;
   mobile: string;
@@ -28,17 +29,18 @@ export interface TableListSearchParams {
   currentPage?: number;
 }
 
-export interface AddParams {
+export interface CreateParams {
   avatar: string;
   name: string;
   departmentId: string;
   position: string;
+  roleIds: string[];
   jobNumber: string;
   mobile: string;
   email: string;
 }
 
-export interface DeleteParams {
+export interface RemoveParams {
   ids: string[];
 }
 
@@ -48,6 +50,7 @@ export interface UpdateParams {
   name?: string;
   departmentId?: string;
   position?: string;
+  roleIds?: string[];
   jobNumber?: string;
   mobile?: string;
   email?: string;

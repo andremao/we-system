@@ -140,7 +140,6 @@ const TableList: React.FC<{}> = () => {
     {
       title: '创建时间',
       dataIndex: 'createdAt',
-      sorter: true,
       valueType: 'dateTime',
       hideInSearch: true,
     },

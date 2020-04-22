@@ -1,6 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Request, Response } from 'express';
-import { parse } from 'url';
 import { TableListItem, TableListSearchParams } from './data.d';
 
 // mock tableListDataSource
@@ -13,6 +12,10 @@ for (let i = 0; i < 100; i += 1) {
     name: `张${i}`,
     department: { id: '1', name: '总部' },
     position: 'IT砖家',
+    roles: [
+      { id: '1', name: '大佬' },
+      { id: '2', name: '总裁' },
+    ],
     jobNumber: `88${i.toString().padStart(3, '0')}`,
     mobile: `186${i.toString().padStart(8, '0')}`,
     email: `zhang${i}@itcast.cn`,
@@ -21,14 +24,10 @@ for (let i = 0; i < 100; i += 1) {
 }
 
 export default {
-  'GET /api/member/list': (req: Request, res: Response, u: string) => {
-    let url = u;
-    if (!url || Object.prototype.toString.call(url) !== '[object String]') {
-      // eslint-disable-next-line prefer-destructuring
-      url = req.url;
-    }
+  'GET /api/member/list': (req: Request, res: Response) => {
+    console.log(req.query, 'GET /api/member/list      query');
 
-    const params = (parse(url, true).query as unknown) as TableListSearchParams;
+    const params: TableListSearchParams = req.query;
 
     let dataSource = tableListDataSource;
 
@@ -41,23 +40,34 @@ export default {
       pageSize = parseInt(`${params.pageSize}`, 0);
     }
 
-    const result = {
+    return res.json({
       data: dataSource,
       total: dataSource.length,
       success: true,
       pageSize,
       current: parseInt(`${params.currentPage}`, 10) || 1,
-    };
-
-    return res.json(result);
+    });
   },
   'PUT /api/member/:id': (req: Request, res: Response) => {
-    console.log(req.params, 'PUT /api/member/:id params');
-    console.log(req.query, 'PUT /api/member/:id query');
-    console.log(req.body, 'PUT /api/member/:id body');
+    console.log(req.params, 'PUT /api/member/:id    params');
+    console.log(req.body, 'PUT /api/member/:id      body');
 
-    res.json({
-      status: 200,
-    });
+    setTimeout(() => {
+      res.json({ status: 200 });
+    }, 300);
+  },
+  'DELETE /api/member': (req: Request, res: Response) => {
+    console.log(req.query, 'DELETE /api/member     query');
+
+    setTimeout(() => {
+      res.json({ status: 200 });
+    }, 300);
+  },
+  'POST /api/member': (req: Request, res: Response) => {
+    console.log(req.body, 'POST /api/member');
+
+    setTimeout(() => {
+      res.json({ status: 200 });
+    }, 300);
   },
 };

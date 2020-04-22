@@ -1,42 +1,87 @@
 import React from 'react';
-import { Form, Input, Modal } from 'antd';
-import { AddParams } from '../data';
-
-const FormItem = Form.Item;
+import { Form, Input, Modal, Select } from 'antd';
+import { CreateParams } from '../data';
 
 interface CreateFormProps {
-  modalVisible: boolean;
-  onSubmit: (fieldsValue: AddParams) => void;
+  visible: boolean;
+  onSubmit: (fieldsValue: CreateParams) => void;
   onCancel: () => void;
 }
 
 const CreateForm: React.FC<CreateFormProps> = (props) => {
   const [form] = Form.useForm();
-
-  const { modalVisible, onSubmit: handleAdd, onCancel } = props;
-  const okHandle = async () => {
-    const fieldsValue = await form.validateFields();
-    form.resetFields();
-    handleAdd(fieldsValue);
-  };
+  const { visible, onSubmit, onCancel } = props;
   return (
     <Modal
       destroyOnClose
       title="添加成员"
-      visible={modalVisible}
-      onOk={okHandle}
+      visible={visible}
+      onOk={async () => {
+        const fieldsValue = await form.validateFields();
+        form.resetFields();
+        onSubmit(fieldsValue);
+      }}
       onCancel={() => onCancel()}
     >
-      <Form form={form}>
-        <FormItem
-          labelCol={{ span: 5 }}
-          wrapperCol={{ span: 15 }}
-          label="姓名"
-          name="name"
-          rules={[{ required: true, message: '请输入姓名！' }]}
+      <Form form={form} labelCol={{ span: 7 }} wrapperCol={{ span: 13 }}>
+        <Form.Item label="姓名" name="name" rules={[{ required: true, message: '请输入姓名！' }]}>
+          <Input placeholder="请输入" />
+        </Form.Item>
+        <Form.Item
+          label="所属部门"
+          name="departmentId"
+          rules={[{ required: true, message: '请选择所属部门！' }]}
         >
           <Input placeholder="请输入" />
-        </FormItem>
+        </Form.Item>
+        <Form.Item
+          label="职位"
+          name="position"
+          rules={[{ required: true, message: '请输入职位！' }]}
+        >
+          <Input placeholder="请输入" />
+        </Form.Item>
+        <Form.Item
+          name="roleIds"
+          label="角色"
+          rules={[{ required: true, message: '请选择角色！' }]}
+        >
+          <Select
+            mode="multiple"
+            style={{ width: '100%' }}
+            placeholder="请选择"
+            onChange={(v) => {
+              console.log(`selected ${v}`);
+            }}
+            allowClear
+          >
+            {[
+              { id: '1', name: '大佬' },
+              { id: '2', name: '总裁' },
+              { id: '3', name: '搬砖工' },
+              { id: '4', name: '码农' },
+              { id: '5', name: '码畜' },
+              { id: '6', name: '码夫' },
+            ].map((v) => (
+              <Select.Option key={v.id} value={v.id}>
+                {v.name}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+        <Form.Item
+          name="jobNumber"
+          label="工号"
+          rules={[{ required: true, message: '请输入工号！' }]}
+        >
+          <Input placeholder="请输入" />
+        </Form.Item>
+        <Form.Item name="mobile" label="手机" rules={[{ required: true, message: '请输入手机！' }]}>
+          <Input placeholder="请输入" />
+        </Form.Item>
+        <Form.Item name="email" label="邮箱" rules={[{ required: true, message: '请输入邮箱！' }]}>
+          <Input placeholder="请输入" />
+        </Form.Item>
       </Form>
     </Modal>
   );

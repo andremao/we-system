@@ -1,5 +1,5 @@
 import request from 'umi-request';
-import { TableListSearchParams, UpdateParams, DeleteParams, AddParams } from './data.d';
+import { TableListSearchParams, UpdateParams, RemoveParams, CreateParams } from './data.d';
 
 export async function getMemberList(params?: TableListSearchParams) {
   return request('/api/member/list', {
@@ -7,14 +7,14 @@ export async function getMemberList(params?: TableListSearchParams) {
   });
 }
 
-export async function deleteMember(params: DeleteParams) {
+export async function removeMember(params: RemoveParams) {
   return request('/api/member', {
     method: 'DELETE',
-    data: params,
+    params,
   });
 }
 
-export async function addMember(params: AddParams) {
+export async function createMember(params: CreateParams) {
   return request('/api/member', {
     method: 'POST',
     data: params,
