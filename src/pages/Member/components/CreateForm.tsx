@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Input, Modal, Select } from 'antd';
 import { CreateParams } from '../data';
+import DepartmentCascader from '@/pages/Department/components/DepartmentCascader';
 
 interface CreateFormProps {
   visible: boolean;
@@ -17,9 +18,9 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
       title="添加成员"
       visible={visible}
       onOk={async () => {
-        const fieldsValue = await form.validateFields();
+        const fields = await form.validateFields();
         form.resetFields();
-        onSubmit(fieldsValue);
+        onSubmit(fields);
       }}
       onCancel={() => onCancel()}
     >
@@ -32,7 +33,11 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
           name="departmentId"
           rules={[{ required: true, message: '请选择所属部门！' }]}
         >
-          <Input placeholder="请输入" />
+          <DepartmentCascader
+            onChange={({ theEndId }) => {
+              form.setFieldsValue({ departmentId: theEndId });
+            }}
+          />
         </Form.Item>
         <Form.Item
           label="职位"
@@ -46,15 +51,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
           label="角色"
           rules={[{ required: true, message: '请选择角色！' }]}
         >
-          <Select
-            mode="multiple"
-            style={{ width: '100%' }}
-            placeholder="请选择"
-            onChange={(v) => {
-              console.log(`selected ${v}`);
-            }}
-            allowClear
-          >
+          <Select mode="multiple" style={{ width: '100%' }} placeholder="请选择" allowClear>
             {[
               { id: '1', name: '大佬' },
               { id: '2', name: '总裁' },
