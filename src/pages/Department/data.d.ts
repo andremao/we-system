@@ -5,7 +5,7 @@ export interface TableListItem {
   desc: string;
   createdAt: Date | number;
   pid: string | null;
-  pids?: string[];
+  pids: string[];
   manager: { id: string; name: string } | null;
   children?: TableListItem[];
 }
@@ -29,11 +29,11 @@ export interface TableListParams {
   currentPage?: number;
 }
 
-export interface UpdateReqParams {
+export interface UpdateParams {
   id: string;
   name: string;
-  pid: string;
+  pid: string | null;
   status: number;
   desc: string;
-  managerId: string;
+  managerId: string | null;
 }

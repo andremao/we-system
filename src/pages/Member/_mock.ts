@@ -8,9 +8,14 @@ const tableListDataSource: TableListItem[] = [];
 for (let i = 0; i < 100; i += 1) {
   tableListDataSource.push({
     id: `${i}`,
-    avatar: 'https://dummyimage.com/50x250',
+    avatar: 'https://dummyimage.com/50x50',
     name: `张${i}`,
-    department: { id: '1', name: '总部' },
+    department: {
+      id: '1-12-1',
+      name: '长沙校区前端与移动开发教研部',
+      pid: '1-12',
+      pids: ['1', '1-12'],
+    },
     position: 'IT砖家',
     roles: [
       { id: '1', name: '大佬' },

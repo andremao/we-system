@@ -2,7 +2,7 @@ export interface TableListItem {
   id: string;
   avatar: string;
   name: string;
-  department: { id: string; name: string };
+  department: { id: string; name: string; pid: string; pids: string[] };
   roles: Object[];
   position: string;
   jobNumber: string;
@@ -25,6 +25,8 @@ export interface TableListData {
 export interface TableListSearchParams {
   id?: string;
   name?: string;
+  departmentId?: string;
+  position?: string;
   pageSize?: number;
   currentPage?: number;
 }

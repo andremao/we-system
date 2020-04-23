@@ -12,6 +12,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: null,
+    pids: [],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -21,6 +22,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1',
+    pids: ['1'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -30,6 +32,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1',
+    pids: ['1'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -39,6 +42,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1',
+    pids: ['1'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -48,6 +52,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1',
+    pids: ['1'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -57,6 +62,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1',
+    pids: ['1'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -66,6 +72,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1',
+    pids: ['1'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -75,6 +82,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1',
+    pids: ['1'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -84,6 +92,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1',
+    pids: ['1'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -93,6 +102,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1',
+    pids: ['1'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -102,6 +112,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1',
+    pids: ['1'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -111,6 +122,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1',
+    pids: ['1'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -120,6 +132,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1',
+    pids: ['1'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -129,6 +142,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1-12',
+    pids: ['1', '1-12'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -138,6 +152,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1-12',
+    pids: ['1', '1-12'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -147,6 +162,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1-12',
+    pids: ['1', '1-12'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -156,6 +172,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1-12',
+    pids: ['1', '1-12'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -165,6 +182,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1-12',
+    pids: ['1', '1-12'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -174,6 +192,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1-12',
+    pids: ['1', '1-12'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -183,6 +202,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1-12',
+    pids: ['1', '1-12'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -192,6 +212,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1-12',
+    pids: ['1', '1-12'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -201,6 +222,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1-12',
+    pids: ['1', '1-12'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -210,6 +232,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1-12',
+    pids: ['1', '1-12'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -219,6 +242,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1-12',
+    pids: ['1', '1-12'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -228,6 +252,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1-12',
+    pids: ['1', '1-12'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -237,6 +262,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1',
+    pids: ['1'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -246,6 +272,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1',
+    pids: ['1'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -255,6 +282,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1',
+    pids: ['1'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -264,6 +292,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1',
+    pids: ['1'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -273,6 +302,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1',
+    pids: ['1'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -282,6 +312,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1',
+    pids: ['1'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -291,6 +322,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1',
+    pids: ['1'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -300,6 +332,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1',
+    pids: ['1'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -309,6 +342,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1',
+    pids: ['1'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -318,6 +352,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1',
+    pids: ['1'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -327,6 +362,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1',
+    pids: ['1'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -336,6 +372,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1',
+    pids: ['1'],
     manager: { id: '1', name: '黎总' },
   },
   {
@@ -345,6 +382,7 @@ const tableListDataSource: TableListItem[] = [
     desc: '这是一段描述',
     createdAt: Date.now(),
     pid: '1',
+    pids: ['1'],
     manager: { id: '1', name: '黎总' },
   },
 ];
@@ -410,38 +448,11 @@ export default {
       data: managerList,
     });
   },
-  'GET /api/department/pids': (req: Request, res: Response) => {
-    const { pid } = req.query;
-    const pids: string[] = [];
-    if (pid) {
-      let parent = tableListDataSource.find((v) => v.id === pid);
-      if (parent) {
-        pids.unshift(parent.id);
-        while (parent.pid) {
-          parent = tableListDataSource.find((v) => v.id === parent.pid);
-          pids.unshift(parent.id);
-        }
-      }
-    }
-
-    res.json({
-      data: pids,
-    });
-  },
   'PUT /api/department': (req: Request, res: Response) => {
-    const { id, name, pid, desc, status, managerId } = req.body;
-
-    const department = tableListDataSource.find((v) => v.id === id);
-
-    department.name = name;
-    department.pid = pid;
-    department.desc = desc;
-    department.status = status;
-    department.manager = managerList.find((v) => v.id === managerId);
+    console.log(req.body, 'PUT /api/department     req.body');
 
     res.json({
       status: 200,
-      department,
     });
   },
 };

@@ -7,14 +7,7 @@ import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
 import CreateForm from './components/CreateForm';
 import UpdateForm, { FormValueType } from './components/UpdateForm';
 import { TableListItem } from './data.d';
-import {
-  queryDepartment,
-  updateDepartment,
-  addDepartment,
-  removeDepartment,
-  getTreeDepartment,
-  getDepartmentPIds,
-} from './service';
+import { queryDepartment, updateDepartment } from './service';
 import { delay } from '../../utils/utils';
 import DepartmentCascader from './components/DepartmentCascader';
 
@@ -34,37 +27,6 @@ const handleAdd = async (fields: FormValueType) => {
   } catch (error) {
     hide();
     message.error('添加失败请重试！');
-    return false;
-  }
-};
-
-/**
- * 更新节点
- * @param fields
- */
-const handleUpdate = async (fields: FormValueType) => {
-  const hide = message.loading('正在配置');
-  try {
-    console.log(fields, 'update fields');
-
-    const { id, name, pids, desc, manager, status } = fields;
-
-    let pid = '';
-    if (pids && pids.length) {
-      pid = pids[pids.length - 1];
-    }
-
-    const res = await updateDepartment({ id, name, pid, status, managerId: manager?.id, desc });
-    console.log(res);
-
-    await delay(1000);
-    hide();
-
-    message.success('配置成功');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('配置失败请重试！');
     return false;
   }
 };
@@ -91,7 +53,7 @@ const handleRemove = async (selectedRows: TableListItem[]) => {
 const TableList: React.FC<{}> = () => {
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
   const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
-  const [stepFormValues, setStepFormValues] = useState({});
+  const [operatedDepartment, setOperatedDepartment] = useState({});
   const actionRef = useRef<ActionType>();
   const columns: ProColumns<TableListItem>[] = [
     {
@@ -99,17 +61,21 @@ const TableList: React.FC<{}> = () => {
       dataIndex: 'name',
     },
     {
-      title: '上级部门',
-      dataIndex: 'pid',
-      hideInTable: true,
-      renderFormItem() {
-        return <DepartmentCascader />;
-      },
-    },
-    {
       title: '部门主管',
       dataIndex: ['manager', 'name'],
-      hideInSearch: true,
+    },
+    {
+      title: '上级部门',
+      dataIndex: 'pid',
+      renderFormItem: (_, { type, defaultRender, value, onChange }, form) => {
+        return (
+          <DepartmentCascader
+            onChange={({ theEndId }) => {
+              form.setFieldsValue({ pid: theEndId });
+            }}
+          />
+        );
+      },
     },
     {
       title: '描述',
@@ -119,6 +85,7 @@ const TableList: React.FC<{}> = () => {
     {
       title: '状态',
       dataIndex: 'status',
+      hideInSearch: true,
       valueEnum: {
         0: { text: '禁用', status: 'Error' },
         1: { text: '启用', status: 'Success' },
@@ -150,10 +117,9 @@ const TableList: React.FC<{}> = () => {
       render: (_, record) => (
         <>
           <a
-            onClick={async () => {
-              const { data: pids } = await getDepartmentPIds({ pid: record.pid });
+            onClick={() => {
               handleUpdateModalVisible(true);
-              setStepFormValues({ ...record, pids });
+              setOperatedDepartment(record);
             }}
           >
             配置
@@ -221,24 +187,34 @@ const TableList: React.FC<{}> = () => {
         onCancel={() => handleModalVisible(false)}
         modalVisible={createModalVisible}
       />
-      {stepFormValues && Object.keys(stepFormValues).length ? (
+      {operatedDepartment && Object.keys(operatedDepartment).length ? (
         <UpdateForm
-          onSubmit={async (value) => {
-            const success = await handleUpdate(value);
-            if (success) {
-              handleModalVisible(false);
-              setStepFormValues({});
-              if (actionRef.current) {
-                actionRef.current.reload();
-              }
+          onSubmit={async (formVals) => {
+            const hide = message.loading('正在配置');
+            console.log(formVals, 'update formVals');
+
+            const { status } = await updateDepartment(formVals);
+
+            await delay(1000);
+
+            hide();
+            if (status !== 200) {
+              return message.error('配置失败请重试！');
+            }
+            message.success('配置成功');
+
+            handleModalVisible(false);
+            setOperatedDepartment({});
+            if (actionRef.current) {
+              actionRef.current.reload();
             }
           }}
           onCancel={() => {
             handleUpdateModalVisible(false);
-            setStepFormValues({});
+            setOperatedDepartment({});
           }}
           updateModalVisible={updateModalVisible}
-          values={stepFormValues}
+          department={operatedDepartment}
         />
       ) : null}
     </PageHeaderWrapper>

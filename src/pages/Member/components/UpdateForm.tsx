@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Input, Modal, Select } from 'antd';
 
 import { UpdateParams, TableListItem } from '../data.d';
+import DepartmentCascader from '@/pages/Department/components/DepartmentCascader';
 
 export interface UpdateFormProps {
   onCancel: (visible?: boolean, formVals?: UpdateParams) => void;
@@ -21,16 +22,11 @@ const formLayout = {
 const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const { onSubmit, onCancel, visible, values } = props;
 
-  const {
-    department: { id: departmentId },
-    createdAt: xxx1,
-    roles,
-    ...initialFormVals
-  } = values;
+  const { department, createdAt: xxx1, roles, ...initialFormVals } = values;
 
   const [formVals, setFormVals] = useState<UpdateParams>({
     ...initialFormVals,
-    departmentId,
+    departmentId: department.id,
     roleIds: roles.map((v) => v.id),
   });
 
@@ -68,12 +64,13 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         <Form.Item name="name" label="姓名" rules={[{ required: true, message: '请输入姓名！' }]}>
           <Input placeholder="请输入" />
         </Form.Item>
-        <Form.Item
-          name="departmentId"
-          label="所属部门"
-          rules={[{ required: true, message: '请选择部门！' }]}
-        >
-          <Input placeholder="请输入" />
+        <Form.Item label="所属部门" rules={[{ required: true, message: '请选择部门！' }]}>
+          <DepartmentCascader
+            ids={[...department.pids, department.id]}
+            onChange={({ theEndId }) => {
+              setFormVals({ ...formVals, departmentId: theEndId });
+            }}
+          />
         </Form.Item>
         <Form.Item
           name="position"

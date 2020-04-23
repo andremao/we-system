@@ -1,12 +1,8 @@
 import request from 'umi-request';
 import { RequestConfig } from 'umi';
-import { TableListParams, UpdateReqParams } from './data.d';
+import { TableListParams, UpdateParams } from './data.d';
 
-export async function queryDepartment(params?: TableListParams) {
-  if (params && Array.isArray(params.pid)) {
-    params.pid = params?.pid[params.pid.length - 1];
-  }
-
+export async function queryDepartment(params: { pid: string }) {
   return request('/api/department', {
     params,
   } as RequestConfig);
@@ -26,7 +22,7 @@ export async function addDepartment(params: TableListParams) {
   } as RequestConfig);
 }
 
-export async function updateDepartment(params: UpdateReqParams) {
+export async function updateDepartment(params: UpdateParams) {
   return request('/api/department', {
     method: 'PUT',
     data: params,
@@ -39,10 +35,4 @@ export async function getTreeDepartment() {
 
 export async function getDepartmentManagerList() {
   return request('/api/department/manager/list', {} as RequestConfig);
-}
-
-export async function getDepartmentPIds(params: { pid }) {
-  return request('/api/department/pids', {
-    params,
-  } as RequestConfig);
 }

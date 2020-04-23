@@ -5,10 +5,9 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
 import CreateForm from './components/CreateForm';
 import UpdateForm from './components/UpdateForm';
-import { TableListItem, UpdateParams, CreateParams } from './data.d';
+import { TableListItem, UpdateParams } from './data.d';
 import { getMemberList, updateMember, createMember, removeMember } from './service';
-
-const handleCreate = async (fields: CreateParams) => {};
+import DepartmentCascader from '../Department/components/DepartmentCascader';
 
 const TableList: React.FC<{}> = () => {
   const [createModalVisible, setCreateModalVisible] = useState<boolean>(false);
@@ -22,7 +21,9 @@ const TableList: React.FC<{}> = () => {
     },
     {
       title: '所属部门',
-      dataIndex: ['department', 'name'],
+      dataIndex: 'department',
+      renderText: ({ name }) => name,
+      renderFormItem: () => <DepartmentCascader />,
     },
     {
       title: '职位',
