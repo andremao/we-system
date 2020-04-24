@@ -58,5 +58,5 @@ export default {
   'menu.attendance': '考勤管理',
   'menu.sign': '签到管理',
   'menu.approval': '审批管理',
-  'menu.approval-process-template': '审批流程模板管理',
+  'menu.approval-process-template': '审批流程模版管理',
 };
