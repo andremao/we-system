@@ -29,6 +29,5 @@ export interface getListAPIParams {
   pageSize: number;
   name: string;
   departmentId: string;
-  startDate: string;
-  endDate: string;
+  dateRange: string[];
 }

@@ -63,10 +63,10 @@ const tableRecords = mockjs.mock({
       jobNumber: '@integer(80000, 89999)',
       'department|1': departmentAry,
       'position|1': positionAry,
-      'attendanceList|10': [
+      'attendanceList|31': [
         {
           date: '@date("yyyy-MM-dd")',
-          'status|1': [1, 2, 3],
+          'status|1': [1, 2, 3], // 1: 正常, 2: 迟到, 3: 缺卡
         },
       ],
     },
@@ -91,7 +91,7 @@ export default {
     res.json({
       data: list.slice(startIndex, endIndex),
       total: list.length,
-      success: true,
+      status: 200,
       pageSize,
       current,
     });
