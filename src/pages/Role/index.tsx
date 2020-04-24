@@ -4,10 +4,10 @@ import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
 import { Divider, Button, Dropdown, Menu, message } from 'antd';
 import { PlusOutlined, DownOutlined } from '@ant-design/icons';
 import { delay } from '@/utils/utils';
-import { getRoleList, batchRemove } from './service';
+import { getList, batchRemove } from './service';
 import UpdateModal from './components/UpdateModal';
-import { UpdateFormVals, CreateFormVals, Role } from './data.d';
 import CreateModal from './components/CreateModal';
+import { UpdateFormVals, CreateFormVals, Role, getListAPIParams } from './data.d';
 
 interface StateOfCreateModal {
   visible: boolean;
@@ -110,7 +110,7 @@ export default () => {
             </Dropdown>
           ),
         ]}
-        request={(params) => getRoleList(params)}
+        request={(params) => getList(params as getListAPIParams)}
         columns={columns}
         rowKey="id"
         rowSelection={{}}

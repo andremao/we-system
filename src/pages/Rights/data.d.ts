@@ -1,4 +1,4 @@
-export interface Role {
+export interface Rights {
   id: string;
   title: string;
   createdAt: number;
