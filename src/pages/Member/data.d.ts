@@ -57,3 +57,16 @@ export interface UpdateParams {
   mobile?: string;
   email?: string;
 }
+
+export interface Member {
+  id: string;
+  avatar: string;
+  name: string;
+  departmentId: string;
+  roleIds: string; // 多个用,分割
+  position: string;
+  jobNumber: string;
+  mobile: string;
+  email: string;
+  createdAt: number;
+}
