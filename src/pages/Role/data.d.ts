@@ -7,9 +7,17 @@ export interface Role {
 export interface getRoleListAPIParams {
   current: number;
   pageSize: number;
-  name: string;
+  title: string;
 }
 
 export interface BatchRemoveAPIParams {
   ids: string[];
+}
+
+interface CreateFormVals {
+  title: string;
+}
+
+interface UpdateFormVals {
+  title: string;
 }

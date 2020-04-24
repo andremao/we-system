@@ -1,7 +1,7 @@
 import { request } from 'umi';
-import { BatchRemoveAPIParams } from './data.d';
+import { BatchRemoveAPIParams, getRoleListAPIParams } from './data.d';
 
-export const getRoleList = async (params: any) => {
+export const getRoleList = async (params: getRoleListAPIParams) => {
   return request('/api/role', { params });
 };
 

@@ -20,14 +20,20 @@ export default {
   'GET /api/role': (req: Request, res: Response) => {
     console.log('GET /api/role   query:', req.query);
 
-    const { current, pageSize } = (req.query as unknown) as getRoleListAPIParams;
+    const { current, pageSize, title } = (req.query as unknown) as getRoleListAPIParams;
 
     const startIndex = (current - 1) * pageSize;
     const endIndex = startIndex + parseInt(`${pageSize}`, 10);
 
+    let list = [...roleList];
+
+    if (title) {
+      list = list.filter((v) => v.title.includes(title));
+    }
+
     res.json({
-      data: roleList.slice(startIndex, endIndex),
-      total: roleList.length,
+      data: list.slice(startIndex, endIndex),
+      total: list.length,
       success: true,
       pageSize,
       current,
