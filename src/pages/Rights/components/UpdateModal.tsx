@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Modal, Form, Input } from 'antd';
 import { UpdateFormVals, TableRecordVO } from '../data.d';
+import RightsTreeSelect from './RightsTreeSelect';
 
 interface Props {
   visible: boolean;
@@ -15,7 +16,11 @@ const UpdateModal: React.FC<Props> = ({ rights, onOk, ...restProps }) => {
 
   useEffect(() => {
     if (rights) {
-      form.setFieldsValue(rights);
+      form.setFieldsValue({
+        id: rights.id,
+        name: rights.name,
+        pid: rights.parent && rights.parent.id,
+      });
     }
   }, [rights]);
 
@@ -25,7 +30,11 @@ const UpdateModal: React.FC<Props> = ({ rights, onOk, ...restProps }) => {
       {...restProps}
       onOk={async () => {
         const fields = (await form.validateFields()) as UpdateFormVals;
-        if (onOk) onOk(fields);
+        console.log(fields);
+        console.log(form.getFieldsValue(), 'values......');
+        console.log(rights, 'values......');
+
+        if (onOk) onOk({ id: rights && rights.id, ...fields });
       }}
       getContainer={false}
     >
@@ -36,6 +45,9 @@ const UpdateModal: React.FC<Props> = ({ rights, onOk, ...restProps }) => {
           rules={[{ required: true, message: '请输入权限名称' }]}
         >
           <Input placeholder="请输入" />
+        </Form.Item>
+        <Form.Item label="上级权限" name="pid">
+          <RightsTreeSelect />
         </Form.Item>
       </Form>
     </Modal>

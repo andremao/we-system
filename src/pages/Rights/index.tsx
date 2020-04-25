@@ -4,9 +4,10 @@ import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
 import { Button, Dropdown, Menu, message } from 'antd';
 import { PlusOutlined, DownOutlined } from '@ant-design/icons';
 import { delay } from '@/utils/utils';
-import { getList, batchRemove } from './service';
+import { getList, batchRemove, create, update } from './service';
 import UpdateModal from './components/UpdateModal';
 import CreateModal from './components/CreateModal';
+import RightsTreeSelect from './components/RightsTreeSelect';
 import { UpdateFormVals, CreateFormVals, TableRecordVO, getListAPIParams } from './data.d';
 
 interface StateOfCreateModal {
@@ -31,6 +32,20 @@ export default () => {
 
   const columns: ProColumns<any>[] = [
     { title: '权限名称', dataIndex: 'name' },
+    {
+      title: '上级权限名称',
+      dataIndex: ['parent', 'name'],
+      hideInSearch: true,
+      renderText: (text) => text || '无',
+    },
+    {
+      title: '上级权限',
+      dataIndex: 'pid',
+      hideInTable: true,
+      renderFormItem() {
+        return <RightsTreeSelect />;
+      },
+    },
     { title: '创建时间', dataIndex: 'createdAt', hideInSearch: true, width: 180 },
     {
       title: '操作',
@@ -86,7 +101,7 @@ export default () => {
                       await delay(300);
                       hide();
                       if (status !== 200) {
-                        return message.error('删除失败，请重试');
+                        return message.error('删除失败请重试');
                       }
                       message.success('删除成功');
                       await action.reload();
@@ -111,13 +126,16 @@ export default () => {
         onCancel={() => {
           setStateOfCreateModal({ ...stateOfCreateModal, visible: false });
         }}
+        // eslint-disable-next-line consistent-return
         onOk={async (formVals: CreateFormVals) => {
           console.log('formVals', formVals);
 
           setStateOfCreateModal({ ...stateOfCreateModal, confirmLoading: true });
+          const { status } = await create({ ...formVals });
           await delay(300);
-          message.success('创建成功');
           setStateOfCreateModal({ ...stateOfCreateModal, confirmLoading: false, visible: false });
+          if (status !== 200) return message.error('创建失败请重试');
+          message.success('创建成功');
           if (actionRefOfProTable.current) actionRefOfProTable.current.reload();
         }}
       />
@@ -132,9 +150,11 @@ export default () => {
           console.log('formVals', formVals);
 
           setStateOfUpdateModal({ ...stateOfUpdateModal, confirmLoading: true });
+          const { status } = await update(formVals);
           await delay(300);
-          message.success('更新成功');
           setStateOfUpdateModal({ ...stateOfUpdateModal, confirmLoading: false, visible: false });
+          if (status !== 200) return message.error('更新失败请重试');
+          message.success('更新成功');
           if (actionRefOfProTable.current) actionRefOfProTable.current.reload();
         }}
       />

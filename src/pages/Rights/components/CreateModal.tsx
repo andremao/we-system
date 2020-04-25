@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Form, Input } from 'antd';
 import { CreateFormVals } from '../data.d';
+import RightsTreeSelect from './RightsTreeSelect';
 
 interface Props {
   visible: boolean;
@@ -29,6 +30,9 @@ const CreateModal: React.FC<Props> = ({ onOk, ...restProps }) => {
           rules={[{ required: true, message: '请输入权限名称' }]}
         >
           <Input placeholder="请输入" />
+        </Form.Item>
+        <Form.Item label="上级权限" name="pid">
+          <RightsTreeSelect />
         </Form.Item>
       </Form>
     </Modal>
