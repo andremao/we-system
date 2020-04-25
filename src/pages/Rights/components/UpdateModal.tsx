@@ -30,10 +30,6 @@ const UpdateModal: React.FC<Props> = ({ rights, onOk, ...restProps }) => {
       {...restProps}
       onOk={async () => {
         const fields = (await form.validateFields()) as UpdateFormVals;
-        console.log(fields);
-        console.log(form.getFieldsValue(), 'values......');
-        console.log(rights, 'values......');
-
         if (onOk) onOk({ id: rights && rights.id, ...fields });
       }}
       getContainer={false}
