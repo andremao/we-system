@@ -1,40 +1,38 @@
 import { Request, Response } from 'umi';
 
 import mockjs from 'mockjs';
-import { BatchRemoveAPIParams, Role, getListAPIParams } from './data.d';
+import { BatchRemoveAPIParams, TableRecordVO, getListAPIParams } from './data.d';
 
-let roleList = mockjs
-  .mock({
-    'list|100': [
-      {
-        // 'id|+1': 1,
-        id: '@uuid()',
-        title: '@cword(2, 5)',
-        createdAt: Date.now(),
-      },
-    ],
-  })
-  .list.map((v: any) => ({ ...v, id: v.id.toString() })) as Role[];
+let tableRecords = mockjs.mock({
+  'list|100': [
+    {
+      // 'id|+1': 1,
+      id: '@uuid()',
+      name: '@cword(2, 8)',
+      createdAt: '@datetime("yyyy-MM-dd HH:mm:ss")',
+    },
+  ],
+}).list as TableRecordVO[];
 
 export default {
   'GET /api/role': (req: Request, res: Response) => {
     console.log('GET /api/role   query:', req.query);
 
-    const { current, pageSize, title } = (req.query as unknown) as getListAPIParams;
+    const { current, pageSize, name } = (req.query as unknown) as getListAPIParams;
 
     const startIndex = (current - 1) * pageSize;
     const endIndex = startIndex + parseInt(`${pageSize}`, 10);
 
-    let list = [...roleList];
+    let list = [...tableRecords];
 
-    if (title) {
-      list = list.filter((v) => v.title.includes(title));
+    if (name) {
+      list = list.filter((v) => v.name.includes(name));
     }
 
     res.json({
       data: list.slice(startIndex, endIndex),
       total: list.length,
-      success: true,
+      status: 200,
       pageSize,
       current,
     });
@@ -44,7 +42,7 @@ export default {
 
     const { ids } = (req.query as unknown) as BatchRemoveAPIParams;
 
-    roleList = roleList.filter(({ id }) => !ids.includes(id));
+    tableRecords = tableRecords.filter(({ id }) => !ids.includes(id));
 
     res.json({ status: 200 });
   },

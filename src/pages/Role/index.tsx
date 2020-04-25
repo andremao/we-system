@@ -1,51 +1,47 @@
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import React, { useState, useRef } from 'react';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
-import { Divider, Button, Dropdown, Menu, message } from 'antd';
+import { Button, Dropdown, Menu, message } from 'antd';
 import { PlusOutlined, DownOutlined } from '@ant-design/icons';
 import { delay } from '@/utils/utils';
 import { getList, batchRemove } from './service';
 import UpdateModal from './components/UpdateModal';
 import CreateModal from './components/CreateModal';
-import { UpdateFormVals, CreateFormVals, Role, getListAPIParams } from './data.d';
+import { UpdateFormVals, CreateFormVals, TableRecordVO, getListAPIParams } from './data.d';
 
 interface StateOfCreateModal {
   visible: boolean;
-  confirmLoading: boolean;
+  confirmLoading?: boolean;
 }
 
 interface StateOfUpdateModal {
   visible: boolean;
-  confirmLoading: boolean;
-  role: Role | null;
+  confirmLoading?: boolean;
+  role?: TableRecordVO;
 }
 
 export default () => {
   const [stateOfCreateModal, setStateOfCreateModal] = useState<StateOfCreateModal>({
     visible: false,
-    confirmLoading: false,
   });
 
   const [stateOfUpdateModal, setStateOfUpdateModal] = useState<StateOfUpdateModal>({
     visible: false,
-    confirmLoading: false,
-    role: null,
   });
 
   const columns: ProColumns<any>[] = [
-    { title: '名称', dataIndex: 'title' },
+    { title: '角色名称', dataIndex: 'name' },
     {
       title: '创建时间',
       dataIndex: 'createdAt',
-      valueType: 'dateTime',
       hideInSearch: true,
-      width: 200,
+      width: 180,
     },
     {
       title: '操作',
-      width: 200,
+      width: 150,
       valueType: 'option',
-      render: (text, record: Role) => (
+      render: (text, record: TableRecordVO) => (
         <>
           <a
             onClick={() => {
@@ -56,8 +52,6 @@ export default () => {
           >
             编辑
           </a>
-          <Divider type="vertical" />
-          <a onClick={() => {}}>xx操作</a>
         </>
       ),
     },
@@ -67,7 +61,7 @@ export default () => {
 
   return (
     <PageHeaderWrapper>
-      <ProTable<Role>
+      <ProTable<TableRecordVO>
         headerTitle="角色列表"
         actionRef={actionRefOfProTable}
         toolBarRender={(action, { selectedRowKeys }) => [

@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { Modal, Form, Input } from 'antd';
-import { UpdateFormVals, Rights } from '../data.d';
+import { UpdateFormVals, TableRecordVO } from '../data.d';
 
 interface Props {
   visible: boolean;
-  rights: Rights | null;
+  confirmLoading?: boolean;
+  rights?: TableRecordVO;
   onOk?: (formVals: UpdateFormVals) => void;
   onCancel?: () => void;
-  confirmLoading?: boolean;
 }
 
 const UpdateModal: React.FC<Props> = ({ rights, onOk, ...restProps }) => {
@@ -32,7 +32,7 @@ const UpdateModal: React.FC<Props> = ({ rights, onOk, ...restProps }) => {
       <Form form={form} labelCol={{ span: 7 }} wrapperCol={{ span: 13 }}>
         <Form.Item
           label="权限名称"
-          name="title"
+          name="name"
           rules={[{ required: true, message: '请输入权限名称' }]}
         >
           <Input placeholder="请输入" />

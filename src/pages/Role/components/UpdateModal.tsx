@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { Modal, Form, Input } from 'antd';
-import { UpdateFormVals, Role } from '../data.d';
+import { UpdateFormVals, TableRecordVO } from '../data.d';
 
 interface Props {
   visible: boolean;
-  role: Role | null;
+  confirmLoading?: boolean;
+  role?: TableRecordVO;
   onOk?: (formVals: UpdateFormVals) => void;
   onCancel?: () => void;
-  confirmLoading?: boolean;
 }
 
 const UpdateModal: React.FC<Props> = ({ role, onOk, ...restProps }) => {
@@ -32,7 +32,7 @@ const UpdateModal: React.FC<Props> = ({ role, onOk, ...restProps }) => {
       <Form form={form} labelCol={{ span: 7 }} wrapperCol={{ span: 13 }}>
         <Form.Item
           label="角色名称"
-          name="title"
+          name="name"
           rules={[{ required: true, message: '请输入角色名称' }]}
         >
           <Input placeholder="请输入" />

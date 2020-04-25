@@ -1,13 +1,13 @@
-export interface Rights {
+export interface TableRecordVO {
   id: string;
-  title: string;
-  createdAt: number;
+  name: string;
+  createdAt: string;
 }
 
 export interface getListAPIParams {
   current: number;
   pageSize: number;
-  title: string;
+  name: string;
 }
 
 export interface BatchRemoveAPIParams {
@@ -15,9 +15,9 @@ export interface BatchRemoveAPIParams {
 }
 
 export interface CreateFormVals {
-  title: string;
+  name: string;
 }
 
 export interface UpdateFormVals {
-  title: string;
+  name: string;
 }
