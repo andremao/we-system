@@ -41,7 +41,7 @@ export default () => {
     },
     {
       title: '创建时间',
-      dataIndex: 'createdAt',
+      dataIndex: 'created_at',
       hideInSearch: true,
       width: 180,
     },

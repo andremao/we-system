@@ -78,7 +78,7 @@ export default {
       id: params.id,
       name: params.name,
       rights_ids: params.rights_ids.join(','),
-      createdAt: '',
+      created_at: '',
     });
 
     res.json({ status: 200 });

@@ -47,7 +47,7 @@ export default () => {
         return <RightsTreeSelect />;
       },
     },
-    { title: '创建时间', dataIndex: 'createdAt', hideInSearch: true, width: 180 },
+    { title: '创建时间', dataIndex: 'created_at', hideInSearch: true, width: 180 },
     {
       title: '操作',
       width: 150,
