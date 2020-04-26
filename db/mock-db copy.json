@@ -1,0 +1,591 @@
+{
+  "t_role__initialized": true,
+  "t_role": [
+    {
+      "id": "a1fcF6F8-0cfc-17bF-Efba-3cCdADefd5Bd",
+      "name": "超级管理员",
+      "rights_ids": "fB8B53cd-CeAB-71CD-A8b2-Bb4cE78D4Bb9,67FAfeBf-fE3b-1e23-b6D8-8bf9bEca4421,C8aD369b-115C-11fE-72B9-e9e1aaeF1Ac5,C69e58C2-B9A7-EF31-81Fe-fBE8Bf2FcfCc,49a8164e-3bE2-cedB-262F-D6bC59Ed5d8F,1Dfbf68c-e466-29c6-f84d-49b129f3BcEb,27b5254B-9003-D1D8-F590-F899F74496d7",
+      "created_at": "1987-07-05 04:27:41"
+    },
+    {
+      "id": "06b9d55d-fF88-2dFa-5141-c558f1EAee5E",
+      "name": "构称置办与般好号",
+      "rights_ids": "",
+      "created_at": "1972-08-17 15:52:30"
+    },
+    {
+      "id": "EF4814b3-8f5f-FbCa-eaCf-639C22fbD7Df",
+      "name": "体条商电者与向感",
+      "rights_ids": "",
+      "created_at": "1973-10-16 04:56:11"
+    },
+    {
+      "id": "47cbe8a8-CFd6-e5e2-30EC-f3E55614281d",
+      "name": "美始压般",
+      "rights_ids": "",
+      "created_at": "1979-05-02 00:04:19"
+    },
+    {
+      "id": "648C4cbc-B85F-dFfd-cc7A-F7b6e6d7dDBe",
+      "name": "处世容此精",
+      "rights_ids": "",
+      "created_at": "2017-08-02 19:49:58"
+    },
+    {
+      "id": "3d3DEaF1-dfE8-6Deb-f1c1-Ef21259CDbeb",
+      "name": "受做立各包过只",
+      "rights_ids": "",
+      "created_at": "1990-11-24 11:06:02"
+    },
+    {
+      "id": "7b4E4Fb8-E852-Ad41-e420-4485cBeAe28C",
+      "name": "然新自性写",
+      "rights_ids": "",
+      "created_at": "1993-05-20 04:51:58"
+    },
+    {
+      "id": "E8160c43-D38C-2DF7-F6bC-9B1Ed85CA8Be",
+      "name": "常更人",
+      "rights_ids": "",
+      "created_at": "1999-08-22 21:28:49"
+    },
+    {
+      "id": "F42ef3F7-3BD1-5E8d-29EF-fbfdA0dC43fb",
+      "name": "斯如月西府温",
+      "rights_ids": "",
+      "created_at": "2009-01-13 20:58:30"
+    },
+    {
+      "id": "DedBaa53-4BC4-aed7-E6e1-C13a1AD4aBB1",
+      "name": "原文即府角果",
+      "rights_ids": "",
+      "created_at": "1974-09-26 21:30:53"
+    },
+    {
+      "id": "Cf7CfDf2-B7C9-E5bA-2Ece-2b89Af523c61",
+      "name": "普通用户",
+      "rights_ids": "5E27BB86-bbBf-7A11-A55F-BEe8c5D61911,E62eADae-B205-DA35-D2eb-af9A8EDf35cb",
+      "created_at": "2020-04-26 15:18:14"
+    }
+  ],
+  "t_rights__initialized": true,
+  "t_rights": [
+    {
+      "id": "fB8B53cd-CeAB-71CD-A8b2-Bb4cE78D4Bb9",
+      "name": "政开机",
+      "pid": "",
+      "created_at": "2018-04-26 16:47:35"
+    },
+    {
+      "id": "C52fADEc-EAc3-Ef7f-cAfF-be752Fa50Dbb",
+      "name": "列她许长和式",
+      "pid": "",
+      "created_at": "1988-01-26 14:23:46"
+    },
+    {
+      "id": "c8CA60A8-3Fc8-2302-c3c7-DA48d1B328a9",
+      "name": "民别采快入式离",
+      "pid": "",
+      "created_at": "1987-12-09 23:08:06"
+    },
+    {
+      "id": "8A1c6D7c-aB74-CF8E-57b4-dA12B3C556f5",
+      "name": "军严",
+      "pid": "",
+      "created_at": "2020-03-21 04:11:52"
+    },
+    {
+      "id": "3d8690bE-0ecC-A61a-1Edf-3dC36bdBF8FD",
+      "name": "厂持等",
+      "pid": "",
+      "created_at": "1979-12-03 02:08:32"
+    },
+    {
+      "id": "5E27BB86-bbBf-7A11-A55F-BEe8c5D61911",
+      "name": "已年南从增学根",
+      "pid": "C52fADEc-EAc3-Ef7f-cAfF-be752Fa50Dbb",
+      "created_at": "1988-02-02 05:07:12"
+    },
+    {
+      "id": "E3240a57-4bcE-A2a4-b5ec-f2AFcC35C68b",
+      "name": "都受极加形",
+      "pid": "c8CA60A8-3Fc8-2302-c3c7-DA48d1B328a9",
+      "created_at": "1993-04-14 13:51:43"
+    },
+    {
+      "id": "d7B61871-A4BF-FF5d-1b95-14cDc7Cf5eec",
+      "name": "说指列打且",
+      "pid": "C52fADEc-EAc3-Ef7f-cAfF-be752Fa50Dbb",
+      "created_at": "1998-07-23 21:22:46"
+    },
+    {
+      "id": "9bb6C2fD-cBbA-1CFC-32CA-9dCBfbb8BBA3",
+      "name": "员得指多斗",
+      "pid": "3d8690bE-0ecC-A61a-1Edf-3dC36bdBF8FD",
+      "created_at": "1972-11-02 16:18:57"
+    },
+    {
+      "id": "4745Ef43-BeCA-49bc-FDAb-A1eDA27f9fae",
+      "name": "又比点则段果低位",
+      "pid": "C52fADEc-EAc3-Ef7f-cAfF-be752Fa50Dbb",
+      "created_at": "1987-05-20 07:38:43"
+    },
+    {
+      "id": "E62eADae-B205-DA35-D2eb-af9A8EDf35cb",
+      "name": "越本叫",
+      "pid": "C52fADEc-EAc3-Ef7f-cAfF-be752Fa50Dbb",
+      "created_at": "1991-05-14 07:42:57"
+    },
+    {
+      "id": "5c8b75C8-DcBa-f575-E1b7-3EBcbe83cE48",
+      "name": "定常油有",
+      "pid": "8A1c6D7c-aB74-CF8E-57b4-dA12B3C556f5",
+      "created_at": "2013-09-09 17:33:22"
+    },
+    {
+      "id": "67FAfeBf-fE3b-1e23-b6D8-8bf9bEca4421",
+      "name": "与知元青",
+      "pid": "fB8B53cd-CeAB-71CD-A8b2-Bb4cE78D4Bb9",
+      "created_at": "2018-01-31 10:28:25"
+    },
+    {
+      "id": "5e6B69E3-FA26-b70D-bDB2-895FF9F2c7ec",
+      "name": "再位生半",
+      "pid": "8A1c6D7c-aB74-CF8E-57b4-dA12B3C556f5",
+      "created_at": "2005-06-29 02:59:18"
+    },
+    {
+      "id": "C8aD369b-115C-11fE-72B9-e9e1aaeF1Ac5",
+      "name": "取然果色认",
+      "pid": "fB8B53cd-CeAB-71CD-A8b2-Bb4cE78D4Bb9",
+      "created_at": "2001-03-14 13:42:40"
+    },
+    {
+      "id": "CBDdD15C-4FD7-19d2-B2Be-FE7B9dCd670D",
+      "name": "公基报其",
+      "pid": "4745Ef43-BeCA-49bc-FDAb-A1eDA27f9fae",
+      "created_at": "2016-07-16 05:21:02"
+    },
+    {
+      "id": "bfD5b219-1DCc-dE18-6c93-2C9Ffe92055A",
+      "name": "别收也族进原大",
+      "pid": "5c8b75C8-DcBa-f575-E1b7-3EBcbe83cE48",
+      "created_at": "2008-11-19 06:43:02"
+    },
+    {
+      "id": "C981C776-c638-f8D2-5322-B71c9bd832Bc",
+      "name": "完往质约联统多南",
+      "pid": "E3240a57-4bcE-A2a4-b5ec-f2AFcC35C68b",
+      "created_at": "2001-12-20 03:39:40"
+    },
+    {
+      "id": "C69e58C2-B9A7-EF31-81Fe-fBE8Bf2FcfCc",
+      "name": "争算活区期连",
+      "pid": "67FAfeBf-fE3b-1e23-b6D8-8bf9bEca4421",
+      "created_at": "1991-09-08 13:58:50"
+    },
+    {
+      "id": "a9f1def4-82e8-4bAd-F355-9F78b57D3eF4",
+      "name": "运众例四去争",
+      "pid": "5c8b75C8-DcBa-f575-E1b7-3EBcbe83cE48",
+      "created_at": "1990-05-25 01:39:23"
+    },
+    {
+      "id": "27b5254B-9003-D1D8-F590-F899F74496d7",
+      "name": "六特现",
+      "pid": "C8aD369b-115C-11fE-72B9-e9e1aaeF1Ac5",
+      "created_at": "1997-09-25 03:06:20"
+    },
+    {
+      "id": "49a8164e-3bE2-cedB-262F-D6bC59Ed5d8F",
+      "name": "正里备近置约研专",
+      "pid": "67FAfeBf-fE3b-1e23-b6D8-8bf9bEca4421",
+      "created_at": "1997-07-29 22:20:28"
+    },
+    {
+      "id": "E37cF41A-3b3b-A36A-36ab-FE8c9b5eBddC",
+      "name": "何十",
+      "pid": "5c8b75C8-DcBa-f575-E1b7-3EBcbe83cE48",
+      "created_at": "2001-02-03 23:06:42"
+    },
+    {
+      "id": "178Cd179-Cdb8-Bccd-7849-A5AAAEB74D69",
+      "name": "写矿难给式物",
+      "pid": "5e6B69E3-FA26-b70D-bDB2-895FF9F2c7ec",
+      "created_at": "2009-07-01 13:29:12"
+    },
+    {
+      "id": "b4bEBbE1-34Be-664E-ABCf-50C9CfeafD3F",
+      "name": "们情济写军利容",
+      "pid": "d7B61871-A4BF-FF5d-1b95-14cDc7Cf5eec",
+      "created_at": "1972-02-20 01:19:25"
+    },
+    {
+      "id": "ec2Bb1A1-96eA-CE2b-5B98-DF3c97CEBeaf",
+      "name": "过主路",
+      "pid": "d7B61871-A4BF-FF5d-1b95-14cDc7Cf5eec",
+      "created_at": "1983-01-16 16:51:52"
+    },
+    {
+      "id": "6AEE053b-c6aF-Ef22-1c1e-bDDD0bd0F3f5",
+      "name": "今世进布且题年",
+      "pid": "d7B61871-A4BF-FF5d-1b95-14cDc7Cf5eec",
+      "created_at": "1995-04-20 05:39:17"
+    },
+    {
+      "id": "AaAEF78d-46d9-b1ef-Ef8b-B5BEdA16d3DA",
+      "name": "必小电转事",
+      "pid": "4745Ef43-BeCA-49bc-FDAb-A1eDA27f9fae",
+      "created_at": "1987-04-09 10:30:07"
+    },
+    {
+      "id": "FA7fA344-bFc8-652C-Cdb1-139a918145A1",
+      "name": "接实特即老信般",
+      "pid": "4745Ef43-BeCA-49bc-FDAb-A1eDA27f9fae",
+      "created_at": "2017-02-15 23:45:25"
+    },
+    {
+      "id": "4ABDfcAb-8a4c-4337-C044-e7Be47b2bf13",
+      "name": "斯今合单",
+      "pid": "4745Ef43-BeCA-49bc-FDAb-A1eDA27f9fae",
+      "created_at": "1993-05-06 04:12:04"
+    },
+    {
+      "id": "ADe0FED8-DAbd-CbDc-92D9-DDf8bEda3cEC",
+      "name": "入选打参表用难",
+      "pid": "5e6B69E3-FA26-b70D-bDB2-895FF9F2c7ec",
+      "created_at": "2013-07-27 18:41:31"
+    },
+    {
+      "id": "4adE6E23-180e-3A89-6E7f-cFFBc3BAE4C6",
+      "name": "理单育持约",
+      "pid": "5c8b75C8-DcBa-f575-E1b7-3EBcbe83cE48",
+      "created_at": "1971-04-22 02:46:11"
+    },
+    {
+      "id": "D4d2dB89-Bf77-911A-582e-2c3cAF7CDce0",
+      "name": "队名层且团去",
+      "pid": "E3240a57-4bcE-A2a4-b5ec-f2AFcC35C68b",
+      "created_at": "2009-11-07 22:37:47"
+    },
+    {
+      "id": "EcbF46c9-CfAf-f76d-F2Dc-98FD3cfAe5eA",
+      "name": "二式酸",
+      "pid": "4745Ef43-BeCA-49bc-FDAb-A1eDA27f9fae",
+      "created_at": "2014-03-16 12:34:22"
+    },
+    {
+      "id": "1Dfbf68c-e466-29c6-f84d-49b129f3BcEb",
+      "name": "量节行放你",
+      "pid": "67FAfeBf-fE3b-1e23-b6D8-8bf9bEca4421",
+      "created_at": "1992-04-19 15:50:42"
+    }
+  ],
+  "t_department__initialized": true,
+  "t_department": [
+    {
+      "id": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "name": "传智播客",
+      "manager_id": "",
+      "pid": "",
+      "description": "业经机率员方",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "Cd1cEf3a-Aefd-C186-B71b-9FBE1802ae8C",
+      "name": "总部",
+      "manager_id": "",
+      "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "description": "位劳细那及",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "3Db0b32D-9dEf-f59e-93f3-C1BcEdD72ED6",
+      "name": "北京顺义校区",
+      "manager_id": "",
+      "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "description": "重七认东红",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "6867c4AB-a7Dc-C946-B9f9-8B996cfBFCba",
+      "name": "北京昌平校区",
+      "manager_id": "",
+      "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "description": "广共级完因",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "7edCA123-5C92-f4B2-c14D-9CAAEBfc3C4F",
+      "name": "广州校区",
+      "manager_id": "",
+      "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "description": "头片达",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "FACDe76f-aD15-79CB-8b21-bFbBb76AE3a8",
+      "name": "上海校区",
+      "manager_id": "",
+      "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "description": "习前构身技",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "594F575B-E8Dc-9ddD-F1D1-c5E46BFe70C9",
+      "name": "武汉校区",
+      "manager_id": "",
+      "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "description": "拉识元高消称",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "17a1ad7A-bdee-AC7f-9f73-DA5D16D05dBB",
+      "name": "深圳校区",
+      "manager_id": "",
+      "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "description": "指周带",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "cd442abF-235f-421B-B4F7-5FcB72c29715",
+      "name": "郑州校区",
+      "manager_id": "",
+      "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "description": "到理电好",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "8D5f6Acb-b8Ae-82ce-DFa9-bB1135A3BDbC",
+      "name": "西安校区",
+      "manager_id": "",
+      "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "description": "建更术县观断",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "e9C1e0Dc-F4D9-85E3-89bB-b26DfEA8E8dA",
+      "name": "西安校区",
+      "manager_id": "",
+      "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "description": "全类圆",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "b32dFb9B-bad9-EcDD-25bB-fC4Ae5D7e8c2",
+      "name": "哈尔滨校区",
+      "manager_id": "",
+      "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "description": "马素之称自王南",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "F5E37dce-0D63-B6f5-7CbD-c85aCABf733C",
+      "name": "长沙校区",
+      "manager_id": "",
+      "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "description": "把争说候满",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "Bb68F9c1-17Ec-1F13-4ED3-d347dD1B47be",
+      "name": "长沙校区JavaEE教研部",
+      "manager_id": "",
+      "pid": "F5E37dce-0D63-B6f5-7CbD-c85aCABf733C",
+      "description": "火引平天六",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "7Dfc1b7b-671E-ceC8-DA4A-c245CAFC6347",
+      "name": "长沙校区前端与移动开发教研部",
+      "manager_id": "",
+      "pid": "F5E37dce-0D63-B6f5-7CbD-c85aCABf733C",
+      "description": "名名铁成",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "d0AA73d8-Cbdb-864d-1Dec-9525Cdf4db69",
+      "name": "长沙校区Python教研部",
+      "manager_id": "",
+      "pid": "F5E37dce-0D63-B6f5-7CbD-c85aCABf733C",
+      "description": "很海真常层住",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "dE1D8cCd-55fc-2eb2-cF73-8ca47e287BA7",
+      "name": "长沙校区UI UE+全栈设计教研部",
+      "manager_id": "",
+      "pid": "F5E37dce-0D63-B6f5-7CbD-c85aCABf733C",
+      "description": "反认要里",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "2AFfCb5b-0B9C-9e8a-2f6f-50d2B7AbEa2E",
+      "name": "长沙校区校办",
+      "manager_id": "",
+      "pid": "F5E37dce-0D63-B6f5-7CbD-c85aCABf733C",
+      "description": "证今都西你",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "1B825cb6-7Bfa-bFBd-E648-Cf661DfB48Dc",
+      "name": "长沙校区财务部",
+      "manager_id": "",
+      "pid": "F5E37dce-0D63-B6f5-7CbD-c85aCABf733C",
+      "description": "属任际基维委",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "41D86dFf-485e-f581-e2BD-efaF88Cf6F5c",
+      "name": "长沙校区人事行政部",
+      "manager_id": "",
+      "pid": "F5E37dce-0D63-B6f5-7CbD-c85aCABf733C",
+      "description": "求的复才省",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "b2d17464-18BE-5DE7-Ead0-eEFBa6A0A2cd",
+      "name": "长沙校区学工部",
+      "manager_id": "",
+      "pid": "F5E37dce-0D63-B6f5-7CbD-c85aCABf733C",
+      "description": "线常标个",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "113A5b60-ceaD-664f-d6C8-c9f21AA0a5dd",
+      "name": "长沙校区就业服务部",
+      "manager_id": "",
+      "pid": "F5E37dce-0D63-B6f5-7CbD-c85aCABf733C",
+      "description": "持用她感",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "ceC66c6E-aD37-De7C-1A35-5A634Aece81f",
+      "name": "长沙校区网络营销部",
+      "manager_id": "",
+      "pid": "F5E37dce-0D63-B6f5-7CbD-c85aCABf733C",
+      "description": "空军置命院利",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "3ADfC194-62fb-b224-7bD1-9B246B2BEee1",
+      "name": "长沙校区院校合作部",
+      "manager_id": "",
+      "pid": "F5E37dce-0D63-B6f5-7CbD-c85aCABf733C",
+      "description": "识己界光问区类",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "4cCA8669-DB0d-0A90-CDf3-8f3D1F34bCEe",
+      "name": "长沙校区咨询部",
+      "manager_id": "",
+      "pid": "F5E37dce-0D63-B6f5-7CbD-c85aCABf733C",
+      "description": "品派收深并维育",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "aC694c1f-3DD8-0cB5-8FD2-C65163bB920a",
+      "name": "济南校区",
+      "manager_id": "",
+      "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "description": "周社千委江",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "Ad8DD1A8-4764-FA63-14DB-c1f0D3629E93",
+      "name": "重庆校区",
+      "manager_id": "",
+      "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "description": "今我手要",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "D417B4ee-27D3-6edB-99dc-4895992Ff148",
+      "name": "南京校区",
+      "manager_id": "",
+      "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "description": "时观酸与连",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "267F3fCC-f150-1dbf-dd1e-C30faf1fD6D7",
+      "name": "杭州校区",
+      "manager_id": "",
+      "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "description": "质军业看格他消",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "dEaA8A9E-f0Ed-2AC7-9F40-B4dD28796CB3",
+      "name": "成都校区",
+      "manager_id": "",
+      "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "description": "适此影们须只",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "A49Ddf3C-d371-127f-1564-61FD571adAf2",
+      "name": "石家庄校区",
+      "manager_id": "",
+      "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "description": "王合三",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "cFB9e689-6Dff-f0AE-Ebc5-86A03db73E65",
+      "name": "太原校区",
+      "manager_id": "",
+      "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "description": "象种发达除精百",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "88fb6be8-E870-ea12-59bb-D864b9A9Ab4b",
+      "name": "合肥校区",
+      "manager_id": "",
+      "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "description": "效支事存理",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "eef6a69A-37Ec-883E-e5Ce-BADCf7aaDd26",
+      "name": "沐阳校区",
+      "manager_id": "",
+      "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "description": "为一别术形把",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "bD652CD3-95a4-F755-0989-90bdcF4fb2a4",
+      "name": "厦门校区",
+      "manager_id": "",
+      "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "description": "约多下研劳维",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "944C6ECE-FaEC-E484-Ce43-1B5ECb9cbA28",
+      "name": "沈阳校区",
+      "manager_id": "",
+      "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "description": "利容合料济科",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "98b125Eb-fDd5-7A57-8FC5-1D798376eebd",
+      "name": "天津校区",
+      "manager_id": "",
+      "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "description": "却门实书员",
+      "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "fAd42f6C-B4b7-5DC5-fc73-cdC6d32FB664",
+      "name": "员工服务",
+      "manager_id": "",
+      "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "description": "间接广求里",
+      "created_at": "2020-04-26 17:39:24"
+    }
+  ]
+}

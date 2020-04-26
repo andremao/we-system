@@ -9,6 +9,26 @@ import mockjs from 'mockjs';
 const mockdb = low(new FileSync('db/mock-db.json'));
 
 /**
+ * 权限表
+ */
+export interface T_Rights {
+  id: string;
+  name: string;
+  pid: string;
+  created_at: string;
+}
+
+/**
+ * 角色表
+ */
+export interface T_Role {
+  id: string;
+  name: string;
+  rights_ids: string; // 多个用,分隔
+  created_at: string;
+}
+
+/**
  * 部门表
  */
 export interface T_Department {
@@ -35,45 +55,34 @@ export interface T_Member {
   created_at: string;
 }
 
-/**
- * 角色表
- */
-export interface T_Role {
-  id: string;
-  name: string;
-  rights_ids: string; // 多个用,分隔
-  created_at: string;
-}
-
-/**
- * 权限表
- */
-export interface T_Rights {
-  id: string;
-  name: string;
-  pid: string;
-  created_at: string;
-}
-
 const keys = {
   tables: {
+    rights: 't_rights',
+    rights__initialized: 't_rights__initialized',
+    role: 't_role',
+    role__initialized: 't_role__initialized',
     department: 't_department',
     department__initialized: 't_department__initialized',
     member: 't_member',
     member__initialized: 't_member__initialized',
-    role: 't_role',
-    role__initialized: 't_role__initialized',
-    rights: 't_rights',
-    rights__initialized: 't_rights__initialized',
   },
 };
 
 export const collections = {
-  department: {
-    getAllList(): T_Department[] {
-      return _.cloneDeep(mockdb.get(keys.tables.department).value());
+  /**
+   * 权限
+   */
+  rights: {
+    getAllList(): T_Rights[] {
+      return _.cloneDeep(mockdb.get(keys.tables.rights).value());
+    },
+    setAllList(list: T_Rights[]): void {
+      mockdb.set(keys.tables.rights, list).write();
     },
   },
+  /**
+   * 角色
+   */
   role: {
     getAllList(): T_Role[] {
       return _.cloneDeep(mockdb.get(keys.tables.role).value());
@@ -101,19 +110,107 @@ export const collections = {
       mockdb.get(keys.tables.role).find({ id }).assign(rest).write();
     },
   },
-  rights: {
-    getAllList(): T_Rights[] {
-      return _.cloneDeep(mockdb.get(keys.tables.rights).value());
+  /**
+   * 部门
+   */
+  department: {
+    getAllList(): T_Department[] {
+      return _.cloneDeep(mockdb.get(keys.tables.department).value());
     },
-    setAllList(list: T_Rights[]): void {
-      mockdb.set(keys.tables.rights, list).write();
+  },
+  /**
+   * 成员
+   */
+  member: {
+    getAllList(): T_Member[] {
+      return _.cloneDeep(mockdb.get(keys.tables.member).value());
     },
   },
 };
 
-// 初始化集合自执行函数
+// 扩展mockjs模板占位符
 (() => {
-  // 部门集合
+  mockjs.Random.extend({
+    role_ids(min: number, max: number) {
+      if (mockdb.get(keys.tables.role__initialized).value()) {
+        return _.sampleSize(mockdb.get(keys.tables.role).value(), _.random(min, max))
+          .map((v) => v.id)
+          .join(',');
+      }
+      return '';
+    },
+    department_id() {
+      if (mockdb.get(keys.tables.department__initialized).value()) {
+        const departments = mockdb.get(keys.tables.department).value();
+        if (departments.length) {
+          return _.sampleSize(departments, 1)[0].id;
+        }
+      }
+      return '';
+    },
+  });
+})();
+// /扩展mockjs模板占位符
+
+// 初始化集合数据自执行函数
+(() => {
+  // 权限
+  if (!mockdb.get(keys.tables.rights__initialized).value()) {
+    const { list1 } = mockjs.mock({
+      'list1|5': [
+        {
+          id: '@GUID()',
+          name: '@CWORD(2,8)',
+          pid: '',
+          created_at: '@DATETIME("yyyy-MM-dd HH:mm:ss")',
+        },
+      ],
+    });
+    const { list2 } = mockjs.mock({
+      'list2|10': [
+        {
+          id: '@GUID()',
+          name: '@CWORD(2,8)',
+          'pid|1': list1.map((v: any) => v.id),
+          created_at: '@DATETIME("yyyy-MM-dd HH:mm:ss")',
+        },
+      ],
+    });
+    const { list3 } = mockjs.mock({
+      'list3|20': [
+        {
+          id: '@GUID()',
+          name: '@CWORD(2,8)',
+          'pid|1': list2.map((v: any) => v.id),
+          created_at: '@DATETIME("yyyy-MM-dd HH:mm:ss")',
+        },
+      ],
+    });
+
+    mockdb
+      .set(keys.tables.rights__initialized, true)
+      .set(keys.tables.rights, [...list1, ...list2, ...list3])
+      .write();
+  }
+  // /权限
+
+  // 角色
+  if (!mockdb.get(keys.tables.role__initialized).value()) {
+    const { list } = mockjs.mock({
+      'list|10': [
+        {
+          id: '@GUID()',
+          name: '@CWORD(2,8)',
+          rights_ids: '', // 多个用,分隔
+          created_at: '@DATETIME("yyyy-MM-dd HH:mm:ss")',
+        },
+      ],
+    });
+    mockdb.set(keys.tables.role__initialized, true).set(keys.tables.role, list).write();
+  }
+  // /角色
+
+  // 部门
   if (!mockdb.get(keys.tables.department__initialized).value()) {
     const names = [
       '传智播客',
@@ -174,66 +271,31 @@ export const collections = {
 
     mockdb.set(keys.tables.department__initialized, true).set(keys.tables.department, ary).write();
   }
-  // /部门集合
+  // /部门
 
-  // 成员集合
+  // 成员
   if (!mockdb.get(keys.tables.member__initialized).value()) {
-  }
-  // /成员集合
-
-  // 角色集合
-  if (!mockdb.get(keys.tables.role__initialized).value()) {
     const { list } = mockjs.mock({
-      'list|10': [
+      'list|100': [
         {
           id: '@GUID()',
-          name: '@CWORD(2,8)',
-          rights_ids: '', // 多个用,分隔
-          created_at: '@DATETIME("yyyy-MM-dd HH:mm:ss")',
-        },
-      ],
-    });
-    mockdb.set(keys.tables.role__initialized, true).set(keys.tables.role, list).write();
-  }
-  // /角色集合
-
-  // 权限集合
-  if (!mockdb.get(keys.tables.rights__initialized).value()) {
-    const { list1 } = mockjs.mock({
-      'list1|5': [
-        {
-          id: '@GUID()',
-          name: '@CWORD(2,8)',
-          pid: '',
-          created_at: '@DATETIME("yyyy-MM-dd HH:mm:ss")',
-        },
-      ],
-    });
-    const { list2 } = mockjs.mock({
-      'list2|10': [
-        {
-          id: '@GUID()',
-          name: '@CWORD(2,8)',
-          'pid|1': list1.map((v: any) => v.id),
-          created_at: '@DATETIME("yyyy-MM-dd HH:mm:ss")',
-        },
-      ],
-    });
-    const { list3 } = mockjs.mock({
-      'list3|20': [
-        {
-          id: '@GUID()',
-          name: '@CWORD(2,8)',
-          'pid|1': list2.map((v: any) => v.id),
-          created_at: '@DATETIME("yyyy-MM-dd HH:mm:ss")',
+          name: '@CNAME()',
+          department_id: '@DEPARTMENT_ID()',
+          position: '@CWORD(2,8)',
+          role_ids: '@ROLE_IDS(0,3)', // 多个用,分隔
+          'job_number|+1': 80000,
+          mobile: /^1[356789]\d{9}$/,
+          email: '@EMAIL()',
+          created_at: '@NOW()',
         },
       ],
     });
 
-    mockdb
-      .set(keys.tables.rights__initialized, true)
-      .set(keys.tables.rights, [...list1, ...list2, ...list3])
-      .write();
+    list.forEach((v: any) => {
+      v.job_number += '';
+    });
+
+    mockdb.set(keys.tables.member__initialized, true).set(keys.tables.member, list).write();
   }
-  // /权限集合
+  // /成员
 })();

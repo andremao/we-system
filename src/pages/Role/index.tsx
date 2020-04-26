@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 import { delay } from '@/utils/utils';
-import { DownOutlined, PlusOutlined } from '@ant-design/icons';
+import { DownOutlined, PlusOutlined, EditOutlined } from '@ant-design/icons';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ActionType, ProColumns } from '@ant-design/pro-table';
 import { Button, Dropdown, Menu, message } from 'antd';
@@ -8,7 +8,7 @@ import React, { useRef, useState } from 'react';
 import CreateModal from './components/CreateModal';
 import UpdateModal from './components/UpdateModal';
 import { CreateFormVals, getListAPIParams, TableRecordVO, UpdateFormVals } from './data.d';
-import { batchRemove, getList, update, create } from './service';
+import { batchRemove, create, getList, update } from './service';
 
 interface StateOfCreateModal {
   visible: boolean;
@@ -34,9 +34,9 @@ export default () => {
     { title: '角色名称', dataIndex: 'name' },
     {
       title: '权限列表',
-      render(_, record) {
-        if (!record.rightsList.length) return '无';
-        return record.rightsList.map((v) => v.name).join(',');
+      renderText(_, { rightsList }) {
+        if (!rightsList.length) return '无';
+        return rightsList.map((v) => v.name).join(',');
       },
     },
     {
@@ -47,7 +47,8 @@ export default () => {
     },
     {
       title: '操作',
-      width: 150,
+      width: 100,
+      align: 'center',
       valueType: 'option',
       render: (text, record: TableRecordVO) => (
         <>
@@ -58,7 +59,8 @@ export default () => {
               setStateOfUpdateModal({ ...stateOfUpdateModal, role: record, visible: true });
             }}
           >
-            编辑
+            <EditOutlined />
+            &nbsp; 编辑
           </a>
         </>
       ),

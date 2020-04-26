@@ -76,6 +76,12 @@ export default defineConfig({
               component: './Member',
             },
             {
+              name: 'member',
+              icon: 'team',
+              path: '/member2',
+              component: './Member2',
+            },
+            {
               name: 'role',
               icon: 'user-switch',
               path: '/role',
