@@ -1,11 +1,11 @@
-import { Tooltip, Tag } from 'antd';
-import { QuestionCircleOutlined } from '@ant-design/icons';
+import { ConnectState } from '@/models/connect';
+import { GithubOutlined } from '@ant-design/icons';
+import { Tag, Tooltip } from 'antd';
 import React from 'react';
 import { connect, ConnectProps } from 'umi';
-import { ConnectState } from '@/models/connect';
-import Avatar from './AvatarDropdown';
 import HeaderSearch from '../HeaderSearch';
 import SelectLang from '../SelectLang';
+import Avatar from './AvatarDropdown';
 import styles from './index.less';
 
 export type SiderTheme = 'light' | 'dark';
@@ -53,17 +53,17 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = (props) => {
         //   //console.log('input', value);
         // }}
       />
-      <Tooltip title="使用文档">
+      <Tooltip title="GitHub">
         <a
           target="_blank"
-          href="https://pro.ant.design/docs/getting-started"
+          href="https://github.com/andremao/we-system"
           rel="noopener noreferrer"
           className={styles.action}
         >
-          <QuestionCircleOutlined />
+          <GithubOutlined />
         </a>
       </Tooltip>
-      <Avatar />
+      <Avatar menu />
       {REACT_APP_ENV && (
         <span>
           <Tag color={ENVTagColor[REACT_APP_ENV]}>{REACT_APP_ENV}</Tag>
