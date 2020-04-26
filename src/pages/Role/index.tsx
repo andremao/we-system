@@ -1,13 +1,14 @@
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import React, { useState, useRef } from 'react';
-import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
-import { Button, Dropdown, Menu, message } from 'antd';
-import { PlusOutlined, DownOutlined } from '@ant-design/icons';
+/* eslint-disable consistent-return */
 import { delay } from '@/utils/utils';
-import { getList, batchRemove } from './service';
-import UpdateModal from './components/UpdateModal';
+import { DownOutlined, PlusOutlined } from '@ant-design/icons';
+import { PageHeaderWrapper } from '@ant-design/pro-layout';
+import ProTable, { ActionType, ProColumns } from '@ant-design/pro-table';
+import { Button, Dropdown, Menu, message } from 'antd';
+import React, { useRef, useState } from 'react';
 import CreateModal from './components/CreateModal';
-import { UpdateFormVals, CreateFormVals, TableRecordVO, getListAPIParams } from './data.d';
+import UpdateModal from './components/UpdateModal';
+import { CreateFormVals, getListAPIParams, TableRecordVO, UpdateFormVals } from './data.d';
+import { batchRemove, getList, update, create } from './service';
 
 interface StateOfCreateModal {
   visible: boolean;
@@ -29,8 +30,15 @@ export default () => {
     visible: false,
   });
 
-  const columns: ProColumns<any>[] = [
+  const columns: ProColumns<TableRecordVO>[] = [
     { title: '角色名称', dataIndex: 'name' },
+    {
+      title: '权限列表',
+      render(_, record) {
+        if (!record.rightsList.length) return '无';
+        return record.rightsList.map((v) => v.name).join(',');
+      },
+    },
     {
       title: '创建时间',
       dataIndex: 'createdAt',
@@ -120,8 +128,12 @@ export default () => {
           console.log('formVals', formVals);
 
           setStateOfCreateModal({ ...stateOfCreateModal, confirmLoading: true });
+          const { status, data: role } = await create(formVals);
+          console.log(role, 'created role');
+
           await delay(300);
-          message.success('创建成功');
+          if (status !== 200) message.error('创建失败请重试');
+          else message.success('创建成功');
           setStateOfCreateModal({ ...stateOfCreateModal, confirmLoading: false, visible: false });
           if (actionRefOfProTable.current) actionRefOfProTable.current.reload();
         }}
@@ -137,9 +149,11 @@ export default () => {
           console.log('formVals', formVals);
 
           setStateOfUpdateModal({ ...stateOfUpdateModal, confirmLoading: true });
+          const { status } = await update(formVals);
           await delay(300);
-          message.success('更新成功');
-          setStateOfUpdateModal({ ...stateOfUpdateModal, confirmLoading: false, visible: false });
+          if (status !== 200) message.error('更新失败请重试');
+          else message.success('更新成功');
+          setStateOfUpdateModal({ confirmLoading: false, visible: false });
           if (actionRefOfProTable.current) actionRefOfProTable.current.reload();
         }}
       />

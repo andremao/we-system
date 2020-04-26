@@ -1,6 +1,7 @@
+import RightsTreeSelect from '@/pages/Rights/components/RightsTreeSelect';
+import { Form, Input, Modal } from 'antd';
 import React, { useEffect } from 'react';
-import { Modal, Form, Input } from 'antd';
-import { UpdateFormVals, TableRecordVO } from '../data.d';
+import { TableRecordVO, UpdateFormVals } from '../data.d';
 
 interface Props {
   visible: boolean;
@@ -15,7 +16,11 @@ const UpdateModal: React.FC<Props> = ({ role, onOk, ...restProps }) => {
 
   useEffect(() => {
     if (role) {
-      form.setFieldsValue(role);
+      form.setFieldsValue({
+        id: role.id,
+        name: role.name,
+        rights_ids: role.rightsList.map((v) => v.id),
+      });
     }
   }, [role]);
 
@@ -30,12 +35,18 @@ const UpdateModal: React.FC<Props> = ({ role, onOk, ...restProps }) => {
       getContainer={false}
     >
       <Form form={form} labelCol={{ span: 7 }} wrapperCol={{ span: 13 }}>
+        <Form.Item name="id" noStyle>
+          <Input type="hidden" />
+        </Form.Item>
         <Form.Item
           label="角色名称"
           name="name"
           rules={[{ required: true, message: '请输入角色名称' }]}
         >
           <Input placeholder="请输入" />
+        </Form.Item>
+        <Form.Item label="分配权限" name="rights_ids">
+          <RightsTreeSelect treeCheckable />
         </Form.Item>
       </Form>
     </Modal>

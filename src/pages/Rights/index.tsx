@@ -1,14 +1,15 @@
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import React, { useState, useRef } from 'react';
-import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
-import { Button, Dropdown, Menu, message } from 'antd';
-import { PlusOutlined, DownOutlined } from '@ant-design/icons';
+/* eslint-disable consistent-return */
 import { delay } from '@/utils/utils';
-import { getList, batchRemove, create, update } from './service';
-import UpdateModal from './components/UpdateModal';
+import { DownOutlined, PlusOutlined } from '@ant-design/icons';
+import { PageHeaderWrapper } from '@ant-design/pro-layout';
+import ProTable, { ActionType, ProColumns } from '@ant-design/pro-table';
+import { Button, Dropdown, Menu, message } from 'antd';
+import React, { useRef, useState } from 'react';
 import CreateModal from './components/CreateModal';
 import RightsTreeSelect from './components/RightsTreeSelect';
-import { UpdateFormVals, CreateFormVals, TableRecordVO, getListAPIParams } from './data.d';
+import UpdateModal from './components/UpdateModal';
+import { CreateFormVals, getListAPIParams, TableRecordVO, UpdateFormVals } from './data.d';
+import { batchRemove, create, getList, update } from './service';
 
 interface StateOfCreateModal {
   visible: boolean;
@@ -30,7 +31,7 @@ export default () => {
     visible: false,
   });
 
-  const columns: ProColumns<any>[] = [
+  const columns: ProColumns<TableRecordVO>[] = [
     { title: '权限名称', dataIndex: 'name' },
     {
       title: '上级权限名称',
@@ -42,7 +43,7 @@ export default () => {
       title: '上级权限',
       dataIndex: 'pid',
       hideInTable: true,
-      renderFormItem() {
+      renderFormItem: () => {
         return <RightsTreeSelect />;
       },
     },
@@ -50,6 +51,7 @@ export default () => {
     {
       title: '操作',
       width: 150,
+      fixed: 'right',
       valueType: 'option',
       render: (text, record: TableRecordVO) => (
         <>
@@ -74,11 +76,6 @@ export default () => {
       <ProTable<TableRecordVO>
         headerTitle="权限列表"
         actionRef={actionRefOfProTable}
-        request={(params) => getList(params as getListAPIParams)}
-        columns={columns}
-        rowKey="id"
-        rowSelection={{}}
-        pagination={{ pageSize: 10 }}
         toolBarRender={(action, { selectedRowKeys }) => [
           <Button
             icon={<PlusOutlined />}
@@ -119,6 +116,11 @@ export default () => {
             </Dropdown>
           ),
         ]}
+        request={(params) => getList(params as getListAPIParams)}
+        columns={columns}
+        rowKey="id"
+        rowSelection={{}}
+        pagination={{ pageSize: 10 }}
       />
       <CreateModal
         visible={stateOfCreateModal.visible}

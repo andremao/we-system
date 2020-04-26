@@ -1,17 +1,7 @@
-export interface Rights {
-  id: string;
-  name: string;
-  pid: string;
-  createdAt: string;
-}
+import { T_Rights } from '@/utils/mockdb';
 
-export interface TreeItem extends Rights {
-  key: string;
-  children: Rights[];
-}
-
-export interface TableRecordVO extends Rights {
-  parent: TableRecordVO | undefined;
+export interface TableRecordVO extends T_Rights {
+  parent?: T_Rights;
 }
 
 export interface getListAPIParams {
