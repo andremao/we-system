@@ -31,6 +31,7 @@ const CreateModal: React.FC<Props> = ({ onOk, ...restProps }) => {
         const fields = (await form.validateFields()) as CreateFormVals;
         if (onOk) onOk(fields);
       }}
+      getContainer={false}
     >
       <Form form={form} labelCol={{ span: 7 }} wrapperCol={{ span: 13 }}>
         <Form.Item
