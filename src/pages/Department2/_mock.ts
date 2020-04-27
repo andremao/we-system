@@ -36,6 +36,13 @@ export default {
 
     res.json({ data: list, total, status: 200, pageSize, current });
   },
+  'POST /api/department2': async (req: Request, res: Response) => {
+    console.log('POST /api/department2   req.body:', req.body);
+
+    const department = await collections.department.create(req.body);
+
+    res.json({ status: 200, data: department });
+  },
   'PUT /api/department2/:id': (req: Request, res: Response) => {
     console.log('PUT /api/department2/:id   req.params:', req.params);
     console.log('PUT /api/department2/:id   req.body:', req.body);

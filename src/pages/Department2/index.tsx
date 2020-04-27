@@ -5,13 +5,18 @@ import ProTable, { ActionType, ProColumns } from '@ant-design/pro-table';
 import { Button, Divider, Dropdown, Menu, message } from 'antd';
 import React, { useRef, useState } from 'react';
 import { Link } from 'umi';
+import CreateModal, { CreateModalProps } from './components/CreateModal';
 import DepartmentCascader from './components/DepartmentCascader';
 import UpdateModal, { UpdateModalProps } from './components/UpdateModal';
 import { TableRecord } from './data.d';
-import { pagingQuery, update } from './service';
+import { pagingQuery, update, create } from './service';
 
 const Department: React.FC<any> = () => {
   const actionRefOfProTable = useRef<ActionType>();
+
+  const [createModalState, setCreateModalState] = useState<CreateModalProps>({
+    visible: false,
+  });
 
   const [settingModalState, setUpdateModalState] = useState<UpdateModalProps>({
     visible: false,
@@ -77,8 +82,14 @@ const Department: React.FC<any> = () => {
         actionRef={actionRefOfProTable}
         rowKey="id"
         toolBarRender={(action, { selectedRows }) => [
-          <Button icon={<PlusOutlined />} type="primary" onClick={() => {}}>
-            新建
+          <Button
+            icon={<PlusOutlined />}
+            type="primary"
+            onClick={() => {
+              setCreateModalState((state) => ({ ...state, visible: true }));
+            }}
+          >
+            添加
           </Button>,
           selectedRows && selectedRows.length > 0 && (
             <Dropdown
@@ -107,6 +118,25 @@ const Department: React.FC<any> = () => {
         rowSelection={{}}
         pagination={{ pageSize: 10 }}
       />
+
+      <CreateModal
+        {...createModalState}
+        onCancel={() => {
+          setCreateModalState((state) => ({ ...state, visible: false }));
+        }}
+        onOk={async (vals) => {
+          console.log(vals, 'vals');
+
+          setCreateModalState((state) => ({ ...state, confirmLoading: true }));
+          await delay(1000);
+          const { status } = await create(vals);
+          if (status !== 200) message.error('添加失败请重试');
+          else message.success('添加成功');
+          setCreateModalState((state) => ({ ...state, confirmLoading: false, visible: false }));
+          if (actionRefOfProTable.current) actionRefOfProTable.current.reload();
+        }}
+      />
+
       <UpdateModal
         {...settingModalState}
         onCancel={() => {
@@ -114,9 +144,10 @@ const Department: React.FC<any> = () => {
         }}
         onOk={async (vals) => {
           console.log(vals, 'vals');
+
           setUpdateModalState((state) => ({ ...state, confirmLoading: true }));
+          await delay(1000);
           const { status } = await update(vals);
-          await delay(2000);
           if (status !== 200) message.error('配置失败请重试');
           else message.success('配置成功');
           setUpdateModalState((state) => ({

@@ -586,6 +586,13 @@
       "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
       "description": "间接广求里",
       "created_at": "2020-04-26 17:39:24"
+    },
+    {
+      "id": "B6eAE615-CA44-91eC-f4bf-A87b0C8972fe",
+      "name": "武汉校区前端移动开发教研部",
+      "pid": "594F575B-E8Dc-9ddD-F1D1-c5E46BFe70C9",
+      "description": "武汉大前端",
+      "created_at": "2020-04-27 17:42:28"
     }
   ],
   "t_member__initialized": true,

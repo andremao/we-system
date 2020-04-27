@@ -117,6 +117,20 @@ export const collections = {
     getAllList(): T_Department[] {
       return _.cloneDeep(mockdb.get(keys.tables.department).value());
     },
+    create(department: T_Department): Promise<T_Department> {
+      return mockdb
+        .get(keys.tables.department)
+        .push({
+          id: mockjs.mock('@GUID()'),
+          name: department.name,
+          manager_id: department.manager_id,
+          pid: department.pid,
+          description: department.description,
+          created_at: mockjs.mock('@NOW()'),
+        })
+        .last()
+        .write();
+    },
     update(department: T_Department): void {
       const { id, created_at, ...rest } = department;
       mockdb.get(keys.tables.department).find({ id }).assign(rest).write();
