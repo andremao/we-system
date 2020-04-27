@@ -8,4 +8,6 @@ export interface TableRecord extends T_Department {
 export interface pagingQueryAPIParams {
   current: number;
   pageSize: number;
+  name?: string;
+  pid?: string;
 }

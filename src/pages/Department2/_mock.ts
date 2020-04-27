@@ -1,14 +1,16 @@
+/* eslint-disable no-loop-func */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
+import _ from 'lodash';
 import { Request, Response } from 'umi';
-import { collections } from '../../utils/mockdb';
+import { collections, T_Department } from '../../utils/mockdb';
 import { pagingQueryAPIParams, TableRecord } from './data.d';
 
 export default {
   'GET /api/department2/paging': (req: Request, res: Response) => {
     console.log('GET /api/department2/paging   req.query:', req.query);
 
-    const { current, pageSize } = (req.query as unknown) as pagingQueryAPIParams;
+    const { current, pageSize, name, pid } = (req.query as unknown) as pagingQueryAPIParams;
 
     const startIndex = (current - 1) * pageSize;
     const endIndex = startIndex + parseInt(`${pageSize}`, 10);
@@ -17,7 +19,14 @@ export default {
 
     let list = [...allList];
 
-    // TODO: conditions filter
+    // conditions
+    if (name) {
+      list = list.filter((v) => v.name.includes(name));
+    }
+    if (pid) {
+      list = list.filter((v) => v.pid === pid);
+    }
+    // /conditions
 
     const total = list.length;
 
@@ -34,5 +43,38 @@ export default {
     collections.department.update({ ...req.params, ...req.body });
 
     res.json({ status: 200 });
+  },
+  'GET /api/department2/tree': (req: Request, res: Response) => {
+    let list = collections.department.getAllList();
+
+    const obj = _.groupBy(list, (v) => v.pid);
+
+    list.forEach((v: any) => {
+      v.key = v.id;
+      v.value = v.id;
+      v.children = obj[v.id];
+    });
+
+    list = list.filter((v: any) => !v.pid);
+
+    res.json({ status: 200, data: list });
+  },
+  'GET /api/department2/:id/path-ary': (req: Request, res: Response) => {
+    console.log('GET /api/department2/:id/path-ary   req.params:', req.params);
+
+    const { id } = req.params;
+
+    const pathAry = [id];
+
+    const al = collections.department.getAllList();
+
+    let d = al.find((v) => v.id === id) as T_Department;
+
+    while (d.pid) {
+      pathAry.unshift(d.pid);
+      d = al.find((v) => v.id === d.pid) as T_Department;
+    }
+
+    res.json({ status: 200, data: pathAry });
   },
 };

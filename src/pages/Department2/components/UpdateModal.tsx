@@ -1,6 +1,7 @@
 import { Form, Input, Modal } from 'antd';
 import React, { useEffect } from 'react';
 import { TableRecord } from '../data.d';
+import DepartmentCascader from './DepartmentCascader';
 
 export interface UpdateModalProps {
   visible: boolean;
@@ -44,7 +45,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({ record, onOk, ...resetProps }
           <Input placeholder="请输入" />
         </Form.Item>
         <Form.Item label="上级部门" name="pid">
-          <Input placeholder="请输入" />
+          <DepartmentCascader />
         </Form.Item>
         <Form.Item label="描述" name="description">
           <Input.TextArea rows={4} placeholder="请输入" />

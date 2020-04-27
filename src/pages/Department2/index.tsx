@@ -5,6 +5,7 @@ import ProTable, { ActionType, ProColumns } from '@ant-design/pro-table';
 import { Button, Divider, Dropdown, Menu, message } from 'antd';
 import React, { useRef, useState } from 'react';
 import { Link } from 'umi';
+import DepartmentCascader from './components/DepartmentCascader';
 import UpdateModal, { UpdateModalProps } from './components/UpdateModal';
 import { TableRecord } from './data.d';
 import { pagingQuery, update } from './service';
@@ -19,7 +20,26 @@ const Department: React.FC<any> = () => {
   const columns: ProColumns<TableRecord>[] = [
     { title: '部门名称', dataIndex: 'name' },
     { title: '部门主管', dataIndex: ['manager', 'name'], renderText: (_) => _ || '-' },
-    { title: '上级部门', dataIndex: ['parent', 'name'], renderText: (_) => _ || '-' },
+    {
+      title: '上级部门',
+      dataIndex: ['parent', 'name'],
+      renderText: (_) => _ || '-',
+      hideInSearch: true,
+    },
+    {
+      title: '上级部门',
+      dataIndex: 'pid',
+      hideInTable: true,
+      renderFormItem(_, config, form) {
+        return (
+          <DepartmentCascader
+            onChange={(pid) => {
+              form.setFieldsValue({ pid });
+            }}
+          />
+        );
+      },
+    },
     { title: '描述', dataIndex: 'description', hideInSearch: true },
     {
       title: '创建时间',
