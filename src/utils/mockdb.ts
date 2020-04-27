@@ -117,6 +117,10 @@ export const collections = {
     getAllList(): T_Department[] {
       return _.cloneDeep(mockdb.get(keys.tables.department).value());
     },
+    update(department: T_Department): void {
+      const { id, created_at, ...rest } = department;
+      mockdb.get(keys.tables.department).find({ id }).assign(rest).write();
+    },
   },
   /**
    * 成员

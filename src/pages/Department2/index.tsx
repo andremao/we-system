@@ -1,14 +1,20 @@
-import { DownOutlined, PlusOutlined } from '@ant-design/icons';
+import { delay } from '@/utils/utils';
+import { DownOutlined, PlusOutlined, SettingOutlined } from '@ant-design/icons';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ActionType, ProColumns } from '@ant-design/pro-table';
-import { Button, Divider, Dropdown, Menu } from 'antd';
-import React, { useRef } from 'react';
+import { Button, Divider, Dropdown, Menu, message } from 'antd';
+import React, { useRef, useState } from 'react';
 import { Link } from 'umi';
+import UpdateModal, { UpdateModalProps } from './components/UpdateModal';
 import { TableRecord } from './data.d';
-import { pagingQuery } from './service';
+import { pagingQuery, update } from './service';
 
 const Department: React.FC<any> = () => {
-  const actionRef = useRef<ActionType>();
+  const actionRefOfProTable = useRef<ActionType>();
+
+  const [settingModalState, setUpdateModalState] = useState<UpdateModalProps>({
+    visible: false,
+  });
 
   const columns: ProColumns<TableRecord>[] = [
     { title: '部门名称', dataIndex: 'name' },
@@ -30,7 +36,13 @@ const Department: React.FC<any> = () => {
       valueType: 'option',
       render: (_, record) => (
         <>
-          <a onClick={() => {}}>配置</a>
+          <a
+            onClick={() => {
+              setUpdateModalState((state) => ({ ...state, visible: true, record }));
+            }}
+          >
+            <SettingOutlined /> 配置
+          </a>
           <Divider type="vertical" />
           <Link to="/member">成员管理</Link>
         </>
@@ -42,7 +54,7 @@ const Department: React.FC<any> = () => {
     <PageHeaderWrapper>
       <ProTable<TableRecord>
         headerTitle="部门列表"
-        actionRef={actionRef}
+        actionRef={actionRefOfProTable}
         rowKey="id"
         toolBarRender={(action, { selectedRows }) => [
           <Button icon={<PlusOutlined />} type="primary" onClick={() => {}}>
@@ -74,6 +86,27 @@ const Department: React.FC<any> = () => {
         columns={columns}
         rowSelection={{}}
         pagination={{ pageSize: 10 }}
+      />
+      <UpdateModal
+        {...settingModalState}
+        onCancel={() => {
+          setUpdateModalState((state) => ({ ...state, visible: false }));
+        }}
+        onOk={async (vals) => {
+          console.log(vals, 'vals');
+          setUpdateModalState((state) => ({ ...state, confirmLoading: true }));
+          const { status } = await update(vals);
+          await delay(2000);
+          if (status !== 200) message.error('配置失败请重试');
+          else message.success('配置成功');
+          setUpdateModalState((state) => ({
+            ...state,
+            visible: false,
+            confirmLoading: false,
+            record: undefined,
+          }));
+          if (actionRefOfProTable.current) actionRefOfProTable.current.reload();
+        }}
       />
     </PageHeaderWrapper>
   );
