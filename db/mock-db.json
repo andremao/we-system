@@ -599,37 +599,6 @@
       "pid": "594F575B-E8Dc-9ddD-F1D1-c5E46BFe70C9",
       "description": "武汉大前端",
       "created_at": "2020-04-27 17:42:28"
-    },
-    {
-      "id": "BBcbFCde-dAeD-5c34-4305-16FdCBDD0aBD",
-      "name": "武汉校区Python教研部",
-      "pid": "594F575B-E8Dc-9ddD-F1D1-c5E46BFe70C9",
-      "description": "Python人工智能",
-      "created_at": "2020-04-28 14:42:14"
-    },
-    {
-      "id": "cFffCe83-dCd0-f9B2-833F-11a215Bd2DB9",
-      "name": "武汉校区Java教研部",
-      "manager_id": "",
-      "pid": "594F575B-E8Dc-9ddD-F1D1-c5E46BFe70C9",
-      "description": "Java教研部",
-      "created_at": "2020-04-28 14:50:01"
-    },
-    {
-      "id": "468AC6eF-C1AB-7AAe-Fcf7-AA99b4536Eee",
-      "name": "武汉校区UIUE教研部",
-      "manager_id": "",
-      "pid": "594F575B-E8Dc-9ddD-F1D1-c5E46BFe70C9",
-      "description": "UIUE",
-      "created_at": "2020-04-28 15:10:58"
-    },
-    {
-      "id": "c26Fdc2e-8DB5-2CE3-D61B-6AFB9D6C4249",
-      "name": "测试部门",
-      "manager_id": "9C03f9cb-D91A-d5FF-8e7A-43C3efEf1B4c",
-      "pid": "FACDe76f-aD15-79CB-8b21-bFbBb76AE3a8",
-      "description": "asdf",
-      "created_at": "2020-04-28 15:17:57"
     }
   ],
   "t_member__initialized": true,

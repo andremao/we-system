@@ -56,6 +56,14 @@ export default {
 
     res.json({ status: 200 });
   },
+  'DELETE /api/department2': (req: Request, res: Response) => {
+    console.log('DELETE /api/department2   req.body:', req.body);
+
+    collections.department.remove(req.body.ids);
+
+    res.json({ status: 200 });
+  },
+
   'GET /api/department2/tree': (req: Request, res: Response) => {
     let list = collections.department.getAllList();
 

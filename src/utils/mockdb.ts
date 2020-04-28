@@ -87,12 +87,6 @@ export const collections = {
     getAllList(): T_Role[] {
       return _.cloneDeep(mockdb.get(keys.tables.role).value());
     },
-    remove(ids: string[]): void {
-      mockdb
-        .get(keys.tables.role)
-        .remove((v: T_Role) => ids.includes(v.id))
-        .write();
-    },
     create(role: T_Role): Promise<T_Role> {
       return mockdb
         .get(keys.tables.role)
@@ -108,6 +102,12 @@ export const collections = {
     update(role: T_Role): void {
       const { id, ...rest } = role;
       mockdb.get(keys.tables.role).find({ id }).assign(rest).write();
+    },
+    remove(ids: string[]): void {
+      mockdb
+        .get(keys.tables.role)
+        .remove((v: T_Role) => ids.includes(v.id))
+        .write();
     },
   },
   /**
@@ -131,6 +131,12 @@ export const collections = {
     update(department: T_Department): void {
       const { id, ...rest } = department;
       mockdb.get(keys.tables.department).find({ id }).assign(rest).write();
+    },
+    remove(ids: string[]): void {
+      mockdb
+        .get(keys.tables.department)
+        .remove((v: T_Role) => ids.includes(v.id))
+        .write();
     },
   },
   /**

@@ -24,6 +24,13 @@ export const update = async (params: TableRecord): Promise<{ status: number }> =
   });
 };
 
+export const remove = async (ids: string[]): Promise<{ status: number }> => {
+  return request('/api/department2', {
+    method: 'DELETE',
+    data: { ids },
+  });
+};
+
 export const getTree = async (): Promise<{ status: number; tree: T_Department[] }> => {
   return request('/api/department2/tree');
 };

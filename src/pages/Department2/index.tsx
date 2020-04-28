@@ -9,7 +9,7 @@ import CreateModal, { CreateModalProps } from './components/CreateModal';
 import DepartmentCascader from './components/DepartmentCascader';
 import UpdateModal, { UpdateModalProps } from './components/UpdateModal';
 import { TableRecord } from './data.d';
-import { create, pagingQuery, update } from './service';
+import { create, pagingQuery, remove, update } from './service';
 
 const Department: React.FC<any> = () => {
   const actionRefOfProTable = useRef<ActionType>();
@@ -97,8 +97,9 @@ const Department: React.FC<any> = () => {
                 <Menu
                   onClick={async (e) => {
                     if (e.key === 'remove') {
-                      console.log(selectedRows, 'selectedRows');
-
+                      const { status } = await remove(selectedRows.map((v) => v.id));
+                      if (status !== 200) message.error('删除失败请重试');
+                      else message.success('删除成功，列表将自动刷新');
                       action.reload();
                     }
                   }}
@@ -115,7 +116,7 @@ const Department: React.FC<any> = () => {
             </Dropdown>
           ),
         ]}
-        request={(params: any) => pagingQuery(params)}
+        request={async (params: any) => pagingQuery(params)}
         columns={columns}
         rowSelection={{}}
         pagination={{ pageSize: 10 }}
