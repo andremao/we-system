@@ -1,4 +1,4 @@
-import DepartmentCascader from '@/pages/Department2/components/DepartmentCascader';
+import DepartmentCascader from '@/pages/Department/components/DepartmentCascader';
 import RoleCascader from '@/pages/Role/components/RoleCascader';
 import { Form, Input, Modal } from 'antd';
 import React, { useEffect } from 'react';

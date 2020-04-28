@@ -5,8 +5,8 @@ import { collections } from '../../utils/mockdb';
 import { pagingQueryAPIParams, TableRecord } from './data.d';
 
 export default {
-  'GET /api/member2/paging': (req: Request, res: Response) => {
-    console.log('GET /api/member2/paging   req.query:', req.query);
+  'GET /api/member/paging': (req: Request, res: Response) => {
+    console.log('GET /api/member/paging   req.query:', req.query);
 
     const { current, pageSize } = (req.query as unknown) as pagingQueryAPIParams;
 
@@ -37,21 +37,21 @@ export default {
 
     res.json({ data: list, total, status: 200, pageSize, current });
   },
-  'GET /api/member2/all': async (req: Request, res: Response) => {
+  'GET /api/member/all': async (req: Request, res: Response) => {
     const allList = collections.member.getAllList();
 
     res.json({ status: 200, data: allList });
   },
-  'POST /api/member2': async (req: Request, res: Response) => {
-    console.log('POST /api/member2   req.body:', req.body);
+  'POST /api/member': async (req: Request, res: Response) => {
+    console.log('POST /api/member   req.body:', req.body);
 
     collections.member.create(req.body);
 
     res.json({ status: 200 });
   },
-  'PUT /api/member2/:id': (req: Request, res: Response) => {
-    console.log('PUT /api/member2/:id   req.params:', req.params);
-    console.log('PUT /api/member2/:id   req.body:', req.body);
+  'PUT /api/member/:id': (req: Request, res: Response) => {
+    console.log('PUT /api/member/:id   req.params:', req.params);
+    console.log('PUT /api/member/:id   req.body:', req.body);
 
     collections.member.update({ ...req.params, ...req.body });
 

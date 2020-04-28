@@ -1,29 +1,22 @@
-import MemberCascader from '@/pages/Member2/components/MemberCascader';
+import MemberCascader from '@/pages/Member/components/MemberCascader';
 import { Form, Input, Modal } from 'antd';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { TableRecord } from '../data.d';
 import DepartmentCascader from './DepartmentCascader';
 
-export interface UpdateModalProps {
+export interface CreateModalProps {
   visible: boolean;
-  record?: TableRecord;
   confirmLoading?: boolean;
   onCancel?: () => void;
   onOk?: (formVal: TableRecord) => void;
 }
 
-const UpdateModal: React.FC<UpdateModalProps> = ({ record, onOk, ...resetProps }) => {
+const CreateModal: React.FC<CreateModalProps> = ({ onOk, ...resetProps }) => {
   const [form] = Form.useForm();
-
-  useEffect(() => {
-    if (record) {
-      form.setFieldsValue(record);
-    }
-  }, [record]);
 
   return (
     <Modal
-      title="部门配置"
+      title="添加部门"
       {...resetProps}
       onOk={async () => {
         const fields = (await form.validateFields()) as TableRecord;
@@ -31,10 +24,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({ record, onOk, ...resetProps }
       }}
       getContainer={false}
     >
-      <Form form={form} labelCol={{ span: 7 }} wrapperCol={{ span: 13 }}>
-        <Form.Item name="id" noStyle>
-          <Input type="hidden" />
-        </Form.Item>
+      <Form form={form} labelCol={{ span: 4 }} wrapperCol={{ span: 19 }}>
         <Form.Item
           label="部门名称"
           name="name"
@@ -56,4 +46,4 @@ const UpdateModal: React.FC<UpdateModalProps> = ({ record, onOk, ...resetProps }
   );
 };
 
-export default UpdateModal;
+export default CreateModal;
