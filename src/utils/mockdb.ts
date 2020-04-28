@@ -143,6 +143,17 @@ export const collections = {
     getAllList(): T_Member[] {
       return _.cloneDeep(mockdb.get(keys.tables.member).value());
     },
+    create(member: T_Member): Promise<T_Member> {
+      return mockdb
+        .get(keys.tables.member)
+        .push({
+          ...member,
+          id: mockjs.mock('@GUID()'),
+          created_at: mockjs.mock('@NOW()'),
+        })
+        .last()
+        .write();
+    },
     update(member: T_Member): void {
       const { id, ...rest } = member;
       mockdb.get(keys.tables.member).find({ id }).assign(rest).write();

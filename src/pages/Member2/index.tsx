@@ -4,13 +4,15 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ActionType, ProColumns } from '@ant-design/pro-table';
 import { Button, Dropdown, Menu, message } from 'antd';
 import React, { useRef, useState } from 'react';
+import CreateModal, { CreateModalProps } from './components/CreateModal';
 import UpdateModal, { UpdateModalProps } from './components/UpdateModal';
 import { TableRecord } from './data.d';
-import { pagingQuery, update } from './service';
+import { create, pagingQuery, update } from './service';
 
 const Member: React.FC<{}> = () => {
   const actionRefOfProTable = useRef<ActionType>();
 
+  const [createModalState, setCreateModalState] = useState<CreateModalProps>({ visible: false });
   const [updateModalState, setUpdateModalState] = useState<UpdateModalProps>({ visible: false });
 
   const columns: ProColumns<TableRecord>[] = [
@@ -74,8 +76,14 @@ const Member: React.FC<{}> = () => {
         actionRef={actionRefOfProTable}
         rowKey="id"
         toolBarRender={(action, { selectedRows }) => [
-          <Button icon={<PlusOutlined />} type="primary" onClick={() => {}}>
-            新建
+          <Button
+            icon={<PlusOutlined />}
+            type="primary"
+            onClick={() => {
+              setCreateModalState({ visible: true });
+            }}
+          >
+            添加
           </Button>,
           selectedRows && selectedRows.length > 0 && (
             <Dropdown
@@ -103,6 +111,27 @@ const Member: React.FC<{}> = () => {
         columns={columns}
         rowSelection={{}}
         pagination={{ pageSize: 10 }}
+      />
+      <CreateModal
+        {...createModalState}
+        onOk={async (vals) => {
+          console.log(vals, 'vals');
+
+          setCreateModalState((state) => ({ ...state, confirmLoading: true }));
+          await delay(1000);
+          const { status } = await create(vals);
+          if (status !== 200) message.error('添加失败请重试');
+          else message.success('添加成功');
+          setCreateModalState((state) => ({
+            ...state,
+            visible: false,
+            confirmLoading: false,
+          }));
+          if (actionRefOfProTable.current) actionRefOfProTable.current.reload();
+        }}
+        onCancel={() => {
+          setCreateModalState({ visible: false });
+        }}
       />
       <UpdateModal
         {...updateModalState}

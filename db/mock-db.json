@@ -66,6 +66,12 @@
       "name": "普通用户",
       "rights_ids": "5E27BB86-bbBf-7A11-A55F-BEe8c5D61911,E62eADae-B205-DA35-D2eb-af9A8EDf35cb",
       "created_at": "2020-04-26 15:18:14"
+    },
+    {
+      "id": "696E69c1-3CE1-cBdE-cD34-dAFC35e2bFD6",
+      "name": "导师",
+      "rights_ids": "d7B61871-A4BF-FF5d-1b95-14cDc7Cf5eec,b4bEBbE1-34Be-664E-ABCf-50C9CfeafD3F,ec2Bb1A1-96eA-CE2b-5B98-DF3c97CEBeaf,6AEE053b-c6aF-Ef22-1c1e-bDDD0bd0F3f5",
+      "created_at": "2020-04-28 11:58:57"
     }
   ],
   "t_rights__initialized": true,
@@ -1696,6 +1702,39 @@
       "mobile": "17985662535",
       "email": "y.yksojd@wqrcwopzri.mr",
       "created_at": "2020-04-27 00:08:13"
+    },
+    {
+      "name": "毛盾",
+      "department_id": "7Dfc1b7b-671E-ceC8-DA4A-c245CAFC6347",
+      "position": "导师",
+      "role_ids": "a1fcF6F8-0cfc-17bF-Efba-3cCdADefd5Bd,696E69c1-3CE1-cBdE-cD34-dAFC35e2bFD6",
+      "job_number": "80100",
+      "mobile": "18670717327",
+      "email": "maodun@itcast.cn",
+      "id": "fEa8423f-C8f6-1b8c-41f5-Ab5A5dC2A763",
+      "created_at": "2020-04-28 12:06:14"
+    },
+    {
+      "name": "王蔚",
+      "department_id": "7Dfc1b7b-671E-ceC8-DA4A-c245CAFC6347",
+      "position": "前端Leader",
+      "role_ids": "a1fcF6F8-0cfc-17bF-Efba-3cCdADefd5Bd",
+      "job_number": "88101",
+      "mobile": "18600000001",
+      "email": "wangwei@itcast.cn",
+      "id": "AeA56F15-dd1a-dE1d-1E59-bDBB4f0FF1Ab",
+      "created_at": "2020-04-28 12:10:35"
+    },
+    {
+      "name": "汤浪",
+      "department_id": "d0AA73d8-Cbdb-864d-1Dec-9525Cdf4db69",
+      "position": "导师",
+      "role_ids": "696E69c1-3CE1-cBdE-cD34-dAFC35e2bFD6",
+      "job_number": "88102",
+      "mobile": "18600000002",
+      "email": "tanglang@itcast.cn",
+      "id": "0A5Fdeab-3E01-1ABD-f2EB-b5E8BeDA8A59",
+      "created_at": "2020-04-28 12:11:46"
     }
   ]
 }

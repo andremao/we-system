@@ -37,6 +37,13 @@ export default {
 
     res.json({ data: list, total, status: 200, pageSize, current });
   },
+  'POST /api/member2': async (req: Request, res: Response) => {
+    console.log('POST /api/member2   req.body:', req.body);
+
+    collections.member.create(req.body);
+
+    res.json({ status: 200 });
+  },
   'PUT /api/member2/:id': (req: Request, res: Response) => {
     console.log('PUT /api/member2/:id   req.params:', req.params);
     console.log('PUT /api/member2/:id   req.body:', req.body);
