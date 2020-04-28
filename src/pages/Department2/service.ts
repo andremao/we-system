@@ -16,7 +16,7 @@ export const create = async (params: TableRecord): Promise<{ status: number }> =
 };
 
 export const update = async (params: TableRecord): Promise<{ status: number }> => {
-  const { id, ...restParams } = params;
+  const { id, manager: _0, parent: _1, created_at: _2, ...restParams } = params;
   return request(`/api/department2/${id}`, {
     method: 'PUT',
     data: restParams,

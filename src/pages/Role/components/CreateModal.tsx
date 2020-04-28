@@ -1,8 +1,8 @@
 import RightsTreeSelect from '@/pages/Rights/components/RightsTreeSelect';
+import { delay } from '@/utils/utils';
 import { Form, Input, Modal } from 'antd';
 import React, { useEffect } from 'react';
 import { CreateFormVals } from '../data.d';
-import { delay } from '@/utils/utils';
 
 interface Props {
   visible: boolean;

@@ -1,13 +1,17 @@
+import { delay } from '@/utils/utils';
 import { DownOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ActionType, ProColumns } from '@ant-design/pro-table';
-import { Button, Dropdown, Menu } from 'antd';
-import React, { useRef } from 'react';
+import { Button, Dropdown, Menu, message } from 'antd';
+import React, { useRef, useState } from 'react';
+import UpdateModal, { UpdateModalProps } from './components/UpdateModal';
 import { TableRecord } from './data.d';
-import { pagingQuery } from './service';
+import { pagingQuery, update } from './service';
 
-const Member: React.FC<any> = () => {
-  const actionRef = useRef<ActionType>();
+const Member: React.FC<{}> = () => {
+  const actionRefOfProTable = useRef<ActionType>();
+
+  const [updateModalState, setUpdateModalState] = useState<UpdateModalProps>({ visible: false });
 
   const columns: ProColumns<TableRecord>[] = [
     { title: '姓名', dataIndex: 'name', width: 80, ellipsis: true },
@@ -47,7 +51,11 @@ const Member: React.FC<any> = () => {
       render(_, record) {
         return (
           <>
-            <a onClick={() => {}}>
+            <a
+              onClick={() => {
+                setUpdateModalState((state) => ({ ...state, visible: true, record }));
+              }}
+            >
               <EditOutlined />
               &nbsp;编辑
             </a>
@@ -63,7 +71,7 @@ const Member: React.FC<any> = () => {
     <PageHeaderWrapper>
       <ProTable<TableRecord>
         headerTitle="成员列表"
-        actionRef={actionRef}
+        actionRef={actionRefOfProTable}
         rowKey="id"
         toolBarRender={(action, { selectedRows }) => [
           <Button icon={<PlusOutlined />} type="primary" onClick={() => {}}>
@@ -95,6 +103,28 @@ const Member: React.FC<any> = () => {
         columns={columns}
         rowSelection={{}}
         pagination={{ pageSize: 10 }}
+      />
+      <UpdateModal
+        {...updateModalState}
+        onOk={async (vals) => {
+          console.log(vals, 'vals');
+
+          setUpdateModalState((state) => ({ ...state, confirmLoading: true }));
+          await delay(1000);
+          const { status } = await update(vals);
+          if (status !== 200) message.error('更新失败请重试');
+          else message.success('更新成功');
+          setUpdateModalState((state) => ({
+            ...state,
+            visible: false,
+            confirmLoading: false,
+            record: undefined,
+          }));
+          if (actionRefOfProTable.current) actionRefOfProTable.current.reload();
+        }}
+        onCancel={() => {
+          setUpdateModalState({ visible: false });
+        }}
       />
     </PageHeaderWrapper>
   );

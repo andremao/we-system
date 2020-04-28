@@ -106,7 +106,7 @@ export const collections = {
         .write();
     },
     update(role: T_Role): void {
-      const { id, created_at, ...rest } = role;
+      const { id, ...rest } = role;
       mockdb.get(keys.tables.role).find({ id }).assign(rest).write();
     },
   },
@@ -132,7 +132,7 @@ export const collections = {
         .write();
     },
     update(department: T_Department): void {
-      const { id, created_at, ...rest } = department;
+      const { id, ...rest } = department;
       mockdb.get(keys.tables.department).find({ id }).assign(rest).write();
     },
   },
@@ -142,6 +142,10 @@ export const collections = {
   member: {
     getAllList(): T_Member[] {
       return _.cloneDeep(mockdb.get(keys.tables.member).value());
+    },
+    update(member: T_Member): void {
+      const { id, ...rest } = member;
+      mockdb.get(keys.tables.member).find({ id }).assign(rest).write();
     },
   },
 };

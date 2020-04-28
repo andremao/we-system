@@ -47,6 +47,10 @@ export default {
       current,
     });
   },
+  'GET /api/role/all': async (req: Request, res: Response) => {
+    const allList = collections.role.getAllList();
+    res.json({ status: 200, data: allList });
+  },
   'POST /api/role': async (req: Request, res: Response) => {
     console.log('POST /api/role    body:', req.body);
 

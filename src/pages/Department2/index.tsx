@@ -9,7 +9,7 @@ import CreateModal, { CreateModalProps } from './components/CreateModal';
 import DepartmentCascader from './components/DepartmentCascader';
 import UpdateModal, { UpdateModalProps } from './components/UpdateModal';
 import { TableRecord } from './data.d';
-import { pagingQuery, update, create } from './service';
+import { create, pagingQuery, update } from './service';
 
 const Department: React.FC<any> = () => {
   const actionRefOfProTable = useRef<ActionType>();

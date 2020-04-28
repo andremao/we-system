@@ -37,4 +37,12 @@ export default {
 
     res.json({ data: list, total, status: 200, pageSize, current });
   },
+  'PUT /api/member2/:id': (req: Request, res: Response) => {
+    console.log('PUT /api/member2/:id   req.params:', req.params);
+    console.log('PUT /api/member2/:id   req.body:', req.body);
+
+    collections.member.update({ ...req.params, ...req.body });
+
+    res.json({ status: 200 });
+  },
 };
