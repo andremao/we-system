@@ -23,7 +23,8 @@ const UpdateModal: React.FC<UpdateModalProps> = ({ record, onOk, ...resetProps }
 
   return (
     <Modal
-      title="部门配置"
+      title="部门编辑"
+      width={800}
       {...resetProps}
       onOk={async () => {
         const fields = (await form.validateFields()) as TableRecord;
@@ -31,7 +32,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({ record, onOk, ...resetProps }
       }}
       getContainer={false}
     >
-      <Form form={form} labelCol={{ span: 7 }} wrapperCol={{ span: 13 }}>
+      <Form form={form} labelCol={{ span: 5 }} wrapperCol={{ span: 18 }}>
         <Form.Item name="id" noStyle>
           <Input type="hidden" />
         </Form.Item>
@@ -44,6 +45,9 @@ const UpdateModal: React.FC<UpdateModalProps> = ({ record, onOk, ...resetProps }
         </Form.Item>
         <Form.Item label="部门主管" name="manager_id">
           <MemberCascader />
+        </Form.Item>
+        <Form.Item label="部门成员列表" name="memberIds">
+          <MemberCascader mode="multiple" />
         </Form.Item>
         <Form.Item label="上级部门" name="pid">
           <DepartmentCascader />

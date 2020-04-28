@@ -128,9 +128,9 @@ export const collections = {
         .last()
         .write();
     },
-    update(department: T_Department): void {
+    async update(department: T_Department): Promise<void> {
       const { id, ...rest } = department;
-      mockdb.get(keys.tables.department).find({ id }).assign(rest).write();
+      await mockdb.get(keys.tables.department).find({ id }).assign(rest).write();
     },
     remove(ids: string[]): void {
       mockdb
@@ -160,6 +160,28 @@ export const collections = {
     update(member: T_Member): void {
       const { id, ...rest } = member;
       mockdb.get(keys.tables.member).find({ id }).assign(rest).write();
+    },
+    async batchSetDepartment(memberIds: string, department_id: string): Promise<void> {
+      await mockdb
+        .get(keys.tables.member)
+        .filter((v) => v.department_id === department_id)
+        .map((v) => {
+          v.department_id = '';
+          return v;
+        })
+        .write();
+
+      if (memberIds) {
+        const memberIdAry = memberIds.split(',');
+        await mockdb
+          .get(keys.tables.member)
+          .filter((v) => memberIdAry.includes(v.id))
+          .map((v) => {
+            v.department_id = department_id;
+            return v;
+          })
+          .write();
+      }
     },
   },
 };

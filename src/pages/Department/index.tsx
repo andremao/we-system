@@ -2,9 +2,8 @@ import { delay } from '@/utils/utils';
 import { DownOutlined, PlusOutlined, SettingOutlined } from '@ant-design/icons';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ActionType, ProColumns } from '@ant-design/pro-table';
-import { Button, Divider, Dropdown, Menu, message } from 'antd';
+import { Button, Dropdown, Menu, message } from 'antd';
 import React, { useRef, useState } from 'react';
-import { Link } from 'umi';
 import CreateModal, { CreateModalProps } from './components/CreateModal';
 import DepartmentCascader from './components/DepartmentCascader';
 import UpdateModal, { UpdateModalProps } from './components/UpdateModal';
@@ -18,7 +17,7 @@ const Department: React.FC<any> = () => {
     visible: false,
   });
 
-  const [settingModalState, setUpdateModalState] = useState<UpdateModalProps>({
+  const [updateModalState, setUpdateModalState] = useState<UpdateModalProps>({
     visible: false,
   });
 
@@ -56,6 +55,7 @@ const Department: React.FC<any> = () => {
     },
     {
       title: '操作',
+      width: 120,
       align: 'center',
       dataIndex: 'option',
       valueType: 'option',
@@ -66,10 +66,8 @@ const Department: React.FC<any> = () => {
               setUpdateModalState((state) => ({ ...state, visible: true, record }));
             }}
           >
-            <SettingOutlined /> 配置
+            <SettingOutlined /> 部门配置
           </a>
-          <Divider type="vertical" />
-          <Link to="/member">成员管理</Link>
         </>
       ),
     },
@@ -141,7 +139,7 @@ const Department: React.FC<any> = () => {
       />
 
       <UpdateModal
-        {...settingModalState}
+        {...updateModalState}
         onCancel={() => {
           setUpdateModalState((state) => ({ ...state, visible: false }));
         }}

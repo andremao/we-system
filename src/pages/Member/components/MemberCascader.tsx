@@ -1,10 +1,14 @@
+/* eslint-disable no-param-reassign */
 import { Select } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useRequest } from 'umi';
-import { getAllList } from '../service';
+import { getAllMembers } from '../service';
 
 export interface MemberCascaderProps {
   mode?: 'multiple' | 'tags';
+  /**
+   * 选中的成员id，多个用,分隔
+   */
   value?: string;
   /**
    * @param value 选中的成员id，多个用,分隔
@@ -13,7 +17,7 @@ export interface MemberCascaderProps {
 }
 
 const MemberCascader: React.FC<MemberCascaderProps> = ({ mode, value, onChange }) => {
-  const { data: allList } = useRequest(getAllList);
+  const { data: allMembers } = useRequest(getAllMembers);
 
   const [defVal, setDefVal] = useState<string | string[] | undefined>();
 
@@ -39,18 +43,27 @@ const MemberCascader: React.FC<MemberCascaderProps> = ({ mode, value, onChange }
         return false;
       }}
       onChange={(val) => {
-        if (onChange) onChange(Array.isArray(val) ? val.join(',') : val);
+        if (onChange) {
+          if (val) {
+            val = Array.isArray(val) ? val.join(',') : val;
+          } else {
+            val = '';
+          }
+          onChange(val);
+        }
       }}
       options={
-        allList
-          ? allList.map((v) => ({
-              value: v.id,
-              label: `${v.job_number}-${v.name}(${v.position})(${v.mobile})`,
+        allMembers
+          ? allMembers.map(({ id, job_number, name, department, position, mobile }) => ({
+              value: id,
+              label: `${job_number}-${name}(${
+                department ? department.name : '无'
+              }-${position})(${mobile})`,
             }))
           : []
       }
       allowClear
-      maxTagCount={10}
+      maxTagCount={6}
     />
   );
 };

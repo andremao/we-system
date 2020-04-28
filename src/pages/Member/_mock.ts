@@ -38,9 +38,17 @@ export default {
     res.json({ data: list, total, status: 200, pageSize, current });
   },
   'GET /api/member/all': async (req: Request, res: Response) => {
-    const allList = collections.member.getAllList();
+    const members = collections.member.getAllList() as TableRecord[];
 
-    res.json({ status: 200, data: allList });
+    const departments = collections.department.getAllList();
+
+    members.forEach((v) => {
+      if (v.department_id) {
+        v.department = departments.find((v1) => v1.id === v.department_id);
+      }
+    });
+
+    res.json({ status: 200, data: members });
   },
   'POST /api/member': async (req: Request, res: Response) => {
     console.log('POST /api/member   req.body:', req.body);

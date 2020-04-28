@@ -292,7 +292,7 @@
     {
       "id": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
       "name": "传智播客",
-      "manager_id": "",
+      "manager_id": "f5d2E8FB-9fD6-cCDe-2c35-A2585d513D3E",
       "pid": "",
       "description": "专注于IT教育培训",
       "created_at": "2020-04-26 17:39:24"
@@ -388,9 +388,9 @@
     {
       "id": "F5E37dce-0D63-B6f5-7CbD-c85aCABf733C",
       "name": "长沙校区",
-      "manager_id": "",
+      "manager_id": "B4EF2A9C-18a5-38b0-cBDb-0883eF3e87f5",
       "pid": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
-      "description": "把争说候满",
+      "description": "西南No.1",
       "created_at": "2020-04-26 17:39:24"
     },
     {
@@ -404,7 +404,7 @@
     {
       "id": "7Dfc1b7b-671E-ceC8-DA4A-c245CAFC6347",
       "name": "长沙校区前端与移动开发教研部",
-      "manager_id": "",
+      "manager_id": "AeA56F15-dd1a-dE1d-1E59-bDBB4f0FF1Ab",
       "pid": "F5E37dce-0D63-B6f5-7CbD-c85aCABf733C",
       "description": "大前端",
       "created_at": "2020-04-26 17:39:24"
@@ -606,68 +606,68 @@
     {
       "id": "e43eCEb4-d3Ea-a156-e4eF-afF3FBF2Cf65",
       "name": "曾莉莉",
-      "department_id": "b2d17464-18BE-5DE7-Ead0-eEFBa6A0A2cd",
       "position": "班主任",
       "role_ids": "47cbe8a8-CFd6-e5e2-30EC-f3E55614281d,Cf7CfDf2-B7C9-E5bA-2Ece-2b89Af523c61",
       "job_number": "80000",
       "mobile": "17217242670",
       "email": "k.fqi@ztbemohpt.ne",
-      "created_at": "2020-04-27 00:08:13"
+      "created_at": "2020-04-27 00:08:13",
+      "department_id": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b"
     },
     {
       "id": "9C03f9cb-D91A-d5FF-8e7A-43C3efEf1B4c",
       "name": "林桂英",
-      "department_id": "A49Ddf3C-d371-127f-1564-61FD571adAf2",
       "position": "民织多天验义选",
       "role_ids": "E8160c43-D38C-2DF7-F6bC-9B1Ed85CA8Be,a1fcF6F8-0cfc-17bF-Efba-3cCdADefd5Bd,3d3DEaF1-dfE8-6Deb-f1c1-Ef21259CDbeb",
       "job_number": "80001",
       "mobile": "13786845497",
       "email": "h.dqfpue@epfhgg.sc",
-      "created_at": "2020-04-27 00:08:13"
+      "created_at": "2020-04-27 00:08:13",
+      "department_id": ""
     },
     {
       "id": "dBdD2e8f-e7f7-C74a-6BED-1F6dD3166Cc7",
       "name": "田娟",
-      "department_id": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
       "position": "北程工",
       "role_ids": "",
       "job_number": "80002",
       "mobile": "19345216720",
       "email": "v.lrfs@pmryhhzg.ci",
-      "created_at": "2020-04-27 00:08:13"
+      "created_at": "2020-04-27 00:08:13",
+      "department_id": "F5E37dce-0D63-B6f5-7CbD-c85aCABf733C"
     },
     {
       "id": "16911fFd-5Acd-f7b6-2dF5-A0Aff98EE7C5",
       "name": "孙静",
-      "department_id": "944C6ECE-FaEC-E484-Ce43-1B5ECb9cbA28",
       "position": "维回存社京儿",
       "role_ids": "47cbe8a8-CFd6-e5e2-30EC-f3E55614281d,a1fcF6F8-0cfc-17bF-Efba-3cCdADefd5Bd",
       "job_number": "80003",
       "mobile": "17495865806",
       "email": "x.ibncfu@ksqlmfd.dj",
-      "created_at": "2020-04-27 00:08:13"
+      "created_at": "2020-04-27 00:08:13",
+      "department_id": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b"
     },
     {
       "id": "349D51C2-F5C5-44fC-FE0D-DbFE6c13bBAB",
       "name": "马磊",
-      "department_id": "eef6a69A-37Ec-883E-e5Ce-BADCf7aaDd26",
       "position": "广它为白",
       "role_ids": "",
       "job_number": "80004",
       "mobile": "15953446756",
       "email": "u.oug@gkjtckjett.hr",
-      "created_at": "2020-04-27 00:08:13"
+      "created_at": "2020-04-27 00:08:13",
+      "department_id": "F5E37dce-0D63-B6f5-7CbD-c85aCABf733C"
     },
     {
       "id": "ddB53380-AfaD-8f39-BaDc-1cAc9b96ad98",
       "name": "魏超",
-      "department_id": "2AFfCb5b-0B9C-9e8a-2f6f-50d2B7AbEa2E",
       "position": "京维和八界",
       "role_ids": "",
       "job_number": "80005",
       "mobile": "17974781844",
       "email": "v.dxjhy@iohvqsd.py",
-      "created_at": "2020-04-27 00:08:13"
+      "created_at": "2020-04-27 00:08:13",
+      "department_id": "F5E37dce-0D63-B6f5-7CbD-c85aCABf733C"
     },
     {
       "id": "E71BB335-Ac2f-C248-eAD1-2B8FC5e0b3c8",
@@ -738,7 +738,7 @@
     {
       "id": "bc1fCffd-6b86-5dA2-bAEc-2Be849d308ce",
       "name": "万军",
-      "department_id": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "department_id": "",
       "position": "越打直口往出矿",
       "role_ids": "3d3DEaF1-dfE8-6Deb-f1c1-Ef21259CDbeb,DedBaa53-4BC4-aed7-E6e1-C13a1AD4aBB1",
       "job_number": "80012",
@@ -1310,13 +1310,13 @@
     {
       "id": "53BfccDB-E22c-b4cc-01db-222FFE6c3720",
       "name": "孙秀英",
-      "department_id": "F5E37dce-0D63-B6f5-7CbD-c85aCABf733C",
       "position": "目过是其",
       "role_ids": "F42ef3F7-3BD1-5E8d-29EF-fbfdA0dC43fb,DedBaa53-4BC4-aed7-E6e1-C13a1AD4aBB1",
       "job_number": "80064",
       "mobile": "13058325676",
       "email": "l.jpera@xrqowjj.nt",
-      "created_at": "2020-04-27 00:08:13"
+      "created_at": "2020-04-27 00:08:13",
+      "department_id": ""
     },
     {
       "id": "B933e282-d24b-3Cbd-a8ac-B2B13bf68cFA",
@@ -1705,7 +1705,7 @@
     },
     {
       "name": "毛盾",
-      "department_id": "7Dfc1b7b-671E-ceC8-DA4A-c245CAFC6347",
+      "department_id": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
       "position": "导师",
       "role_ids": "a1fcF6F8-0cfc-17bF-Efba-3cCdADefd5Bd,696E69c1-3CE1-cBdE-cD34-dAFC35e2bFD6",
       "job_number": "80100",
@@ -1716,18 +1716,18 @@
     },
     {
       "name": "王蔚",
-      "department_id": "7Dfc1b7b-671E-ceC8-DA4A-c245CAFC6347",
-      "position": "前端Leader",
-      "role_ids": "a1fcF6F8-0cfc-17bF-Efba-3cCdADefd5Bd",
-      "job_number": "88101",
-      "mobile": "18600000001",
+      "department_id": "F5E37dce-0D63-B6f5-7CbD-c85aCABf733C",
+      "position": "前端部门主管",
+      "role_ids": "EF4814b3-8f5f-FbCa-eaCf-639C22fbD7Df",
+      "job_number": "000003",
+      "mobile": "18600000003",
       "email": "wangwei@itcast.cn",
       "id": "AeA56F15-dd1a-dE1d-1E59-bDBB4f0FF1Ab",
       "created_at": "2020-04-28 12:10:35"
     },
     {
       "name": "汤浪",
-      "department_id": "d0AA73d8-Cbdb-864d-1Dec-9525Cdf4db69",
+      "department_id": "F5E37dce-0D63-B6f5-7CbD-c85aCABf733C",
       "position": "导师",
       "role_ids": "696E69c1-3CE1-cBdE-cD34-dAFC35e2bFD6",
       "job_number": "88102",
@@ -1735,6 +1735,28 @@
       "email": "tanglang@itcast.cn",
       "id": "0A5Fdeab-3E01-1ABD-f2EB-b5E8BeDA8A59",
       "created_at": "2020-04-28 12:11:46"
+    },
+    {
+      "name": "老黎",
+      "department_id": "DAf89b5d-D853-2cDc-11AB-ADBb6f186A2b",
+      "position": "总裁",
+      "role_ids": "a1fcF6F8-0cfc-17bF-Efba-3cCdADefd5Bd",
+      "job_number": "000001",
+      "mobile": "18600000001",
+      "email": "lihm@itcast.cn",
+      "created_at": "2020-04-28 20:58:23",
+      "id": "f5d2E8FB-9fD6-cCDe-2c35-A2585d513D3E"
+    },
+    {
+      "name": "田亮",
+      "position": "校长",
+      "role_ids": "06b9d55d-fF88-2dFa-5141-c558f1EAee5E",
+      "job_number": "000002",
+      "mobile": "18600000002",
+      "email": "tianl@itcast.cn",
+      "created_at": "2020-04-28 21:00:00",
+      "id": "B4EF2A9C-18a5-38b0-cBDb-0883eF3e87f5",
+      "department_id": "F5E37dce-0D63-B6f5-7CbD-c85aCABf733C"
     }
   ]
 }

@@ -42,7 +42,7 @@ const DepartmentCascader: React.FC<Props> = ({ value, onChange }) => {
       onChange={(value) => {
         setCurrentValue(value);
         if (onChange) {
-          onChange(value[value.length - 1], value);
+          onChange(value.length ? value[value.length - 1] : '', value);
         }
       }}
     />

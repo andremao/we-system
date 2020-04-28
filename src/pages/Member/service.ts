@@ -8,7 +8,7 @@ export async function pagingQuery(params: pagingQueryAPIParams) {
   });
 }
 
-export const getAllList = async (): Promise<{ status: number; data: T_Member[] }> => {
+export const getAllMembers = async (): Promise<{ status: number; data: TableRecord[] }> => {
   return request('/api/member/all');
 };
 

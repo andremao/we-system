@@ -36,6 +36,10 @@ export default {
 
     list.forEach((v) => {
       v.manager = allMembers.find((v2) => v2.id === v.manager_id);
+      v.memberIds = allMembers
+        .filter((v3) => v3.department_id === v.id)
+        .map((v4) => v4.id)
+        .join(',');
       v.parent = allList.find((v1) => v1.id === v.pid);
     });
 
@@ -48,11 +52,16 @@ export default {
 
     res.json({ status: 200, data: department });
   },
-  'PUT /api/department/:id': (req: Request, res: Response) => {
+  'PUT /api/department/:id': async (req: Request, res: Response) => {
     console.log('PUT /api/department/:id   req.params:', req.params);
     console.log('PUT /api/department/:id   req.body:', req.body);
 
-    collections.department.update({ ...req.params, ...req.body });
+    const { id } = req.params;
+    const { memberIds, ...restBody } = req.body;
+
+    await collections.member.batchSetDepartment(memberIds, id);
+
+    await collections.department.update({ ...req.params, ...restBody });
 
     res.json({ status: 200 });
   },
