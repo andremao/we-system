@@ -9,9 +9,10 @@ export const pagingQuery = async (params: pagingQueryAPIParams) => {
 };
 
 export const create = async (params: TableRecord): Promise<{ status: number }> => {
+  const { id: _0, manager: _1, parent: _2, created_at: _3, ...restParams } = params;
   return request('/api/department2', {
     method: 'POST',
-    data: params,
+    data: restParams,
   });
 };
 

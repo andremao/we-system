@@ -121,12 +121,9 @@ export const collections = {
       return mockdb
         .get(keys.tables.department)
         .push({
-          id: mockjs.mock('@GUID()'),
-          name: department.name,
-          manager_id: department.manager_id,
-          pid: department.pid,
-          description: department.description,
+          ...department,
           created_at: mockjs.mock('@NOW()'),
+          id: mockjs.mock('@GUID()'),
         })
         .last()
         .write();
@@ -148,8 +145,8 @@ export const collections = {
         .get(keys.tables.member)
         .push({
           ...member,
-          id: mockjs.mock('@GUID()'),
           created_at: mockjs.mock('@NOW()'),
+          id: mockjs.mock('@GUID()'),
         })
         .last()
         .write();

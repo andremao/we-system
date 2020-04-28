@@ -32,7 +32,12 @@ export default {
 
     list = list.slice(startIndex, endIndex);
 
-    list.forEach((v) => (v.parent = allList.find((v1) => v1.id === v.pid)));
+    const allMembers = collections.member.getAllList();
+
+    list.forEach((v) => {
+      v.manager = allMembers.find((v2) => v2.id === v.manager_id);
+      v.parent = allList.find((v1) => v1.id === v.pid);
+    });
 
     res.json({ data: list, total, status: 200, pageSize, current });
   },

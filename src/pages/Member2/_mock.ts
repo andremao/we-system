@@ -37,6 +37,11 @@ export default {
 
     res.json({ data: list, total, status: 200, pageSize, current });
   },
+  'GET /api/member2/all': async (req: Request, res: Response) => {
+    const allList = collections.member.getAllList();
+
+    res.json({ status: 200, data: allList });
+  },
   'POST /api/member2': async (req: Request, res: Response) => {
     console.log('POST /api/member2   req.body:', req.body);
 

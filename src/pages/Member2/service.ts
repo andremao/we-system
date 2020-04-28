@@ -8,8 +8,12 @@ export async function pagingQuery(params: pagingQueryAPIParams) {
   });
 }
 
+export const getAllList = async (): Promise<{ status: number; data: T_Member[] }> => {
+  return request('/api/member2/all');
+};
+
 export const create = async (params: TableRecord): Promise<{ status: number; data: T_Member }> => {
-  const { id, department: _0, roles: _1, ...restParams } = params;
+  const { id: _0, department: _1, roles: _2, created_at: _3, ...restParams } = params;
   return request('/api/member2', {
     method: 'POST',
     data: restParams,

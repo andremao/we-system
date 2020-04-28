@@ -97,6 +97,8 @@ const Department: React.FC<any> = () => {
                 <Menu
                   onClick={async (e) => {
                     if (e.key === 'remove') {
+                      console.log(selectedRows, 'selectedRows');
+
                       action.reload();
                     }
                   }}

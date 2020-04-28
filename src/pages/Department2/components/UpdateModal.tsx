@@ -1,3 +1,4 @@
+import MemberCascader from '@/pages/Member2/components/MemberCascader';
 import { Form, Input, Modal } from 'antd';
 import React, { useEffect } from 'react';
 import { TableRecord } from '../data.d';
@@ -42,7 +43,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({ record, onOk, ...resetProps }
           <Input placeholder="请输入" />
         </Form.Item>
         <Form.Item label="部门主管" name="manager_id">
-          <Input placeholder="请输入" />
+          <MemberCascader />
         </Form.Item>
         <Form.Item label="上级部门" name="pid">
           <DepartmentCascader />
