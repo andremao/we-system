@@ -12,12 +12,6 @@ export default () => (
         href: 'http://itcast.cn',
         blankTarget: true,
       },
-      // {
-      //   key: 'github',
-      //   title: <GithubOutlined />,
-      //   href: 'https://github.com/ant-design/ant-design-pro',
-      //   blankTarget: true,
-      // },
       {
         key: '黑马程序员',
         title: '黑马程序员',

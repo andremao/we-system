@@ -2,15 +2,19 @@
 import { defineConfig } from 'umi';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
+
 const { REACT_APP_ENV } = process.env;
+
 export default defineConfig({
-  title: 'WE System',
-  favicon:
-    'https://dss0.bdstatic.com/-0U0bnSm1A5BphGlnYG/tam-ogel/b08baaf5f2db228cf97ce3c5906d169f_121_121.png',
   hash: true,
   antd: {},
   dva: {
     hmr: true,
+  },
+  layout: {
+    name: 'WE System',
+    locale: true,
+    logo: '/logo.png',
   },
   locale: {
     // default zh-CN
@@ -29,120 +33,101 @@ export default defineConfig({
   routes: [
     {
       path: '/user',
-      component: '../layouts/UserLayout',
+      layout: false,
       routes: [
         {
           name: 'login',
           path: '/user/login',
+          layout: false,
           component: './user/login',
         },
       ],
     },
     {
-      path: '/',
-      component: '../layouts/SecurityLayout',
-      routes: [
-        {
-          path: '/',
-          component: '../layouts/BasicLayout',
-          authority: ['admin', 'user'],
-          routes: [
-            {
-              path: '/',
-              redirect: '/workplace',
-            },
-            {
-              name: 'workplace',
-              icon: 'desktop',
-              path: '/workplace',
-              component: './Workplace',
-            },
-            {
-              name: 'department',
-              icon: 'apartment',
-              path: '/department',
-              component: './Department',
-            },
-            {
-              name: 'member',
-              icon: 'team',
-              path: '/member',
-              component: './Member',
-            },
-            {
-              name: 'role',
-              icon: 'user-switch',
-              path: '/role',
-              component: './Role',
-            },
-            {
-              name: 'rights',
-              icon: 'key',
-              path: '/rights',
-              component: './Rights',
-            },
-            {
-              name: 'attendance',
-              icon: 'carry-out',
-              path: '/attendance',
-              component: './Attendance',
-            },
-            {
-              name: 'sign',
-              icon: 'audit',
-              path: '/sign',
-              component: './Sign',
-            },
-            {
-              name: 'approval',
-              icon: 'highlight',
-              path: '/approval',
-              component: './Approval',
-            },
-            {
-              name: 'approval-process-template',
-              icon: 'pull-request',
-              path: '/approval-process-template',
-              component: './ApprovalProcessTemplate',
-            },
-            // {
-            //   path: '/welcome',
-            //   name: 'welcome',
-            //   icon: 'smile',
-            //   component: './Welcome',
-            // },
-            // {
-            //   path: '/admin',
-            //   name: 'admin',
-            //   icon: 'crown',
-            //   component: './Admin',
-            //   authority: ['admin'],
-            //   routes: [
-            //     {
-            //       path: '/admin/sub-page',
-            //       name: 'sub-page',
-            //       icon: 'smile',
-            //       component: './Welcome',
-            //       authority: ['admin'],
-            //     },
-            //   ],
-            // },
-            // {
-            //   name: 'list.table-list',
-            //   icon: 'table',
-            //   path: '/list',
-            //   component: './ListTableList',
-            // },
-            {
-              component: './404',
-            },
-          ],
-        },
-        {
-          component: './404',
-        },
-      ],
+      name: 'workplace',
+      icon: 'desktop',
+      path: '/workplace',
+      component: './Workplace',
     },
+    {
+      name: 'department',
+      icon: 'apartment',
+      path: '/department',
+      component: './Department',
+    },
+    {
+      name: 'member',
+      icon: 'team',
+      path: '/member',
+      component: './Member',
+    },
+    {
+      name: 'role',
+      icon: 'user-switch',
+      path: '/role',
+      component: './Role',
+    },
+    {
+      name: 'rights',
+      icon: 'key',
+      path: '/rights',
+      component: './Rights',
+    },
+    {
+      name: 'attendance',
+      icon: 'carry-out',
+      path: '/attendance',
+      component: './Attendance',
+    },
+    {
+      name: 'sign',
+      icon: 'audit',
+      path: '/sign',
+      component: './Sign',
+    },
+    {
+      name: 'approval',
+      icon: 'highlight',
+      path: '/approval',
+      component: './Approval',
+    },
+    {
+      name: 'approval-process-template',
+      icon: 'pull-request',
+      path: '/approval-process-template',
+      component: './ApprovalProcessTemplate',
+    },
+    {
+      path: '/',
+      redirect: '/workplace',
+    },
+    // {
+    //   path: '/welcome',
+    //   name: 'welcome',
+    //   icon: 'smile',
+    //   component: './Welcome',
+    // },
+    // {
+    //   path: '/admin',
+    //   name: 'admin',
+    //   icon: 'crown',
+    //   access: 'canAdmin',
+    //   component: './Admin',
+    //   routes: [
+    //     {
+    //       path: '/admin/sub-page',
+    //       name: 'sub-page',
+    //       icon: 'smile',
+    //       component: './Welcome',
+    //     },
+    //   ],
+    // },
+    // {
+    //   name: 'list.table-list',
+    //   icon: 'table',
+    //   path: '/list',
+    //   component: './ListTableList',
+    // },
     {
       component: './404',
     },
