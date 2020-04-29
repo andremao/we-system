@@ -4,6 +4,7 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ActionType, ProColumns } from '@ant-design/pro-table';
 import { Button, Dropdown, Menu, message } from 'antd';
 import React, { useRef, useState } from 'react';
+import MemberCascader from '../Member/components/MemberCascader';
 import CreateModal, { CreateModalProps } from './components/CreateModal';
 import DepartmentCascader from './components/DepartmentCascader';
 import UpdateModal, { UpdateModalProps } from './components/UpdateModal';
@@ -23,7 +24,26 @@ const Department: React.FC<any> = () => {
 
   const columns: ProColumns<TableRecord>[] = [
     { title: '部门名称', dataIndex: 'name' },
-    { title: '部门主管', dataIndex: ['manager', 'name'], renderText: (_) => _ || '-' },
+    {
+      title: '部门主管',
+      dataIndex: ['manager', 'name'],
+      renderText: (_) => _ || '-',
+      hideInSearch: true,
+    },
+    {
+      title: '部门主管',
+      dataIndex: ['manager_id'],
+      renderFormItem(item, config, form) {
+        return (
+          <MemberCascader
+            onChange={(value) => {
+              form.setFieldsValue({ manager_id: value });
+            }}
+          />
+        );
+      },
+      hideInTable: true,
+    },
     {
       title: '上级部门',
       dataIndex: ['parent', 'name'],

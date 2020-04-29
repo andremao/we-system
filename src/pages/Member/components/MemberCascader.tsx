@@ -11,7 +11,7 @@ export interface MemberCascaderProps {
    */
   value?: string;
   /**
-   * @param value 选中的成员id，多个用,分隔
+   * @param value 选中的成员id，如果mode='multiple'，则用,分隔
    */
   onChange?: (value: string) => void;
 }
@@ -33,7 +33,6 @@ const MemberCascader: React.FC<MemberCascaderProps> = ({ mode, value, onChange }
     <Select
       mode={mode}
       showSearch
-      style={{ width: '100%' }}
       placeholder="请选择"
       value={defVal}
       filterOption={(inputValue, option) => {

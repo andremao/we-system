@@ -1,6 +1,7 @@
 import MemberCascader from '@/pages/Member/components/MemberCascader';
+import { delay } from '@/utils/utils';
 import { Form, Input, Modal } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TableRecord } from '../data.d';
 import DepartmentCascader from './DepartmentCascader';
 
@@ -11,20 +12,29 @@ export interface CreateModalProps {
   onOk?: (formVal: TableRecord) => void;
 }
 
-const CreateModal: React.FC<CreateModalProps> = ({ onOk, ...resetProps }) => {
+const CreateModal: React.FC<CreateModalProps> = ({ onOk, ...restProps }) => {
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (!restProps.visible) {
+      delay(100).then(() => {
+        form.resetFields();
+      });
+    }
+  }, [restProps.visible]);
 
   return (
     <Modal
       title="添加部门"
-      {...resetProps}
+      width={800}
+      {...restProps}
       onOk={async () => {
         const fields = (await form.validateFields()) as TableRecord;
         if (onOk) onOk(fields);
       }}
       getContainer={false}
     >
-      <Form form={form} labelCol={{ span: 4 }} wrapperCol={{ span: 19 }}>
+      <Form form={form} labelCol={{ span: 5 }} wrapperCol={{ span: 18 }}>
         <Form.Item
           label="部门名称"
           name="name"
@@ -34,6 +44,9 @@ const CreateModal: React.FC<CreateModalProps> = ({ onOk, ...resetProps }) => {
         </Form.Item>
         <Form.Item label="部门主管" name="manager_id">
           <MemberCascader />
+        </Form.Item>
+        <Form.Item label="部门成员列表" name="memberIds">
+          <MemberCascader mode="multiple" />
         </Form.Item>
         <Form.Item label="上级部门" name="pid">
           <DepartmentCascader />

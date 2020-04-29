@@ -10,7 +10,13 @@ export default {
   'GET /api/department/paging': (req: Request, res: Response) => {
     console.log('GET /api/department/paging   req.query:', req.query);
 
-    const { current, pageSize, name, pid } = (req.query as unknown) as pagingQueryAPIParams;
+    const {
+      current,
+      pageSize,
+      name,
+      pid,
+      manager_id,
+    } = (req.query as unknown) as pagingQueryAPIParams;
 
     const startIndex = (current - 1) * pageSize;
     const endIndex = startIndex + parseInt(`${pageSize}`, 10);
@@ -25,6 +31,9 @@ export default {
     }
     if (pid) {
       list = list.filter((v) => v.pid === pid);
+    }
+    if (manager_id) {
+      list = list.filter((v) => v.manager_id === manager_id);
     }
     // /conditions
 
@@ -46,10 +55,9 @@ export default {
     res.json({ data: list, total, status: 200, pageSize, current });
   },
   'POST /api/department': async (req: Request, res: Response) => {
-    console.log('POST /api/department   req.body:', req.body);
-
-    const department = await collections.department.create(req.body);
-
+    const { memberIds, ...restBody } = req.body;
+    const department = await collections.department.create(restBody);
+    await collections.member.batchSetDepartment(memberIds, department.id);
     res.json({ status: 200, data: department });
   },
   'PUT /api/department/:id': async (req: Request, res: Response) => {

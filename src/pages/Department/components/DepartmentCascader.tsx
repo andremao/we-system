@@ -6,6 +6,10 @@ import { getIdPathAry, getTree } from '../service';
 
 interface Props {
   value?: string;
+  /**
+   * @param id 选中的最后一级部门id
+   * @param ids 选中的所有层级的部门id数组
+   */
   onChange?: (id: string, ids: string[]) => void;
 }
 

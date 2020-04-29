@@ -11,4 +11,5 @@ export interface pagingQueryAPIParams {
   pageSize: number;
   name?: string;
   pid?: string;
+  manager_id?: string;
 }
