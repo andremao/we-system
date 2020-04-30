@@ -76,8 +76,26 @@ export const collections = {
     getAllList(): T_Rights[] {
       return _.cloneDeep(mockdb.get(keys.tables.rights).value());
     },
-    setAllList(list: T_Rights[]): void {
-      mockdb.set(keys.tables.rights, list).write();
+    create(rights: T_Rights): Promise<T_Rights> {
+      return mockdb
+        .get(keys.tables.rights)
+        .push({
+          ...rights,
+          created_at: mockjs.mock('@NOW()'),
+          id: mockjs.mock('@GUID()'),
+        })
+        .last()
+        .write();
+    },
+    update(rights: T_Rights): Promise<void> {
+      const { id, ...rest } = rights;
+      return mockdb.get(keys.tables.rights).find({ id }).assign(rest).write();
+    },
+    batchRemove(ids: string[]): Promise<void> {
+      return mockdb
+        .get(keys.tables.rights)
+        .remove((v: T_Rights) => ids.includes(v.id))
+        .write();
     },
   },
   /**
@@ -99,12 +117,12 @@ export const collections = {
         .last()
         .write();
     },
-    update(role: T_Role): void {
+    update(role: T_Role): Promise<void> {
       const { id, ...rest } = role;
-      mockdb.get(keys.tables.role).find({ id }).assign(rest).write();
+      return mockdb.get(keys.tables.role).find({ id }).assign(rest).write();
     },
-    remove(ids: string[]): void {
-      mockdb
+    remove(ids: string[]): Promise<void> {
+      return mockdb
         .get(keys.tables.role)
         .remove((v: T_Role) => ids.includes(v.id))
         .write();
@@ -132,8 +150,8 @@ export const collections = {
       const { id, ...rest } = department;
       await mockdb.get(keys.tables.department).find({ id }).assign(rest).write();
     },
-    remove(ids: string[]): void {
-      mockdb
+    remove(ids: string[]): Promise<void> {
+      return mockdb
         .get(keys.tables.department)
         .remove((v: T_Role) => ids.includes(v.id))
         .write();
@@ -157,9 +175,9 @@ export const collections = {
         .last()
         .write();
     },
-    update(member: T_Member): void {
+    update(member: T_Member): Promise<void> {
       const { id, ...rest } = member;
-      mockdb.get(keys.tables.member).find({ id }).assign(rest).write();
+      return mockdb.get(keys.tables.member).find({ id }).assign(rest).write();
     },
     async batchSetDepartment(memberIds: string, department_id: string): Promise<void> {
       await mockdb

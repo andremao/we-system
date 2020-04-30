@@ -33,7 +33,6 @@ export default () => {
         scroll={scroll}
         rowKey="id"
         request={(params) => getList(params as getListAPIParams)}
-        pagination={{ pageSize: 10 }}
         beforeSearchSubmit={(params) => {
           const { dateRange } = params as { dateRange: string[] };
           if (dateRange) {

@@ -39,12 +39,7 @@ export default () => {
         return rightsList.map((v) => v.name).join(',');
       },
     },
-    {
-      title: '创建时间',
-      dataIndex: 'created_at',
-      hideInSearch: true,
-      width: 180,
-    },
+    { title: '创建时间', dataIndex: 'created_at', hideInSearch: true, width: 180 },
     {
       title: '操作',
       width: 100,
@@ -118,7 +113,6 @@ export default () => {
         columns={columns}
         rowKey="id"
         rowSelection={{}}
-        pagination={{ pageSize: 10 }}
       />
       <CreateModal
         visible={stateOfCreateModal.visible}

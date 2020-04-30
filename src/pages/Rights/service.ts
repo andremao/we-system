@@ -1,7 +1,12 @@
 import { request } from 'umi';
-import { BatchRemoveAPIParams, getListAPIParams, CreateAPIParams, UpdateAPIParams } from './data.d';
+import {
+  BatchRemoveAPIParams,
+  pagingQueryAPIParams,
+  CreateAPIParams,
+  UpdateAPIParams,
+} from './data.d';
 
-export const getList = async (params: getListAPIParams) => {
+export const pagingQuery = async (params: pagingQueryAPIParams) => {
   return request('/api/rights', { params });
 };
 

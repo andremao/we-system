@@ -137,7 +137,6 @@ const Department: React.FC<any> = () => {
         request={async (params: any) => pagingQuery(params)}
         columns={columns}
         rowSelection={{}}
-        pagination={{ pageSize: 10 }}
       />
 
       <CreateModal

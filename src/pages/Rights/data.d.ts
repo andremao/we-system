@@ -1,14 +1,12 @@
 import { T_Rights } from '@/utils/mockdb';
 
-export interface TableRecordVO extends T_Rights {
+export interface TableRecord extends T_Rights {
   parent?: T_Rights;
 }
 
-export interface getListAPIParams {
+export interface pagingQueryAPIParams extends T_Rights {
   current: number;
   pageSize: number;
-  name: string;
-  pid: string;
 }
 
 export interface BatchRemoveAPIParams {

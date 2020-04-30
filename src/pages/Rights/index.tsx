@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 import { delay } from '@/utils/utils';
-import { DownOutlined, PlusOutlined } from '@ant-design/icons';
+import { DownOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ActionType, ProColumns } from '@ant-design/pro-table';
 import { Button, Dropdown, Menu, message } from 'antd';
@@ -8,8 +8,8 @@ import React, { useRef, useState } from 'react';
 import CreateModal from './components/CreateModal';
 import RightsTreeSelect from './components/RightsTreeSelect';
 import UpdateModal from './components/UpdateModal';
-import { CreateFormVals, getListAPIParams, TableRecordVO, UpdateFormVals } from './data.d';
-import { batchRemove, create, getList, update } from './service';
+import { CreateFormVals, pagingQueryAPIParams, TableRecord, UpdateFormVals } from './data.d';
+import { batchRemove, create, pagingQuery, update } from './service';
 
 interface StateOfCreateModal {
   visible: boolean;
@@ -19,7 +19,7 @@ interface StateOfCreateModal {
 interface StateOfUpdateModal {
   visible: boolean;
   confirmLoading?: boolean;
-  rights?: TableRecordVO;
+  rights?: TableRecord;
 }
 
 export default () => {
@@ -31,29 +31,39 @@ export default () => {
     visible: false,
   });
 
-  const columns: ProColumns<TableRecordVO>[] = [
+  const columns: ProColumns<TableRecord>[] = [
     { title: '权限名称', dataIndex: 'name' },
     {
       title: '上级权限名称',
       dataIndex: ['parent', 'name'],
-      hideInSearch: true,
       renderText: (text) => text || '无',
+      hideInSearch: true,
     },
     {
       title: '上级权限',
-      dataIndex: 'pid',
+      dataIndex: ['pid'],
+      hideInForm: true,
       hideInTable: true,
-      renderFormItem: () => {
+      renderFormItem: (item, config, form) => {
         return <RightsTreeSelect />;
       },
     },
-    { title: '创建时间', dataIndex: 'created_at', hideInSearch: true, width: 180 },
+    // {
+    //   title: '上级权限',
+    //   dataIndex: 'pid',
+    //   // hideInTable: true,
+    //   renderFormItem: () => {
+    //     return <div>123</div>;
+    //     // return <RightsTreeSelect />;
+    //   },
+    // },
+    { title: '创建时间', dataIndex: 'created_at', width: 180, align: 'center', hideInSearch: true },
     {
       title: '操作',
-      width: 150,
-      fixed: 'right',
+      width: 100,
+      align: 'center',
       valueType: 'option',
-      render: (text, record: TableRecordVO) => (
+      render: (text, record: TableRecord) => (
         <>
           <a
             onClick={() => {
@@ -62,7 +72,8 @@ export default () => {
               setStateOfUpdateModal({ ...stateOfUpdateModal, rights: record, visible: true });
             }}
           >
-            编辑
+            <EditOutlined />
+            &nbsp; 编辑
           </a>
         </>
       ),
@@ -73,7 +84,7 @@ export default () => {
 
   return (
     <PageHeaderWrapper>
-      <ProTable<TableRecordVO>
+      <ProTable<TableRecord>
         headerTitle="权限列表"
         actionRef={actionRefOfProTable}
         toolBarRender={(action, { selectedRowKeys }) => [
@@ -116,11 +127,10 @@ export default () => {
             </Dropdown>
           ),
         ]}
-        request={(params) => getList(params as getListAPIParams)}
+        request={(params) => pagingQuery(params as pagingQueryAPIParams)}
         columns={columns}
         rowKey="id"
         rowSelection={{}}
-        pagination={{ pageSize: 10 }}
       />
       <CreateModal
         visible={stateOfCreateModal.visible}

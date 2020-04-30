@@ -126,7 +126,6 @@ const Member: React.FC<{}> = () => {
         request={(params: any) => pagingQuery(params)}
         columns={columns}
         rowSelection={{}}
-        pagination={{ pageSize: 10 }}
       />
       <CreateModal
         {...createModalState}

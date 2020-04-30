@@ -2,18 +2,18 @@
 import _ from 'lodash';
 import { Request, Response } from 'umi';
 import { collections } from '../../utils/mockdb';
-import { BatchRemoveAPIParams, getListAPIParams, TableRecordVO } from './data.d';
+import { BatchRemoveAPIParams, pagingQueryAPIParams, TableRecord } from './data.d';
 
 export default {
   'GET /api/rights': (req: Request, res: Response) => {
     console.log('GET /api/rights   req.query:', req.query);
 
-    const { current, pageSize, name, pid } = (req.query as unknown) as getListAPIParams;
+    const { current, pageSize, name, pid } = (req.query as unknown) as pagingQueryAPIParams;
 
     const startIndex = (current - 1) * pageSize;
     const endIndex = startIndex + parseInt(`${pageSize}`, 10);
 
-    const allList = collections.rights.getAllList() as TableRecordVO[];
+    const allList = collections.rights.getAllList() as TableRecord[];
 
     let list = [...allList];
 
@@ -59,24 +59,24 @@ export default {
       data: list,
     });
   },
-  'POST /api/rights': (req: Request, res: Response) => {
+  'POST /api/rights': async (req: Request, res: Response) => {
     console.log('POST /api/rights   req.body:', req.body);
 
+    await collections.rights.create(req.body);
     res.json({ status: 200 });
   },
-  'DELETE /api/rights': (req: Request, res: Response) => {
+  'DELETE /api/rights': async (req: Request, res: Response) => {
     console.log('DELETE /api/rights   req.query:', req.query);
 
     const { ids } = (req.query as unknown) as BatchRemoveAPIParams;
-    let list = collections.rights.getAllList();
-    list = list.filter((v: any) => !ids.includes(v.id));
-    collections.rights.setAllList(list);
+    await collections.rights.batchRemove(ids);
     res.json({ status: 200 });
   },
-  'PUT /api/rights/:id': (req: Request, res: Response) => {
+  'PUT /api/rights/:id': async (req: Request, res: Response) => {
     console.log('PUT /api/rights/:id   req.params:', req.params);
     console.log('PUT /api/rights/:id   req.body:', req.body);
 
+    await collections.rights.update({ id: req.params.id, ...req.body });
     res.json({ status: 200 });
   },
 };

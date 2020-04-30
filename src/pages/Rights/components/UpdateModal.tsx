@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { Modal, Form, Input } from 'antd';
-import { UpdateFormVals, TableRecordVO } from '../data.d';
+import { UpdateFormVals, TableRecord } from '../data.d';
 import RightsTreeSelect from './RightsTreeSelect';
 
 interface Props {
   visible: boolean;
   confirmLoading?: boolean;
-  rights?: TableRecordVO;
+  rights?: TableRecord;
   onOk?: (formVals: UpdateFormVals) => void;
   onCancel?: () => void;
 }
