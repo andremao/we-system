@@ -5,7 +5,7 @@ export interface TableRecord extends T_Member {
   roles: T_Role[];
 }
 
-export interface pagingQueryAPIParams {
+export interface pagingQueryAPIParams extends T_Member {
   current: number;
   pageSize: number;
 }

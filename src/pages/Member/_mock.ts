@@ -8,7 +8,7 @@ export default {
   'GET /api/member/paging': (req: Request, res: Response) => {
     console.log('GET /api/member/paging   req.query:', req.query);
 
-    const { current, pageSize } = (req.query as unknown) as pagingQueryAPIParams;
+    const { current, pageSize, ...restParams } = (req.query as unknown) as pagingQueryAPIParams;
 
     const startIndex = (current - 1) * pageSize;
     const endIndex = startIndex + parseInt(`${pageSize}`, 10);
@@ -17,7 +17,26 @@ export default {
 
     let list = [...allList];
 
-    // TODO: conditions filter
+    // conditions filter
+    if (restParams.name) {
+      list = list.filter((v) => v.name.includes(restParams.name));
+    }
+    if (restParams.department_id) {
+      list = list.filter((v) => v.department_id === restParams.department_id);
+    }
+    if (restParams.position) {
+      list = list.filter((v) => v.position.includes(restParams.position));
+    }
+    if (restParams.job_number) {
+      list = list.filter((v) => v.job_number === restParams.job_number);
+    }
+    if (restParams.mobile) {
+      list = list.filter((v) => v.mobile === restParams.mobile);
+    }
+    if (restParams.email) {
+      list = list.filter((v) => v.email === restParams.email);
+    }
+    // /conditions filter
 
     const total = list.length;
 

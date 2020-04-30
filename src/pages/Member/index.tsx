@@ -4,6 +4,7 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ActionType, ProColumns } from '@ant-design/pro-table';
 import { Button, Dropdown, Menu, message } from 'antd';
 import React, { useRef, useState } from 'react';
+import DepartmentCascader from '../Department/components/DepartmentCascader';
 import CreateModal, { CreateModalProps } from './components/CreateModal';
 import UpdateModal, { UpdateModalProps } from './components/UpdateModal';
 import { TableRecord } from './data.d';
@@ -22,6 +23,21 @@ const Member: React.FC<{}> = () => {
       dataIndex: ['department', 'name'],
       width: 100,
       ellipsis: true,
+      hideInSearch: true,
+    },
+    {
+      title: '所属部门',
+      dataIndex: ['department_id'],
+      renderFormItem(item, config, form) {
+        return (
+          <DepartmentCascader
+            onChange={(department_id) => {
+              form.setFieldsValue({ department_id });
+            }}
+          />
+        );
+      },
+      hideInTable: true,
     },
     { title: '职位', dataIndex: 'position', width: 100, ellipsis: true },
     {
