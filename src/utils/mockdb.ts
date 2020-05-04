@@ -55,6 +55,33 @@ export interface T_Member {
   created_at: string;
 }
 
+/**
+ * 审批流程模板表
+ */
+export interface T_ApprovalProcessTemplate {
+  id: string;
+  name: string;
+  created_at: string;
+}
+
+/**
+ * 审批表
+ */
+export interface T_Approval {
+  id: string;
+  name: string;
+  created_at: string;
+}
+
+/**
+ * 签到表
+ */
+export interface T_Sign {
+  id: string;
+  name: string;
+  created_at: string;
+}
+
 const keys = {
   tables: {
     rights: 't_rights',
@@ -65,6 +92,12 @@ const keys = {
     department__initialized: 't_department__initialized',
     member: 't_member',
     member__initialized: 't_member__initialized',
+    sign: 't_sign',
+    sign__initialized: 't_sign__initialized',
+    approvalProcessTemplate: 't_approval_process_template',
+    approvalProcessTemplate__initialized: 't_approval_process_template__initialized',
+    approval: 't_approval',
+    approval__initialized: 't_approval__initialized',
   },
 };
 
@@ -182,8 +215,8 @@ export const collections = {
     async batchSetDepartment(memberIds: string, department_id: string): Promise<void> {
       await mockdb
         .get(keys.tables.member)
-        .filter((v) => v.department_id === department_id)
-        .map((v) => {
+        .filter((v: any) => v.department_id === department_id)
+        .map((v: any) => {
           v.department_id = '';
           return v;
         })
@@ -193,13 +226,79 @@ export const collections = {
         const memberIdAry = memberIds.split(',');
         await mockdb
           .get(keys.tables.member)
-          .filter((v) => memberIdAry.includes(v.id))
-          .map((v) => {
+          .filter((v: any) => memberIdAry.includes(v.id))
+          .map((v: any) => {
             v.department_id = department_id;
             return v;
           })
           .write();
       }
+    },
+  },
+  /**
+   * 签到
+   */
+  sign: {
+    getAllList(): T_Sign[] {
+      return _.cloneDeep(mockdb.get(keys.tables.sign).value());
+    },
+  },
+  /**
+   * 审批流程模板
+   */
+  approvalProcessTemplate: {
+    getAllList(): T_ApprovalProcessTemplate[] {
+      return _.cloneDeep(mockdb.get(keys.tables.approvalProcessTemplate).value());
+    },
+    create(data: T_ApprovalProcessTemplate): Promise<T_ApprovalProcessTemplate> {
+      return mockdb
+        .get(keys.tables.approvalProcessTemplate)
+        .push({
+          ...data,
+          created_at: mockjs.mock('@NOW()'),
+          id: mockjs.mock('@GUID()'),
+        })
+        .last()
+        .write();
+    },
+    update(data: T_ApprovalProcessTemplate): Promise<void> {
+      const { id, ...restData } = data;
+      return mockdb.get(keys.tables.approvalProcessTemplate).find({ id }).assign(restData).write();
+    },
+    batchRemove(ids: string[]): Promise<void> {
+      return mockdb
+        .get(keys.tables.approvalProcessTemplate)
+        .remove((v: T_ApprovalProcessTemplate) => ids.includes(v.id))
+        .write();
+    },
+  },
+  /**
+   * 审批
+   */
+  approval: {
+    getAllList(): T_Approval[] {
+      return _.cloneDeep(mockdb.get(keys.tables.approval).value());
+    },
+    create(data: T_Approval): Promise<T_Approval> {
+      return mockdb
+        .get(keys.tables.approval)
+        .push({
+          ...data,
+          created_at: mockjs.mock('@NOW()'),
+          id: mockjs.mock('@GUID()'),
+        })
+        .last()
+        .write();
+    },
+    update(data: T_Approval): Promise<void> {
+      const { id, ...restData } = data;
+      return mockdb.get(keys.tables.approval).find({ id }).assign(restData).write();
+    },
+    batchRemove(ids: string[]): Promise<void> {
+      return mockdb
+        .get(keys.tables.approval)
+        .remove((v: T_Approval) => ids.includes(v.id))
+        .write();
     },
   },
 };
@@ -374,4 +473,55 @@ export const collections = {
     mockdb.set(keys.tables.member__initialized, true).set(keys.tables.member, list).write();
   }
   // /成员
+
+  // 签到
+  if (!mockdb.get(keys.tables.sign__initialized).value()) {
+    const { list } = mockjs.mock({
+      'list|100': [
+        {
+          id: '@GUID()',
+          name: '@CTITLE()',
+          created_at: '@NOW()',
+        },
+      ],
+    });
+
+    mockdb.set(keys.tables.sign__initialized, true).set(keys.tables.sign, list).write();
+  }
+  // /签到
+
+  // 审批流程模板
+  if (!mockdb.get(keys.tables.approvalProcessTemplate__initialized).value()) {
+    const { list } = mockjs.mock({
+      'list|100': [
+        {
+          id: '@GUID()',
+          name: '@CTITLE()',
+          created_at: '@NOW()',
+        },
+      ],
+    });
+
+    mockdb
+      .set(keys.tables.approvalProcessTemplate__initialized, true)
+      .set(keys.tables.approvalProcessTemplate, list)
+      .write();
+  }
+  // /审批流程模板
+
+  // 审批
+  if (!mockdb.get(keys.tables.approval__initialized).value()) {
+    const { list } = mockjs.mock({
+      'list|100': [
+        {
+          id: '@GUID()',
+          name: '@CTITLE()',
+          created_at: '@NOW()',
+        },
+      ],
+    });
+
+    mockdb.set(keys.tables.approval__initialized, true).set(keys.tables.approval, list).write();
+  }
+  // /审批
 })();
