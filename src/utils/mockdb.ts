@@ -60,6 +60,7 @@ export interface T_Member {
  */
 export interface T_ApprovalProcessTemplate {
   id: string;
+  code: string;
   name: string;
   created_at: string;
 }
@@ -496,11 +497,14 @@ export const collections = {
       'list|100': [
         {
           id: '@GUID()',
+          'code|+1': 1,
           name: '@CTITLE()',
           created_at: '@NOW()',
         },
       ],
     });
+
+    list.forEach((v) => (v.code = `tpl_${v.code}`));
 
     mockdb
       .set(keys.tables.approvalProcessTemplate__initialized, true)

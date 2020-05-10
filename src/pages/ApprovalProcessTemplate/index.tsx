@@ -7,7 +7,7 @@ import React, { useRef, useState } from 'react';
 import CreateModal, { CreateModalProps } from './components/CreateModal';
 import UpdateModal, { UpdateModalProps } from './components/UpdateModal';
 import { TableRecord } from './data.d';
-import { create, pagingQuery, remove, update } from './service';
+import { pagingQuery, remove, update } from './service';
 
 const Department: React.FC<any> = () => {
   const actionRefOfProTable = useRef<ActionType>();
@@ -21,6 +21,7 @@ const Department: React.FC<any> = () => {
   });
 
   const columns: ProColumns<TableRecord>[] = [
+    { title: '模板编号', dataIndex: 'code' },
     { title: '模板名称', dataIndex: 'name' },
     {
       title: '创建时间',
@@ -96,23 +97,25 @@ const Department: React.FC<any> = () => {
         rowSelection={{}}
       />
 
-      <CreateModal
-        {...createModalState}
-        onCancel={() => {
-          setCreateModalState((state) => ({ ...state, visible: false }));
-        }}
-        onOk={async (vals) => {
-          console.log(vals, 'vals');
+      {createModalState.visible ? (
+        <CreateModal
+          {...createModalState}
+          onCancel={() => {
+            setCreateModalState((state) => ({ ...state, visible: false }));
+          }}
+          onOk={async (vals) => {
+            console.log(vals, 'vals');
 
-          setCreateModalState((state) => ({ ...state, confirmLoading: true }));
-          await delay(1000);
-          const { status } = await create(vals);
-          if (status !== 200) message.error('添加失败请重试');
-          else message.success('添加成功');
-          setCreateModalState((state) => ({ ...state, confirmLoading: false, visible: false }));
-          if (actionRefOfProTable.current) actionRefOfProTable.current.reload();
-        }}
-      />
+            setCreateModalState((state) => ({ ...state, confirmLoading: true }));
+            await delay(1000);
+            // const { status } = await create(vals);
+            // if (status !== 200) message.error('添加失败请重试');
+            // else message.success('添加成功');
+            setCreateModalState((state) => ({ ...state, confirmLoading: false, visible: false }));
+            if (actionRefOfProTable.current) actionRefOfProTable.current.reload();
+          }}
+        />
+      ) : null}
 
       <UpdateModal
         {...updateModalState}

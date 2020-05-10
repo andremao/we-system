@@ -53,6 +53,7 @@
     "@ant-design/icons": "^4.0.0",
     "@ant-design/pro-layout": "^5.0.8",
     "@ant-design/pro-table": "^2.2.0",
+    "@antv/g6": "^3.4.9",
     "antd": "^4.0.0",
     "bizcharts": "^4.0.1",
     "classnames": "^2.2.6",
