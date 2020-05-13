@@ -1,7 +1,6 @@
 import MemberCascader from '@/pages/Member/components/MemberCascader';
-import { delay } from '@/utils/utils';
 import { Form, Input, Modal } from 'antd';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { TableRecord } from '../data.d';
 import DepartmentCascader from './DepartmentCascader';
 
@@ -15,14 +14,6 @@ export interface CreateModalProps {
 const CreateModal: React.FC<CreateModalProps> = ({ onOk, ...restProps }) => {
   const [form] = Form.useForm();
 
-  useEffect(() => {
-    if (!restProps.visible) {
-      delay(100).then(() => {
-        form.resetFields();
-      });
-    }
-  }, [restProps.visible]);
-
   return (
     <Modal
       title="添加部门"
@@ -33,6 +24,9 @@ const CreateModal: React.FC<CreateModalProps> = ({ onOk, ...restProps }) => {
         if (onOk) onOk(fields);
       }}
       getContainer={false}
+      afterClose={() => {
+        form.resetFields();
+      }}
     >
       <Form form={form} labelCol={{ span: 5 }} wrapperCol={{ span: 18 }}>
         <Form.Item

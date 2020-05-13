@@ -1,3 +1,4 @@
+import MemberCascader from '@/pages/Member/components/MemberCascader';
 import {
   ArrowRightOutlined,
   DeleteOutlined,
@@ -7,10 +8,10 @@ import {
   ZoomOutOutlined,
 } from '@ant-design/icons';
 import G6 from '@antv/g6';
-import { Button, Col, Divider, Drawer, Form, Input, Radio, Row, Switch, Tooltip } from 'antd';
+import { Button, Col, Divider, Drawer, Input, Radio, Row, Switch, Tooltip } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 
-const log = console.log;
+const clog = console.log;
 
 const createStartNode = () => {
   return {
@@ -260,14 +261,21 @@ G6.registerBehavior('my-click-select', {
   },
 });
 
-const FlowGraph = () => {
+interface FlowGraphProps {
+  data?: any;
+  onSave?: (data: any) => void;
+}
+
+const FlowGraph: React.FC<FlowGraphProps> = ({ data, onSave }) => {
   const ref = useRef(null);
   // let graph: any = null;
   const [graph, setGraph] = useState<G6.Graph>(null);
-  const [minimap, setMinimap] = useState(new G6.Minimap());
+  const [minimap, setMinimap] = useState<G6.Minimap>(null);
 
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [editItem, setEditItem] = useState(null);
+
+  const [nodeOperatorId, setNodeOperatorId] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     G6.registerBehavior('click-edit', {
@@ -279,13 +287,12 @@ const FlowGraph = () => {
       },
       onNodeClick(ev) {
         const { item } = ev;
-        log(item, 'item');
         setEditItem(item);
+        setNodeOperatorId(item.getModel().operatorId);
         setDrawerVisible(true);
       },
       onEdgeClick(ev) {
         const { item } = ev;
-        log(item, 'item');
         setEditItem(item);
         setDrawerVisible(true);
       },
@@ -342,7 +349,7 @@ const FlowGraph = () => {
               shadowBlur: 10,
             },
           },
-          plugins: [minimap], // grid不起作用
+          plugins: [new G6.Grid()], // grid不起作用
         }),
       );
     })();
@@ -350,7 +357,9 @@ const FlowGraph = () => {
 
   useEffect(() => {
     if (graph) {
-      graph.addPlugin(new G6.Grid());
+      if (data) {
+        graph.data(JSON.parse(data));
+      }
       graph.render();
     }
   }, [graph]);
@@ -464,7 +473,6 @@ const FlowGraph = () => {
               <Switch
                 checkedChildren="显示小地图"
                 unCheckedChildren="隐藏小地图"
-                defaultChecked
                 onChange={(opened) => {
                   if (opened) {
                     const newMinimap = new G6.Minimap();
@@ -493,6 +501,17 @@ const FlowGraph = () => {
                 }}
               />
             </Tooltip> */}
+            <Divider type="vertical" />
+            <Button
+              onClick={() => {
+                clog(JSON.stringify(graph.save(), null, 2));
+                if (onSave) {
+                  onSave(JSON.stringify(graph.save()));
+                }
+              }}
+            >
+              保存
+            </Button>
           </div>
         </Col>
       </Row>
@@ -516,11 +535,14 @@ const FlowGraph = () => {
             style={{ position: 'absolute' }}
           >
             {editItem ? (
-              <Form>
-                <Form.Item label="ID">
+              <>
+                <div>ID</div>
+                <div>
                   <Input placeholder="请输入" defaultValue={editItem.getModel().id} disabled />
-                </Form.Item>
-                <Form.Item label="文本">
+                </div>
+                <br />
+                <div>文本</div>
+                <div>
                   <Input
                     placeholder="请输入"
                     defaultValue={editItem.getModel().label}
@@ -528,8 +550,24 @@ const FlowGraph = () => {
                       editItem.update({ label: e.target.value });
                     }}
                   />
-                </Form.Item>
-              </Form>
+                </div>
+                <br />
+                {editItem.getType() === 'node' ? (
+                  <>
+                    <div>节点处理人</div>
+                    <div>
+                      <MemberCascader
+                        value={nodeOperatorId}
+                        onChange={(value) => {
+                          clog(value);
+                          editItem.getModel().operatorId = value;
+                          setNodeOperatorId(value);
+                        }}
+                      />
+                    </div>
+                  </>
+                ) : null}
+              </>
             ) : null}
           </Drawer>
         </Col>

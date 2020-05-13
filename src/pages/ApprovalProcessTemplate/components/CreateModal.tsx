@@ -4,6 +4,8 @@ import React from 'react';
 import { TableRecord } from '../data.d';
 import FlowGraph from './FlowGraph';
 
+const clog = console.log;
+
 export interface CreateModalProps {
   visible: boolean;
   confirmLoading?: boolean;
@@ -24,17 +26,17 @@ const CreateModal: React.FC<CreateModalProps> = ({ onOk, ...restProps }) => {
         if (onOk) onOk(fields);
       }}
     >
-      <Tabs defaultActiveKey="1" style={{ marginTop: '-20px' }}>
-        <Tabs.TabPane
-          tab={
-            <span>
-              <BarsOutlined />
-              基本信息
-            </span>
-          }
-          key="1"
-        >
-          <Form form={form} labelCol={{ span: 4 }} wrapperCol={{ span: 18 }}>
+      <Form form={form} labelCol={{ span: 4 }} wrapperCol={{ span: 18 }}>
+        <Tabs defaultActiveKey="1" style={{ marginTop: '-20px' }}>
+          <Tabs.TabPane
+            tab={
+              <span>
+                <BarsOutlined />
+                基本信息
+              </span>
+            }
+            key="1"
+          >
             <Form.Item
               label="模板编号"
               name="code"
@@ -49,31 +51,39 @@ const CreateModal: React.FC<CreateModalProps> = ({ onOk, ...restProps }) => {
             >
               <Input placeholder="请输入" />
             </Form.Item>
-          </Form>
-        </Tabs.TabPane>
-        <Tabs.TabPane
-          tab={
-            <span>
-              <DeploymentUnitOutlined />
-              流程图
-            </span>
-          }
-          key="2"
-        >
-          <FlowGraph />
-        </Tabs.TabPane>
-        <Tabs.TabPane
-          tab={
-            <span>
-              <FormOutlined />
-              流程表单
-            </span>
-          }
-          key="3"
-        >
-          form
-        </Tabs.TabPane>
-      </Tabs>
+          </Tabs.TabPane>
+          <Tabs.TabPane
+            tab={
+              <span>
+                <DeploymentUnitOutlined />
+                流程图
+              </span>
+            }
+            key="2"
+          >
+            <Form.Item
+              label=""
+              labelCol={{ span: 0 }}
+              wrapperCol={{ span: 24 }}
+              name="flowGraphData"
+              trigger="onSave"
+            >
+              <FlowGraph />
+            </Form.Item>
+          </Tabs.TabPane>
+          <Tabs.TabPane
+            tab={
+              <span>
+                <FormOutlined />
+                流程表单
+              </span>
+            }
+            key="3"
+          >
+            formxxxx
+          </Tabs.TabPane>
+        </Tabs>
+      </Form>
     </Modal>
   );
 };
