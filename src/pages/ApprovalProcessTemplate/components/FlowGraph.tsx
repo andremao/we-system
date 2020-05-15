@@ -503,6 +503,7 @@ const FlowGraph: React.FC<FlowGraphProps> = ({ data, onSave }) => {
             </Tooltip> */}
             <Divider type="vertical" />
             <Button
+              size="small"
               onClick={() => {
                 clog(JSON.stringify(graph.save(), null, 2));
                 if (onSave) {

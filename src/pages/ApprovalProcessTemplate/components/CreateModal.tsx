@@ -2,6 +2,7 @@ import { BarsOutlined, DeploymentUnitOutlined, FormOutlined } from '@ant-design/
 import { Form, Input, Modal, Tabs } from 'antd';
 import React from 'react';
 import { TableRecord } from '../data.d';
+import FlowForm from './FlowForm';
 import FlowGraph from './FlowGraph';
 
 const clog = console.log;
@@ -80,7 +81,7 @@ const CreateModal: React.FC<CreateModalProps> = ({ onOk, ...restProps }) => {
             }
             key="3"
           >
-            formxxxx
+            <FlowForm />
           </Tabs.TabPane>
         </Tabs>
       </Form>
