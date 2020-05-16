@@ -62,6 +62,8 @@ export interface T_ApprovalProcessTemplate {
   id: string;
   code: string;
   name: string;
+  flow_graph_data: string; // 流程图数据
+  flow_form_data: string; // 流程表单数据
   created_at: string;
 }
 
@@ -499,6 +501,8 @@ export const collections = {
           id: '@GUID()',
           'code|+1': 1,
           name: '@CTITLE()',
+          flow_graph_data: '',
+          flow_form_data: '',
           created_at: '@NOW()',
         },
       ],

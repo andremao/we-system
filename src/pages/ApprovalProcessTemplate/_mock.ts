@@ -31,7 +31,7 @@ export default {
     res.json({ data: list, total, status: 200, pageSize, current });
   },
   'POST /api/approval-process-template': async (req: Request, res: Response) => {
-    const { memberIds, ...restBody } = req.body;
+    const { ...restBody } = req.body;
     const approvalProcessTemplate = await collections.approvalProcessTemplate.create(restBody);
     res.json({ status: 200, data: approvalProcessTemplate });
   },

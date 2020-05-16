@@ -66,7 +66,7 @@ const CreateModal: React.FC<CreateModalProps> = ({ onOk, ...restProps }) => {
               label=""
               labelCol={{ span: 0 }}
               wrapperCol={{ span: 24 }}
-              name="flowGraphData"
+              name="flow_graph_data"
               trigger="onSave"
             >
               <FlowGraph />
@@ -81,7 +81,15 @@ const CreateModal: React.FC<CreateModalProps> = ({ onOk, ...restProps }) => {
             }
             key="3"
           >
-            <FlowForm />
+            <Form.Item
+              label=""
+              labelCol={{ span: 0 }}
+              wrapperCol={{ span: 24 }}
+              name="flow_form_data"
+              trigger="onSave"
+            >
+              <FlowForm />
+            </Form.Item>
           </Tabs.TabPane>
         </Tabs>
       </Form>

@@ -1,6 +1,7 @@
 /* eslint-disable no-useless-escape */
 import { DeleteOutlined, ExclamationCircleOutlined, SettingOutlined } from '@ant-design/icons';
 import {
+  Button,
   Card,
   Checkbox,
   Col,
@@ -38,9 +39,56 @@ enum ComponentType {
   RangePicker = 'RangePicker',
 }
 
+const getDefItemDataMap = (type: any) => {
+  switch (type) {
+    case ComponentType.Input:
+      return { id: uniqueId(), type: 'Input', label: '单行文本' };
+    case ComponentType.TextArea:
+      return { id: uniqueId(), type: 'TextArea', label: '多行文本' };
+    case ComponentType.Money:
+      return { id: uniqueId(), type: 'Money', label: '金额' };
+    case ComponentType.Radio:
+      return {
+        id: uniqueId(),
+        type: 'Radio',
+        label: '单选框',
+        opts: [
+          { label: 'A', value: 'A' },
+          { label: 'B', value: 'B' },
+        ],
+      };
+    case ComponentType.Checkbox:
+      return {
+        id: uniqueId(),
+        type: 'Checkbox',
+        label: '多选框',
+        opts: [
+          { label: 'A', value: 'A' },
+          { label: 'B', value: 'B' },
+        ],
+      };
+    case ComponentType.Select:
+      return {
+        id: uniqueId(),
+        type: 'Select',
+        label: '下拉列表',
+        opts: [
+          { label: 'A', value: 'A' },
+          { label: 'B', value: 'B' },
+        ],
+      };
+    case ComponentType.DatePicker:
+      return { id: uniqueId(), type: 'DatePicker', label: '日期' };
+    case ComponentType.RangePicker:
+      return { id: uniqueId(), type: 'RangePicker', label: '日期区间' };
+    default:
+      return null;
+  }
+};
+
 const DragItem: FC<{
   children: any;
-  label: string;
+  item: any;
   onRemove?: () => void;
   onEdit?: () => void;
 }> = (props) => {
@@ -71,29 +119,58 @@ const DragItem: FC<{
         </Tooltip>
       </Col>
       <Col span={6} style={{ textAlign: 'right' }}>
-        {props.label}：
+        <Tooltip title={`数据字段名：${props.item.fieldName || ''}`}>
+          <span>
+            {props.item.required ? <span style={{ color: 'red' }}>*&nbsp;</span> : null}
+            {props.item.label}：
+          </span>
+        </Tooltip>
       </Col>
       <Col>{props.children}</Col>
     </Row>
   );
 };
 
-interface Props {}
-
-const FlowForm: FC<Props> = () => {
+const FlowForm: FC<{
+  onSave?: (data: any) => void;
+}> = (props) => {
   const [editDrawerVisible, setEditDrawerVisible] = useState(false);
 
   const [editItem, setEditItem] = useState(null);
 
   const [data, setData] = useState<any[]>([
-    { id: uniqueId(), type: 'Input', props: {} },
-    { id: uniqueId(), type: 'TextArea', props: { placeholder: '请输入' } },
-    { id: uniqueId(), type: 'Money', props: { placeholder: '请输入' } },
-    { id: uniqueId(), type: 'Radio', props: {} },
-    { id: uniqueId(), type: 'Checkbox', props: {} },
-    { id: uniqueId(), type: 'Select', props: {} },
-    { id: uniqueId(), type: 'DatePicker', props: {} },
-    { id: uniqueId(), type: 'RangePicker', props: {} },
+    { id: uniqueId(), type: 'Input', label: '单行文本' },
+    { id: uniqueId(), type: 'TextArea', label: '多行文本' },
+    { id: uniqueId(), type: 'Money', label: '金额' },
+    {
+      id: uniqueId(),
+      type: 'Radio',
+      label: '单选框',
+      opts: [
+        { label: 'A', value: 'A' },
+        { label: 'B', value: 'B' },
+      ],
+    },
+    {
+      id: uniqueId(),
+      type: 'Checkbox',
+      label: '多选框',
+      opts: [
+        { label: 'A', value: 'A' },
+        { label: 'B', value: 'B' },
+      ],
+    },
+    {
+      id: uniqueId(),
+      type: 'Select',
+      label: '下拉列表',
+      opts: [
+        { label: 'A', value: 'A' },
+        { label: 'B', value: 'B' },
+      ],
+    },
+    { id: uniqueId(), type: 'DatePicker', label: '日期' },
+    { id: uniqueId(), type: 'RangePicker', label: '日期区间' },
   ]);
 
   const renderForm = () => {
@@ -119,7 +196,7 @@ const FlowForm: FC<Props> = () => {
           return (
             <DragItem
               key={uniqueId()}
-              label="单行文本"
+              item={v}
               onRemove={() => onRemove(v.id)}
               onEdit={() => onEdit(v)}
             >
@@ -130,7 +207,7 @@ const FlowForm: FC<Props> = () => {
           return (
             <DragItem
               key={uniqueId()}
-              label="多行文本"
+              item={v}
               onRemove={() => onRemove(v.id)}
               onEdit={() => onEdit(v)}
             >
@@ -141,7 +218,7 @@ const FlowForm: FC<Props> = () => {
           return (
             <DragItem
               key={uniqueId()}
-              label="金额"
+              item={v}
               onRemove={() => onRemove(v.id)}
               onEdit={() => onEdit(v)}
             >
@@ -157,42 +234,40 @@ const FlowForm: FC<Props> = () => {
           return (
             <DragItem
               key={uniqueId()}
-              label="单选框"
+              item={v}
               onRemove={() => onRemove(v.id)}
               onEdit={() => onEdit(v)}
             >
-              <Radio.Group>
-                <Radio value="A">A</Radio>
-                <Radio value="B">B</Radio>
-              </Radio.Group>
+              <Radio.Group options={v.opts} />
             </DragItem>
           );
         case ComponentType.Checkbox:
           return (
             <DragItem
               key={uniqueId()}
-              label="多选框"
+              item={v}
               onRemove={() => onRemove(v.id)}
               onEdit={() => onEdit(v)}
             >
-              <Checkbox.Group>
-                <Checkbox value="A">A</Checkbox>
-                <Checkbox value="B">B</Checkbox>
-              </Checkbox.Group>
+              <Checkbox.Group options={v.opts} />
             </DragItem>
           );
         case ComponentType.Select:
           return (
             <DragItem
               key={uniqueId()}
-              label="下拉列表"
+              item={v}
               onRemove={() => onRemove(v.id)}
               onEdit={() => onEdit(v)}
             >
               <Select placeholder="请选择">
-                <Select.Option value="A">A</Select.Option>
-                <Select.Option value="B">B</Select.Option>
-                <Select.Option value="C">C</Select.Option>
+                {v.opts.map((opt: any) => {
+                  return (
+                    <Select.Option key={uniqueId()} value={opt.value}>
+                      {opt.label}
+                    </Select.Option>
+                  );
+                })}
               </Select>
             </DragItem>
           );
@@ -200,7 +275,7 @@ const FlowForm: FC<Props> = () => {
           return (
             <DragItem
               key={uniqueId()}
-              label="日期"
+              item={v}
               onRemove={() => onRemove(v.id)}
               onEdit={() => onEdit(v)}
             >
@@ -211,7 +286,7 @@ const FlowForm: FC<Props> = () => {
           return (
             <DragItem
               key={uniqueId()}
-              label="日期区间"
+              item={v}
               onRemove={() => onRemove(v.id)}
               onEdit={() => onEdit(v)}
             >
@@ -245,7 +320,7 @@ const FlowForm: FC<Props> = () => {
       onAdd(e) {
         const { type } = e.item.dataset;
         e.item.remove();
-        data.splice(e.newIndex as number, 0, { id: uniqueId(), type, props: {} });
+        data.splice(e.newIndex as number, 0, getDefItemDataMap(type));
         setData([...data]);
       },
       onSort(e) {
@@ -266,7 +341,22 @@ const FlowForm: FC<Props> = () => {
     <div>
       <Row gutter={15}>
         <Col span={14}>
-          <Card id="flow_form_box" title="表单">
+          <Card
+            id="flow_form_box"
+            title="表单"
+            extra={
+              <Button
+                type="link"
+                onClick={() => {
+                  if (props.onSave) {
+                    props.onSave(JSON.stringify(data));
+                  }
+                }}
+              >
+                保存
+              </Button>
+            }
+          >
             {renderForm()}
           </Card>
         </Col>
@@ -382,13 +472,76 @@ const FlowForm: FC<Props> = () => {
       >
         {(() => {
           if (!editItem) return null;
-          if (editItem.type === ComponentType.Input) {
-            return <p>input...</p>;
+          const ary = [];
+          ary.push(
+            <div key={uniqueId()}>
+              <div>数据字段名</div>
+              <div>
+                <Input
+                  placeholder="请输入"
+                  defaultValue={editItem.fieldName}
+                  onBlur={(e) => {
+                    editItem.fieldName = e.target.value;
+                    setData([...data]);
+                  }}
+                />
+              </div>
+              <br />
+              <div>标题</div>
+              <div>
+                <Input
+                  placeholder="请输入"
+                  defaultValue={editItem.label}
+                  onBlur={(e) => {
+                    editItem.label = e.target.value;
+                    setData([...data]);
+                  }}
+                />
+              </div>
+              <br />
+              <div>
+                是否必填：
+                <Checkbox
+                  checked={editItem.required}
+                  onChange={(e) => {
+                    editItem.required = e.target.checked;
+                    setData([...data]);
+                  }}
+                >
+                  必填
+                </Checkbox>
+              </div>
+              <br />
+            </div>,
+          );
+          if (
+            [ComponentType.Radio, ComponentType.Checkbox, ComponentType.Select].includes(
+              editItem.type,
+            )
+          ) {
+            ary.push(
+              <div key={uniqueId()}>
+                <div>
+                  可选项（格式：label=value，多个用英文逗号&quot;,&quot;分隔，如：篮球=1,足球=2,羽毛球=3）
+                </div>
+                <div>
+                  <Input
+                    placeholder="请输入"
+                    defaultValue={editItem.opts.map((v: any) => `${v.label}=${v.value}`).join(',')}
+                    onBlur={(e) => {
+                      editItem.opts = e.target.value.split(',').map((v) => {
+                        const ary = v.split('=');
+                        return { label: ary[0], value: ary[1] };
+                      });
+                      setData([...data]);
+                    }}
+                  />
+                </div>
+                <br />
+              </div>,
+            );
           }
-          if (editItem.type === ComponentType.TextArea) {
-            return <p>textarea...</p>;
-          }
-          return null;
+          return ary;
         })()}
       </Drawer>
     </div>

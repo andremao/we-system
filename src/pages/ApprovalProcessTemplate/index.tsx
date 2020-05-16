@@ -7,7 +7,7 @@ import React, { useRef, useState } from 'react';
 import CreateModal, { CreateModalProps } from './components/CreateModal';
 import UpdateModal, { UpdateModalProps } from './components/UpdateModal';
 import { TableRecord } from './data.d';
-import { pagingQuery, remove, update } from './service';
+import { pagingQuery, remove, update, create } from './service';
 
 const Department: React.FC<any> = () => {
   const actionRefOfProTable = useRef<ActionType>();
@@ -108,9 +108,9 @@ const Department: React.FC<any> = () => {
 
             setCreateModalState((state) => ({ ...state, confirmLoading: true }));
             await delay(1000);
-            // const { status } = await create(vals);
-            // if (status !== 200) message.error('添加失败请重试');
-            // else message.success('添加成功');
+            const { status } = await create(vals);
+            if (status !== 200) message.error('添加失败请重试');
+            else message.success('添加成功');
             setCreateModalState((state) => ({ ...state, confirmLoading: false, visible: false }));
             if (actionRefOfProTable.current) actionRefOfProTable.current.reload();
           }}
