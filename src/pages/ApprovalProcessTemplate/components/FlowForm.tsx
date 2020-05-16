@@ -1,6 +1,7 @@
 /* eslint-disable no-useless-escape */
 import { DeleteOutlined, ExclamationCircleOutlined, SettingOutlined } from '@ant-design/icons';
 import {
+  Alert,
   Button,
   Card,
   Checkbox,
@@ -300,8 +301,6 @@ const FlowForm: FC<{
   };
 
   useEffect(() => {
-    log('hehe');
-
     const componentListBox = document.querySelector(
       '#component_list > .ant-card-body',
     ) as HTMLElement;
@@ -339,6 +338,12 @@ const FlowForm: FC<{
 
   return (
     <div>
+      <Alert
+        message="注意：操作完请点击保存按钮！！！"
+        type="warning"
+        showIcon
+        style={{ marginBottom: '10px' }}
+      />
       <Row gutter={15}>
         <Col span={14}>
           <Card
@@ -469,58 +474,53 @@ const FlowForm: FC<{
         onClose={() => {
           setEditDrawerVisible(false);
         }}
+        afterVisibleChange={(visible) => {
+          if (!visible) setEditItem(null);
+        }}
       >
-        {(() => {
-          if (!editItem) return null;
-          const ary = [];
-          ary.push(
-            <div key={uniqueId()}>
-              <div>数据字段名</div>
-              <div>
-                <Input
-                  placeholder="请输入"
-                  defaultValue={editItem.fieldName}
-                  onBlur={(e) => {
-                    editItem.fieldName = e.target.value;
-                    setData([...data]);
-                  }}
-                />
-              </div>
-              <br />
-              <div>标题</div>
-              <div>
-                <Input
-                  placeholder="请输入"
-                  defaultValue={editItem.label}
-                  onBlur={(e) => {
-                    editItem.label = e.target.value;
-                    setData([...data]);
-                  }}
-                />
-              </div>
-              <br />
-              <div>
-                是否必填：
-                <Checkbox
-                  checked={editItem.required}
-                  onChange={(e) => {
-                    editItem.required = e.target.checked;
-                    setData([...data]);
-                  }}
-                >
-                  必填
-                </Checkbox>
-              </div>
-              <br />
-            </div>,
-          );
-          if (
-            [ComponentType.Radio, ComponentType.Checkbox, ComponentType.Select].includes(
+        {editItem ? (
+          <div>
+            <div>数据字段名</div>
+            <div>
+              <Input
+                placeholder="请输入"
+                defaultValue={editItem.fieldName}
+                onBlur={(e) => {
+                  editItem.fieldName = e.target.value;
+                  setData([...data]);
+                }}
+              />
+            </div>
+            <br />
+            <div>标题</div>
+            <div>
+              <Input
+                placeholder="请输入"
+                defaultValue={editItem.label}
+                onBlur={(e) => {
+                  editItem.label = e.target.value;
+                  setData([...data]);
+                }}
+              />
+            </div>
+            <br />
+            <div>
+              是否必填：
+              <Checkbox
+                checked={editItem.required}
+                onChange={(e) => {
+                  editItem.required = e.target.checked;
+                  setData([...data]);
+                }}
+              >
+                必填
+              </Checkbox>
+            </div>
+            <br />
+            {[ComponentType.Radio, ComponentType.Checkbox, ComponentType.Select].includes(
               editItem.type,
-            )
-          ) {
-            ary.push(
-              <div key={uniqueId()}>
+            ) ? (
+              <div>
                 <div>
                   可选项（格式：label=value，多个用英文逗号&quot;,&quot;分隔，如：篮球=1,足球=2,羽毛球=3）
                 </div>
@@ -537,12 +537,10 @@ const FlowForm: FC<{
                     }}
                   />
                 </div>
-                <br />
-              </div>,
-            );
-          }
-          return ary;
-        })()}
+              </div>
+            ) : null}
+          </div>
+        ) : null}
       </Drawer>
     </div>
   );

@@ -8,7 +8,7 @@ import {
   ZoomOutOutlined,
 } from '@ant-design/icons';
 import G6 from '@antv/g6';
-import { Button, Col, Divider, Drawer, Input, Radio, Row, Switch, Tooltip } from 'antd';
+import { Alert, Button, Col, Divider, Drawer, Input, Radio, Row, Switch, Tooltip } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 
 const clog = console.log;
@@ -366,6 +366,12 @@ const FlowGraph: React.FC<FlowGraphProps> = ({ data, onSave }) => {
 
   return (
     <div>
+      <Alert
+        message="注意：操作完请点击保存按钮！！！"
+        type="warning"
+        showIcon
+        style={{ marginBottom: '10px' }}
+      />
       <Row>
         <Col span={24}>
           <div>
