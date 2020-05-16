@@ -7,7 +7,7 @@ import React, { useRef, useState } from 'react';
 import CreateModal, { CreateModalProps } from './components/CreateModal';
 import UpdateModal, { UpdateModalProps } from './components/UpdateModal';
 import { TableRecord } from './data.d';
-import { pagingQuery, remove, update, create } from './service';
+import { create, pagingQuery, remove, update } from './service';
 
 const Department: React.FC<any> = () => {
   const actionRefOfProTable = useRef<ActionType>();

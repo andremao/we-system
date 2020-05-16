@@ -21,11 +21,11 @@ const CreateModal: React.FC<CreateModalProps> = ({ onOk, ...restProps }) => {
     <Modal
       title="添加审核流程模板"
       width={1024}
-      {...restProps}
       onOk={async () => {
         const fields = (await form.validateFields()) as TableRecord;
         if (onOk) onOk(fields);
       }}
+      {...restProps}
     >
       <Form form={form} labelCol={{ span: 4 }} wrapperCol={{ span: 18 }}>
         <Tabs defaultActiveKey="1" style={{ marginTop: '-20px' }}>

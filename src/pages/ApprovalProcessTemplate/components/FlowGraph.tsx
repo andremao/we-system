@@ -4,6 +4,7 @@ import {
   DeleteOutlined,
   DragOutlined,
   EditOutlined,
+  SaveOutlined,
   ZoomInOutlined,
   ZoomOutOutlined,
 } from '@ant-design/icons';
@@ -359,10 +360,12 @@ const FlowGraph: React.FC<FlowGraphProps> = ({ data, onSave }) => {
     if (graph) {
       if (data) {
         graph.data(JSON.parse(data));
+      } else {
+        graph.data({});
       }
       graph.render();
     }
-  }, [graph]);
+  }, [graph, data]);
 
   return (
     <div>
@@ -510,6 +513,8 @@ const FlowGraph: React.FC<FlowGraphProps> = ({ data, onSave }) => {
             <Divider type="vertical" />
             <Button
               size="small"
+              icon={<SaveOutlined />}
+              style={{ margin: 0 }}
               onClick={() => {
                 clog(JSON.stringify(graph.save(), null, 2));
                 if (onSave) {
@@ -523,7 +528,7 @@ const FlowGraph: React.FC<FlowGraphProps> = ({ data, onSave }) => {
         </Col>
       </Row>
       <Row>
-        <Col span={24}>
+        <Col span={24} style={{ overflow: 'hidden' }}>
           <div ref={ref} />
           <Drawer
             title={(editItem && editItem.getType()) === 'node' ? '节点属性' : '连线属性'}
