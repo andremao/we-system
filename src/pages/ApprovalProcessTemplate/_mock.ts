@@ -9,7 +9,7 @@ export default {
   'GET /api/approval-process-template/paging': (req: Request, res: Response) => {
     console.log('GET /api/approval-process-template/paging   req.query:', req.query);
 
-    const { current, pageSize, name } = (req.query as unknown) as pagingQueryAPIParams;
+    const { current, pageSize, name, code } = (req.query as unknown) as pagingQueryAPIParams;
 
     const startIndex = (current - 1) * pageSize;
     const endIndex = startIndex + parseInt(`${pageSize}`, 10);
@@ -19,6 +19,9 @@ export default {
     let list = [...allList];
 
     // conditions
+    if (code) {
+      list = list.filter((v) => v.code.includes(code));
+    }
     if (name) {
       list = list.filter((v) => v.name.includes(name));
     }
