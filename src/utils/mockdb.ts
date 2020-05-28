@@ -25,7 +25,7 @@ export interface T_Role {
   id: string;
   name: string;
   rights_ids: string; // 多个用,分隔
-  created_at: string;
+  created_at?: string;
 }
 
 /**
@@ -154,7 +154,7 @@ export const collections = {
         .write();
     },
     update(role: T_Role): Promise<void> {
-      const { id, ...rest } = role;
+      const { id, created_at, ...rest } = role;
       return mockdb.get(keys.tables.role).find({ id }).assign(rest).write();
     },
     remove(ids: string[]): Promise<void> {
